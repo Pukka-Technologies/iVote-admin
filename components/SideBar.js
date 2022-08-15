@@ -7,7 +7,7 @@ import { RiAdminLine } from "react-icons/ri";
 
 const SideBar = () => {
   return (
-    <div className="flex flex-col justify-center">
+    <div className="flex flex-col justify-center font-text">
       {/*logo*/}
       <h1>Media Billo</h1>
       <ul>
