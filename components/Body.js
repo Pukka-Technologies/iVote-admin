@@ -4,11 +4,13 @@ import Tabs from './Tabs'
 
 const Body = () => {
   return (
-    <div>
-        <Navbar/>
-        <Tabs/>
-    </div>
-  )
+    <>
+      <Navbar />
+      <div className='bg-gray-100'>
+        <Tabs />
+      </div>
+    </>
+  );
 }
 
 export default Body
