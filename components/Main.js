@@ -1,12 +1,18 @@
-import React from 'react'
-import SideBar from "./SideBar"
+import React from "react";
+import Body from "./Body";
+import SideBar from "./SideBar";
 
 const Main = () => {
   return (
-    <div className='grid grid-cols-2'>
-        <SideBar/>
+    <div className="flex">
+      <div>
+        <SideBar />
+      </div>
+      <div className="w-full">
+        <Body />
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default Main
+export default Main;
