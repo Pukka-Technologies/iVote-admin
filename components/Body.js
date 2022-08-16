@@ -6,7 +6,7 @@ const Body = () => {
   return (
     <>
       <Navbar />
-      <div className='bg-gray-100'>
+      <div className='bg-gray-100 h-full'>
         <Tabs />
       </div>
     </>
