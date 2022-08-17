@@ -3,7 +3,7 @@ import { MdOutlineEmojiEvents, MdPeopleOutline } from "react-icons/md";
 
 const Tabs = () => {
   return (
-    <section className="flex gap-8 pl-[2em] pt-[3em] font-text flex-grow-0">
+    <section className="flex gap-8 pl-[2em] py-[2em] font-text flex-grow-0">
       <article className="flex flex-col gap-3 bg-white px-[4.5em] py-[1rem] items-center rounded-lg">
         <div className="bg-green-200 p-3 rounded-lg">
           <MdOutlineEmojiEvents />
