@@ -5,7 +5,7 @@ import adminImg from "../public/assets/admin.jpg"
 
 const Navbar = () => {
   return (
-    <div className='flex font-text pt-6 justify-end pr-[2em]'>
+    <nav className='flex font-text pt-6 justify-end pr-[2em]'>
         <div className='flex items-center gap-3'>
             <div className='text-right'>
                 <h3 className='font-extrabold'>Akosua D</h3>
@@ -15,7 +15,7 @@ const Navbar = () => {
                 <Image src={adminImg} className="rounded-full" width={50} height={50}/>
             </div>
         </div>
-    </div>
+    </nav>
   )
 }
 
