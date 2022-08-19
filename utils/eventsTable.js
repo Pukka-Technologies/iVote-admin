@@ -3,7 +3,7 @@ const EventItems = [
     name: "Miss Agriculture",
     date: "14 April, 2022",
     eventImg: "/assets/events.jpg",
-    status: "Closed",
+    status: "Open",
   },
   {
     name: "Miss World",
@@ -15,7 +15,7 @@ const EventItems = [
     name: "Miss Universe",
     date: "10 April, 2022",
     eventImg: "/assets/events.jpg",
-    status: "Open",
+    status: "Closed",
   },
   {
     name: "Miss Malaika",

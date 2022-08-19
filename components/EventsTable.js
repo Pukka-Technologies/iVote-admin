@@ -2,9 +2,9 @@ import React from "react";
 import { AiOutlineEye, AiOutlineEdit, AiOutlineDelete } from "react-icons/ai";
 import EventsItem from "../utils/eventsTable";
 
-const EventItem = ({ eventImg, name, date, status }) => {
+const EventItem = ({ eventImg, name, date, status }) => (
   <article className="flex justify-between py-[1em] border-b-2 ">
-    <div className="flex gap-6">
+    <div className="flex gap-6 w-[20%]">
       <img src={eventImg} className="w-10 h-10 rounded-md" />
       <div>
         <h3 className="font-bold">{name}</h3>
@@ -17,13 +17,13 @@ const EventItem = ({ eventImg, name, date, status }) => {
       <AiOutlineEdit />
       <AiOutlineDelete />
     </div>
-  </article>;
-};
+  </article>
+);
 
 const EventsTable = () => {
   return (
     <div className="bg-white font-text mx-[5em]  px-[2em] py-[1em] rounded-lg">
-      <h1 className="border-b-2 font-bold text-lg">All Events</h1>
+      <h1 className="border-b-2 font-bold text-lg pb-[0.8em]">All Events</h1>
       {EventsItem.map((item, index) => (
         <EventItem
           eventImg={item.eventImg}
