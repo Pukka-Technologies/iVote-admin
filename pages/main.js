@@ -1,8 +1,8 @@
 import React from "react";
-import Body from "./Body";
-import SideBar from "./SideBar";
+import Body from "../components/Body";
+import SideBar from "../components/SideBar";
 
-const Main = () => {
+const main = () => {
   return (
     <div className="flex h-screen">
       <div>
@@ -15,4 +15,4 @@ const Main = () => {
   );
 };
 
-export default Main;
+export default main;

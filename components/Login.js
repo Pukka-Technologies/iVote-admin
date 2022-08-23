@@ -1,5 +1,7 @@
 import React from 'react'
+import Link  from 'next/link';
 import {RiAdminLine} from 'react-icons/ri'
+
 
 const Login = () => {
   return (
@@ -16,9 +18,11 @@ const Login = () => {
           placeholder="PASSWORD"
         ></input>
         <br></br>
-        <button className="my-[0.5em] bg-green-400 px-[1em] py-[0.6em] rounded-lg text-white">
-          LOGIN
-        </button>
+        <Link href="/main">
+          <button className="my-[0.5em] bg-green-400 px-[1em] py-[0.6em] rounded-lg text-white">
+            LOGIN
+          </button>
+        </Link>
         <p className="text-right text-gray-500 underline">Forgot password?</p>
       </form>
     </main>
