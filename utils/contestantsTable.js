@@ -24,3 +24,5 @@ const Contestants = [
     status: "Closed",
   },
 ];
+
+export default Contestants;
