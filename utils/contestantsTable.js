@@ -1,27 +1,23 @@
 const Contestants = [
   {
-    name: "Miss Agriculture",
-    date: "14 April, 2022",
-    eventImg: "/assets/events.jpg",
-    status: "Open",
+    contestantImg: "/assets/c2.jpg",
+    name: "Comfort Baah",
+    code: "B3130",
   },
   {
-    name: "Miss World",
-    date: "13 April, 2022",
-    eventImg: "/assets/events2.jpg",
-    status: "Open",
+    contestantImg: "/assets/c3.jpg",
+    name: "Vera Addo",
+    code: "B2130",
   },
   {
-    name: "Miss Universe",
-    date: "10 April, 2022",
-    eventImg: "/assets/events.jpg",
-    status: "Closed",
+    contestantImg: "/assets/c1.jpg",
+    name: "Bentil Kwao",
+    code: "B0030",
   },
   {
-    name: "Miss Malaika",
-    date: "18 April, 2022",
-    eventImg: "/assets/events2.jpg",
-    status: "Closed",
+    contestantImg: "/assets/c4.jpg",
+    name: "Ethel Akos",
+    code: "B4210",
   },
 ];
 
