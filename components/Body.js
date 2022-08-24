@@ -7,7 +7,7 @@ const Body = () => {
   return (
     <>
       <Navbar />
-      <div className="bg-gray-100 min-h-screen overflow-x-hidden box-border">
+      <div className="px-[3.5em] bg-gray-100 min-h-screen overflow-x-hidden box-border">
         <Tabs />
         <EventsTable />
       </div>
