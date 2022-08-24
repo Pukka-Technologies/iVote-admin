@@ -4,8 +4,8 @@ import EventsItem from "../utils/eventsTable";
 
 const EventItem = ({ eventImg, name, date, status }) => (
   <article className="flex justify-between items-center py-[1em] border-b-2 ">
-    <div className="flex gap-6 w-[20%]">
-      <img src={eventImg} className="w-10 h-10 rounded-md" />
+    <div className="flex items-center gap-6 w-[20%]">
+      <img src={eventImg} className="w-14 h-14 rounded-md" />
       <div>
         <h3 className="font-bold">{name}</h3>
         <p className="text-xs text-gray-400">{date}</p>

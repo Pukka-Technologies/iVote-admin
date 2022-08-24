@@ -4,8 +4,8 @@ import ContestantsData from '../utils/contestantsTable'
 
 const ContestantData = ({ contestantImg, name, code }) => (
   <article className="flex justify-between items-center py-[1em] border-b-2">
-    <div className="flex gap-6 w-[20%]">
-      <img src={contestantImg} className="w-10 h-10 rounded-md" />
+    <div className="flex items-center gap-6 w-[20%]">
+      <img src={contestantImg} className="w-14 h-14 rounded-full" />
       <div>
         <h3 className="font-bold">{name}</h3>
       </div>
