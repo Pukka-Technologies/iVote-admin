@@ -22,13 +22,12 @@ const ContestantData = ({ contestantImg, name, code }) => (
 const ContestantTable = () => {
   return (
     <div className="flex flex-col justify-center bg-white font-text px-[2em] py-[1em] rounded-lg">
-      <h1 className="border-b-2 font-bold text-lg pb-[0.8em]">All Events</h1>
-      {EventsItem.map((item, index) => (
-        <EventItem
-          eventImg={item.eventImg}
-          name={item.name}
-          date={item.date}
-          status={item.status}
+      <h1 className="border-b-2 font-bold text-lg pb-[0.8em]">All Contestants</h1>
+      {ContestantsData.map((person, index) => (
+        <ContestantData
+          contestantImg={person.contestantImg}
+          name={person.name}
+          code={person.code}
           key={index}
         />
       ))}
