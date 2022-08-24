@@ -22,9 +22,9 @@ const EventItem = ({ eventImg, name, date, status }) => (
 
 const ContestantTable = () => {
   return (
-    <div className="bg-white font-text mx-[5em]  px-[2em] py-[1em] rounded-lg">
+    <div className="flex flex-col justify-center bg-white font-text px-[2em] py-[1em] rounded-lg">
       <h1 className="border-b-2 font-bold text-lg pb-[0.8em]">All Events</h1>
-      {Contestants.map((item, index) => (
+      {EventsItem.map((item, index) => (
         <EventItem
           eventImg={item.eventImg}
           name={item.name}
