@@ -3,7 +3,7 @@ import { AiOutlineEye, AiOutlineEdit, AiOutlineDelete } from "react-icons/ai";
 import EventsItem from "../utils/eventsTable";
 
 const EventItem = ({ eventImg, name, date, status }) => (
-  <article className="flex justify-between py-[1em] border-b-2 ">
+  <article className="flex justify-between items-center py-[1em] border-b-2 ">
     <div className="flex gap-6 w-[20%]">
       <img src={eventImg} className="w-10 h-10 rounded-md" />
       <div>
