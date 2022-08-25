@@ -5,9 +5,11 @@ import Main from "../components/Main/";
 import { useStateValue } from "../context/StateProvider.js";
 export default function Home() {
   const [{ user }, dispatch] = useStateValue();
-  return (
-    <>  
-      {!user ? <Login /> : <Main />}
-    </>
-  );
+
+  if (!user)
+  {
+    return <Login />
+  }
+
+  return <Main />;
 }
