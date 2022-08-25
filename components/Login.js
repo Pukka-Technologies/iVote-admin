@@ -1,31 +1,38 @@
 import { useState } from "react";
 import { RiAdminLine } from "react-icons/ri";
 import { toast } from "react-toastify";
+import { useStateValue } from "../context/StateProvider";
+import Axios from "../utils/axios";
 import { validateEmail } from "../utils/Validators";
 
 const Login = () => {
+  const [{}, dispatch] = useStateValue()
   const [credentials, setCredentials] = useState({
     username: "",
     password: "",
   });
   // form handler
-  const formHandler = () => {
+  const formHandler = async () => {
+
     // validate form
     if(credentials.username === "" || credentials.password === "") {
       toast.error("Please fill in all fields");
       return;
     }
-    // if(!validateEmail(credentials.email))
-    // {
-    //   toast.error("Please enter a valid email");
-    //   return;
-    // }
-    // send credentials to server
+    
+    const { data } = await Axios({
+      url: "admin/login",
+      method: "POST",
+      data: credentials,
+    })
+
+    console.log(data)
+    dispatch({
+        type: "SET_USER",
+        user: data.data
+    })
+
     toast.success("Login successful");  
-
-
-    // if valid, dispatch action to set user
-    // if not valid, show error message
 
   };
   return (
