@@ -5,21 +5,21 @@ import { validateEmail } from "../utils/Validators";
 
 const Login = () => {
   const [credentials, setCredentials] = useState({
-    email: "",
+    username: "",
     password: "",
   });
   // form handler
   const formHandler = () => {
     // validate form
-    if(credentials.email === "" || credentials.password === "") {
+    if(credentials.username === "" || credentials.password === "") {
       toast.error("Please fill in all fields");
       return;
     }
-    if(!validateEmail(credentials.email))
-    {
-      toast.error("Please enter a valid email");
-      return;
-    }
+    // if(!validateEmail(credentials.email))
+    // {
+    //   toast.error("Please enter a valid email");
+    //   return;
+    // }
     // send credentials to server
     toast.success("Login successful");  
 
@@ -36,9 +36,9 @@ const Login = () => {
           className="h-[3em] px-[1em] border-none focus:outline-green-400"
           placeholder="USERNAME"
           type="text"
-          value={credentials.email}
+          value={credentials.username}
           onChange={(e) =>
-            setCredentials({ ...credentials, email: e.target.value })
+            setCredentials({ ...credentials, username: e.target.value })
           }
         ></input>
         <br></br>
