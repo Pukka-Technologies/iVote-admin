@@ -12,9 +12,9 @@ const ContestantData = ({ contestantImg, name, code }) => (
     </div>
     <div className="text-gray-500">{code}</div>
     <div className="flex gap-4 cursor-pointer">
-      <AiOutlineEye />
-      <AiOutlineEdit />
-      <AiOutlineDelete />
+      <AiOutlineEye className="hover:text-gray-600 hover:scale-125" />
+      <AiOutlineEdit className="hover:text-gray-600 hover:scale-125" />
+      <AiOutlineDelete className="hover:text-gray-600 hover:scale-125" />
     </div>
   </article>
 );
