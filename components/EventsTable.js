@@ -13,9 +13,9 @@ const EventItem = ({ eventImg, name, date, status }) => (
     </div>
     <div className="text-gray-500">{status}</div>
     <div className="flex gap-4 cursor-pointer">
-      <AiOutlineEye className="hover:text-gray-600" />
-      <AiOutlineEdit className="hover:text-gray-600" />
-      <AiOutlineDelete className="hover:text-gray-600" />
+      <AiOutlineEye className="hover:text-gray-600 hover:scale-125" />
+      <AiOutlineEdit className="hover:text-gray-600 hover:scale-125" />
+      <AiOutlineDelete className="hover:text-gray-600 hover:scale-125" />
     </div>
   </article>
 );
