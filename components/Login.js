@@ -26,10 +26,10 @@ const Login = () => {
       data: credentials,
     })
 
-    console.log(data)
+    // console.log(data)
     dispatch({
         type: "SET_USER",
-        user: data.data
+        user: data.admin
     })
 
     toast.success("Login successful");  

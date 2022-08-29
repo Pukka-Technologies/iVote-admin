@@ -7,7 +7,7 @@ export const LOGOUT = async (dispatch) => {
             url:"logout",
             method:"GET"
         })
-        // console.log(data);
+        console.log(data);
         if(data.success)
         {
             dispatch({
