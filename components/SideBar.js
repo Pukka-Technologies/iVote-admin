@@ -3,9 +3,12 @@ import { MdOutlineEmojiEvents, MdPeopleOutline } from "react-icons/md";
 import { AiOutlineAppstoreAdd, AiOutlineUsergroupAdd } from "react-icons/ai";
 import { FiSettings } from "react-icons/fi";
 import { RiAdminLine } from "react-icons/ri";
+import { useStateValue } from "../context/StateProvider";
+import { LOGOUT } from "../utils";
 
 
 const SideBar = () => {
+  const [{}, dispatch] = useStateValue()
   return (
     <section className="flex flex-col justify-center font-text p-8">
       {/*logo*/}
@@ -38,6 +41,10 @@ const SideBar = () => {
         <li className="flex gap-3 items-center cursor-pointer w-[14em] py-[0.5em] rounded-xl pl-[1em]">
           <AiOutlineUsergroupAdd />
           <span>Add Admins</span>
+        </li>
+        <li onClick={()=> LOGOUT(dispatch)} className="flex gap-3 items-center cursor-pointer w-[14em] py-[0.5em] rounded-xl pl-[1em]">
+          <AiOutlineUsergroupAdd />
+          <span>Log out</span>
         </li>
       </ul>
     </section>
