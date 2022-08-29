@@ -4,7 +4,8 @@ import Main from "../components/Main/";
 
 import { useStateValue } from "../context/StateProvider.js";
 export default function Home() {
-  const [{ user }, dispatch] = useStateValue();
+  const [{ user }, dispatch] = useStateValue()
+
 
   if (!user)
   {
