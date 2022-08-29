@@ -16,7 +16,7 @@ export const GET_SESSION_USER = async () => {
             return null
         }
     } catch (e) {
-        console.log(e)
+        // console.log(e)
         return null
     }
 }
