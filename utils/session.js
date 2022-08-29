@@ -4,12 +4,12 @@ export const session_user = async () => {
 
     console.log("inside session");
 
-    try {
+    try {   
         const { data } = Axios({
             method: "GET",
             url: "refresh",
         })
-
+        console.log(data.admin)
         if (data.success) {
             console.log("session started")
             console.log(data)
