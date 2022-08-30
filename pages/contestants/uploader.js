@@ -1,5 +1,11 @@
 import { MdCloudUpload } from "react-icons/md";
-const Uploader = () => {
+const Uploader = ({setImage}) => {
+  const onImageChange = (e) => {
+    console.log(e.target.files[0]);
+    const [file] = e.target.files;
+    // console.log(file);
+    setImage(URL.createObjectURL(file));
+  };
   return (
     <article>
       <label
@@ -21,6 +27,7 @@ const Uploader = () => {
           type="file"
           accept="image/*"
           className="hidden"
+          onChange={(e) => onImageChange(e)}
         />
       </label>
     </article>

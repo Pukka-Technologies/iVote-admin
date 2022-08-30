@@ -1,5 +1,5 @@
 import React from "react";
-import ConBody from "./conBody";
+import Body from "./body";
 import Navbar from "../../components/Navbar";
 import SideBar from "../../components/SideBar";
 
@@ -12,7 +12,7 @@ const Contestants = () => {
       </div>
       <div className="w-full">
         <Navbar />
-        <ConBody/>
+        <Body/>
       </div>
     </div>
   );
