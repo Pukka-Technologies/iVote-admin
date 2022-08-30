@@ -40,11 +40,9 @@ const customStyles = {
     backgroundColor: "white",
     color: "#86efac",
     cursor: "pointer",
-    // border: "2px solid #86efac",
-    border: state.isFocused ? "2px solid #86efac" : "none",
-    border: state.isHovered ? "2px solid #86efac" : "none",
-
-
+    outline: state.isFocused ? "2px solid #86efac" : "none",
+    border: "none",
+    padding: "0.3rem 0.3rem",
   })
 }
 
