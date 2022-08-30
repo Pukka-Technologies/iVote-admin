@@ -18,7 +18,7 @@ useEffect(() => {
       })
     }
   };
-  fetchSession();
+  // fetchSession();
 }, [])
   if (!user)
   {
