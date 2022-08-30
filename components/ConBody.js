@@ -5,7 +5,7 @@ const ConBody = () => {
   return (
     <section className="bg-gray-100 h-screen flex justify-center items-center font-text">
       <div className="grid grid-cols-2">
-        <div>
+        <article>
           <label
             htmlFor="file-upload"
             className="flex flex-col justify-center items-center rounded-lg cursor-pointer"
@@ -27,7 +27,7 @@ const ConBody = () => {
               className="hidden"
             />
           </label>
-        </div>
+        </article>
       </div>
     </section>
   );
