@@ -74,7 +74,7 @@ const Form = () => {
           </div>
           <div className="flex flex-row items-center my-3 mx-3 justify-end">
             <li className=" bg-green-400 px-[1em] py-[0.6em] flex  items-center justify-center gap-2  flex-row list-none">
-              <button className="font-bold text-black cursor-pointer ">
+              <button className="font-medium text-black cursor-pointer ">
                 SAVE
               </button>
               <MdOutlineDataSaverOn />
