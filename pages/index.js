@@ -9,14 +9,15 @@ export default function Home() {
 
 useEffect(() => {
   const fetchSession = async () => {
+    //start loading
       const session_user = await GET_SESSION_USER()
-
-    if(session_user){
-      dispatch({
-        type: "SET_USER",
-        user:session_user
-      })
-    }
+      if(session_user){
+        dispatch({
+          type: "SET_USER",
+          user:session_user
+        })
+      }
+      // end loading
   };
   fetchSession();
 }, [])
