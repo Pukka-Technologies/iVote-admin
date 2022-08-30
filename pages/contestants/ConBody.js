@@ -5,11 +5,11 @@ import Selector from './selector';
 const ConBody = () => {
   return (
     <section className="bg-gray-100 min-h-screen flex justify-center items-center font-text">
-      <div className="flex items-center gap-10">
+      <div className="flex items-center w-full justify-center gap-20">
         <article>
           <label
             htmlFor="file-upload"
-            className="flex flex-col justify-center items-center rounded-lg cursor-pointer"
+            className="flex flex-col justify-center items-center rounded-lg cursor-pointer border-2 border-dashed p-10"
           >
             <div className="flex flex-col justify-center items-center pt-5 pb-6 gap-2">
               <MdCloudUpload className="text-gray-500 text-3xl " />
@@ -29,20 +29,20 @@ const ConBody = () => {
             />
           </label>
         </article>
-        <article>
+        <article className='basis-[30%]'>
           <Selector />
           <div className="pt-5">
             <input
               type="text"
               placeholder="Contestant Name"
-              className="p-2 rounded-md focus:border-none focus:outline-green-400"
+              className="p-2 w-full rounded-md focus:border-none focus:outline-green-400"
             />
           </div>
           <div className="pt-5">
             <input
               type="text"
               placeholder="Contestant Code"
-              className="p-2 rounded-md focus:border-none focus:outline-green-400"
+              className="p-2 w-full rounded-md focus:border-none focus:outline-green-400"
             />
           </div>
           <div className='pt-5'>

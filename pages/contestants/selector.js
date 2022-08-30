@@ -12,9 +12,9 @@ const groupStyles = {
   justifyContent: "space-between",
 };
 const groupBadgeStyles = {
-  backgroundColor: "#BBF7D0",
+  backgroundColor: "#000",
   borderRadius: "2em",
-  color: "#172B4D",
+  color: "#f00",
   display: "inline-block",
   fontSize: 12,
   fontWeight: "normal",
