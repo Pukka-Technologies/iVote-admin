@@ -2,9 +2,9 @@ import React from "react";
 
 import Select from "react-select";
 const groupedData = [
-  { value: "chocolate", label: "Chocolate" },
-  { value: "strawberry", label: "Strawberry" },
-  { value: "vanilla", label: "Vanilla" },
+  { value: "eventsone", label: "Events" },
+  { value: "eventstwo", label: "Events" },
+  { value: "eventsthree", label: "Events" },
 ];
 const groupStyles = {
   display: "flex",
@@ -12,7 +12,7 @@ const groupStyles = {
   justifyContent: "space-between",
 };
 const groupBadgeStyles = {
-  backgroundColor: "#EBECF0",
+  backgroundColor: "#BBF7D0",
   borderRadius: "2em",
   color: "#172B4D",
   display: "inline-block",

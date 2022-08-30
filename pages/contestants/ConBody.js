@@ -31,11 +31,22 @@ const ConBody = () => {
         </article>
         <article>
           <Selector />
-          <div>
-            <input type="text" placeholder="Contestant Name" />
+          <div className="pt-5">
+            <input
+              type="text"
+              placeholder="Contestant Name"
+              className="p-2 rounded-md focus:border-none focus:outline-green-400"
+            />
           </div>
-          <div>
-            <input type="text" placeholder="Contestant Code" />
+          <div className="pt-5">
+            <input
+              type="text"
+              placeholder="Contestant Code"
+              className="p-2 rounded-md focus:border-none focus:outline-green-400"
+            />
+          </div>
+          <div className='pt-5'>
+            <button className="bg-green-200 w-full rounded-md py-[0.4rem]">Save</button>
           </div>
         </article>
       </div>
