@@ -1,5 +1,3 @@
 export const initialState = {
-    user:{
-        name: "baaba"
-    }
+    user:null
 }

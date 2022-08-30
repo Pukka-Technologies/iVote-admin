@@ -28,6 +28,22 @@ const ConBody = () => {
             />
           </label>
         </article>
+        <article>
+          <select name="slct" id="slct">
+            <option value="1">Events</option>
+            <option value="2">Events</option>
+            <option value="3">Events</option>
+            <option value="4">Events</option>
+            <option value="5">Events</option>
+            <option value="6">Events</option>
+          </select>
+          <div>
+            <input type="text" placeholder="Contestant Name" />
+          </div>
+          <div>
+            <input type="text" placeholder="Contestant Code" />
+          </div>
+        </article>
       </div>
     </section>
   );
