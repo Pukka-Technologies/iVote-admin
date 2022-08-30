@@ -1,10 +1,11 @@
 import React from 'react'
 import { MdCloudUpload } from "react-icons/md";
+import Selector from './selector';
 
 const ConBody = () => {
   return (
-    <section className="bg-gray-100 h-screen flex justify-center items-center font-text">
-      <div className="grid grid-cols-2">
+    <section className="bg-gray-100 min-h-screen flex justify-center items-center font-text">
+      <div className="flex items-center gap-10">
         <article>
           <label
             htmlFor="file-upload"
@@ -29,14 +30,7 @@ const ConBody = () => {
           </label>
         </article>
         <article>
-          <select name="slct" id="slct">
-            <option value="1">Events</option>
-            <option value="2">Events</option>
-            <option value="3">Events</option>
-            <option value="4">Events</option>
-            <option value="5">Events</option>
-            <option value="6">Events</option>
-          </select>
+          <Selector />
           <div>
             <input type="text" placeholder="Contestant Name" />
           </div>

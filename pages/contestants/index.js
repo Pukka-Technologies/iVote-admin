@@ -1,5 +1,5 @@
 import React from "react";
-import ConBody from "../../components/ConBody";
+import ConBody from "./ConBody";
 import Navbar from "../../components/Navbar";
 import SideBar from "../../components/SideBar";
 
