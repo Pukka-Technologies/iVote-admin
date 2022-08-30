@@ -2,7 +2,7 @@
 import React from 'react'
 import { MdDeleteForever } from 'react-icons/md';
 
-const ImageBox = ({imageURI}) => {
+const ImageBox = ({setImage, imageURI}) => {
   return (
     <div className="w-72 h-72 flex flex-col justify-center items-center rounded-lg cursor-pointer border-2 border-dashed p-2 relative">
 
@@ -11,7 +11,7 @@ const ImageBox = ({imageURI}) => {
           className="w-full h-full object-cover"
           alt='bentil'
         />
-      <div className="w-10 h-10 flex items-center justify-center bg-red-600 rounded-full text-white absolute bottom-5 right-5">
+      <div onClick={()=> setImage(null)} className="w-10 h-10 flex items-center justify-center bg-red-600 rounded-full text-white absolute bottom-5 right-5">
         <MdDeleteForever />
       </div>
     </div>

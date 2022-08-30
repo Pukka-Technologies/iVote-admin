@@ -9,7 +9,7 @@ const ConBody = () => {
     <section className="bg-gray-100 min-h-[86vh] flex justify-center items-center font-text">
       <div className="flex items-center w-full justify-center gap-x-20">
         {
-          image? <ImageBox imageURI = {image} /> :<Uploader setImage={setImage} />
+          image? <ImageBox setImage={setImage} imageURI = {image} /> :<Uploader setImage={setImage} />
         }
         <article className='w-[50%] flex flex-col  justify-center gap-y-2'>
           <Selector />
