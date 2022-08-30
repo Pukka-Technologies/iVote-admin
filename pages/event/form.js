@@ -1,9 +1,6 @@
 import React from "react";
 import { MdCloudUpload } from "react-icons/md";
 
-import { MdDateRange } from "react-icons/md";
-
-import { MdOutlineDataSaverOn } from "react-icons/md";
 
 const Form = () => {
   return (
