@@ -54,7 +54,15 @@ const Selector = ({ selected, setCategory }) => {
   useEffect(() => {
     const display = async () => {
       let e = await events;
-      setAvailableEvents(e)
+      // setAvailableEvents(e)
+      //change e into array of values for react-select
+      let options = e.map((event) => {
+        return {
+          value: event._id,
+          label: event.name,
+        };
+      });
+      setAvailableEvents(options);
       // console.log(e);
     }
     display()
