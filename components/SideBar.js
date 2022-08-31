@@ -1,6 +1,7 @@
 import React from "react";
 import { MdOutlineEmojiEvents, MdPeopleOutline } from "react-icons/md";
 import { AiOutlineAppstoreAdd, AiOutlineUsergroupAdd } from "react-icons/ai";
+import {BiLogOutCircle} from "react-icons/bi";
 import { FiSettings } from "react-icons/fi";
 import { RiAdminLine } from "react-icons/ri";
 import { useStateValue } from "../context/StateProvider";
@@ -43,7 +44,7 @@ const SideBar = () => {
           <span>Add Admins</span>
         </li>
         <li onClick={()=> LOGOUT(dispatch)} className="flex gap-3 items-center cursor-pointer w-[14em] py-[0.5em] rounded-xl pl-[1em]">
-          <AiOutlineUsergroupAdd />
+          <BiLogOutCircle />
           <span>Log out</span>
         </li>
       </ul>
