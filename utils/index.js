@@ -42,3 +42,17 @@ export const fetchEvents = async () => {
     }
 
 }
+
+export const addContestant = async (contestant, token) => {
+    const { data } = await Axios({
+        method: "POST",
+        url: "contestant",
+        headers: {
+            Authorization: `Bearer ${token}`
+        },
+        data: contestant
+    })
+
+    console.log(data)
+    return data
+}

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { toast } from 'react-toastify';
 import { useStateValue } from '../../context/StateProvider';
-import { fetchEvents } from '../../utils';
+import { addContestant, fetchEvents } from '../../utils';
 import ImageBox from './imageBox';
 import Selector from './selector';
 import Uploader from './uploader';
@@ -13,7 +13,9 @@ const Body = () => {
   const [name, setName] = useState('');
   const [code, setCode] = useState('');
 
-  const handleSubmit = (e) => {
+  const [{user}, dispatch] = useStateValue()
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if(!image || !imageURI){
       toast.error("Add contestant image")
@@ -29,10 +31,14 @@ const Body = () => {
       imageURI, event, name, code
     });
 
+    const contestant = {
+      imageURI, event, name, code
+    }
+
+    await addContestant(contestant, user.access_token)
+
     toast.success("Event added successfully")
   }
-
-
   
 
   return (

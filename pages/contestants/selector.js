@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Select from "react-select";
 import { useStateValue } from "../../context/StateProvider";
+import { addContestant } from "../../utils";
 const groupStyles = {
   display: "flex",
   alignItems: "center",
@@ -67,6 +68,8 @@ const Selector = ({ selected, setCategory }) => {
     }
     display()
   }, [])
+  
+
   return (
     <Select
       // defaultValue={events[0]}
