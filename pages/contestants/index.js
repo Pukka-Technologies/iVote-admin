@@ -7,6 +7,7 @@ import { useStateValue } from "../../context/StateProvider.js";
 
 const Contestants = () => {
   const [{user}, dispatch] = useStateValue()
+
   useEffect(() => {
     const fetchSession = async () => {
         const session_user = await GET_SESSION_USER()
@@ -18,6 +19,7 @@ const Contestants = () => {
       }
     };
     fetchSession();
+    console.log(user) 
   }, [])
   return (
     <div className="flex h-screen">
