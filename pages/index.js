@@ -10,7 +10,6 @@ export default function Home() {
 useEffect(() => {
   const fetchSession = async () => {
       const session_user = await GET_SESSION_USER()
-
     if(session_user){
       dispatch({
         type: "SET_USER",

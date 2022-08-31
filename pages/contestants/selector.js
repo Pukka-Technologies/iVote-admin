@@ -1,13 +1,6 @@
 import React from "react";
-
 import Select from "react-select";
-const groupedData = [
-  { value: "eventsone", label: "Events 1" },
-  { value: "eventstwo", label: "Events 2" },
-  { value: "eventsthree", label: "Events 3" },
-  { value: "eventsfour", label: "Events 4" },
-
-];
+import { useStateValue } from "../../context/StateProvider";
 const groupStyles = {
   display: "flex",
   alignItems: "center",
@@ -28,12 +21,9 @@ const groupBadgeStyles = {
 const customStyles = {
   option: (provided, state) => ({
     ...provided,
-  
     color: state.isSelected ? "black" : "#86efac",
     backgroundColor: state.isSelected ? "#86efac" : "white",
     cursor: "pointer",
-
-    
   }),
   control: (provided, state) => ({
     ...provided,
@@ -43,8 +33,8 @@ const customStyles = {
     outline: state.isFocused ? "2px solid #86efac" : "none",
     border: "none",
     padding: "0.3rem 0.3rem",
-  })
-}
+  }),
+};
 
 const formatGroupLabel = (data) => (
   <div style={groupStyles}>
@@ -53,13 +43,22 @@ const formatGroupLabel = (data) => (
   </div>
 );
 
-const Selector = () => (
-  <Select
-    defaultValue={groupedData[0]}
-    options={groupedData}
-    formatGroupLabel={formatGroupLabel}
-    styles={customStyles}
-  />
-);
+const Selector = ({ selected, setCategory }) => {
+  const [{event_categories}, dispatch] = useStateValue()
+  const handleChange = (e) => {
+    console.log(e);
+    setCategory(e.value);
+  }
+  return (
+    <Select
+      // defaultValue={event_categories[0]}
+      options={event_categories}
+      formatGroupLabel={formatGroupLabel}
+      styles={customStyles}
+      onChange={(e)=> handleChange(e)}
+      placeholder="Select Category"
+    />
+  );
+};
 
-export default Selector
+export default Selector;
