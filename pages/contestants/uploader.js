@@ -1,9 +1,9 @@
 import { MdCloudUpload } from "react-icons/md";
-const Uploader = ({setImage}) => {
+const Uploader = ({setImageURI, setImage}) => {
   const onImageChange = (e) => {
-    console.log(e.target.files[0]);
     const [file] = e.target.files;
-    // console.log(file);
+    console.log("file", file);
+    setImageURI(file)
     setImage(URL.createObjectURL(file));
   };
   return (

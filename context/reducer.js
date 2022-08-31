@@ -1,5 +1,6 @@
 export const actionTypes = {
     SET_USER: 'SET_USER',
+    SET_EVENT_CATEGORIES: 'SET_EVENT_CATEGORIES',
 
 }
 
@@ -10,6 +11,11 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 user: action.user,
+            };
+        case actionTypes.SET_EVENT_CATEGORIES:
+            return {
+                ...state,
+                event_categories: action.event_categories,
             };
         default:
             return state;
