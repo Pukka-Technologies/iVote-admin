@@ -44,15 +44,21 @@ export const fetchEvents = async () => {
 }
 
 export const addContestant = async (contestant, token) => {
-    const { data } = await Axios({
-        method: "POST",
-        url: "contestant",
-        headers: {
-            Authorization: `Bearer ${token}`
-        },
-        data: contestant
-    })
+    try{
+        const { data } = await Axios({
+            method: "POST",
+            url: "contestant",
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
+            data: contestant
+        })
+    
+        console.log(data)
+        return data
+    }catch(error){
+        console.log(error)
+        // toast.error(error.response.data.message)
+    }
 
-    console.log(data)
-    return data
 }

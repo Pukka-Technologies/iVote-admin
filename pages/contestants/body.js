@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from 'react'
-import { toast } from 'react-toastify';
+import React, { useState } from 'react'
 import { useStateValue } from '../../context/StateProvider';
 import { addContestant, fetchEvents } from '../../utils';
-import { GET_SESSION_USER } from '../../utils/session';
 import ImageBox from './imageBox';
 import Selector from './selector';
 import Uploader from './uploader';
-
+import { toast } from "react-toastify"
 const Body = () => {
   const [imageURI, setImageURI] = useState(null);
   const [image, setImage] = useState(null);
@@ -15,20 +13,6 @@ const Body = () => {
   const [code, setCode] = useState('');
 
   const [{ user }, dispatch] = useStateValue()
-
-useEffect(() => {
-  const fetchSession = async () => {
-      const session_user = await GET_SESSION_USER()
-    if(session_user){
-      dispatch({
-        type: "SET_USER",
-        user:session_user
-      })
-    }
-  };
-  fetchSession();
-}, [])
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -46,11 +30,13 @@ useEffect(() => {
       imageURI, event, name, code
     });
 
-    const contestant = {
-      imageURL: imageURI, event_id: event, name, contestant_code:code,
-    }
+    const contestant = new FormData();
+    contestant.append("name", name);
+    contestant.append("event_id", event);
+    contestant.append("contestant_code", code);
+    contestant.append("imageURI", imageURI);
 
-     addContestant(contestant, user.access_token)
+     await addContestant(contestant, user.access_token)
 
     toast.success("Event added successfully")
   }
