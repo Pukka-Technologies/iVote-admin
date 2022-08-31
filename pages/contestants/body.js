@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { toast } from 'react-toastify';
 import { useStateValue } from '../../context/StateProvider';
 import { addContestant, fetchEvents } from '../../utils';
+import { GET_SESSION_USER } from '../../utils/session';
 import ImageBox from './imageBox';
 import Selector from './selector';
 import Uploader from './uploader';
@@ -13,7 +14,21 @@ const Body = () => {
   const [name, setName] = useState('');
   const [code, setCode] = useState('');
 
-  const [{user}, dispatch] = useStateValue()
+  const [{ user }, dispatch] = useStateValue()
+
+useEffect(() => {
+  const fetchSession = async () => {
+      const session_user = await GET_SESSION_USER()
+    if(session_user){
+      dispatch({
+        type: "SET_USER",
+        user:session_user
+      })
+    }
+  };
+  fetchSession();
+}, [])
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -32,10 +47,10 @@ const Body = () => {
     });
 
     const contestant = {
-      imageURI, event, name, code
+      imageURL: imageURI, event_id: event, name, contestant_code:code,
     }
 
-    await addContestant(contestant, user.access_token)
+     addContestant(contestant, user.access_token)
 
     toast.success("Event added successfully")
   }
@@ -43,7 +58,7 @@ const Body = () => {
 
   return (
     <section className="bg-gray-100 min-h-[86vh] flex justify-center items-center font-text">
-      <div className="flex items-center w-full justify-center gap-x-20">
+      <form className="flex items-center w-full justify-center gap-x-20" encType='multipart/form-data'>
         {
           image? <ImageBox setImage={setImage} imageURI = {image} /> :<Uploader setImageURI={setImageURI} setImage={setImage} />
         }
@@ -71,7 +86,7 @@ const Body = () => {
             <button onClick={handleSubmit} className="bg-green-200 w-full py-[0.6rem] hover:bg-green-300">Save</button>
           </div>
         </article>
-      </div>
+      </form>
     </section>
   );
 }

@@ -23,7 +23,7 @@ const Uploader = ({setImageURI, setImage}) => {
         </div>
         <input
           id="file-upload"
-          name="uploadimage"
+          name="imageURI"
           type="file"
           accept="image/*"
           className="hidden"
