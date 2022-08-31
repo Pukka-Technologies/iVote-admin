@@ -21,3 +21,24 @@ export const LOGOUT = async (dispatch) => {
         toast.error(error.response.data.message)
     }
 }
+
+export const fetchEvents = async () => {
+    try {
+        const { data } = await Axios({
+            method: "GET",
+            url: "event",
+        })
+
+        if(data.success){
+            // console.log(data.data)
+            return data.data
+        }else{
+            return null
+        }
+
+    } catch (error) {
+        console.log(error)
+        return null
+    }
+
+}

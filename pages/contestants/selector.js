@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Select from "react-select";
 import { useStateValue } from "../../context/StateProvider";
 const groupStyles = {
@@ -44,19 +44,31 @@ const formatGroupLabel = (data) => (
 );
 
 const Selector = ({ selected, setCategory }) => {
-  const [{event_categories}, dispatch] = useStateValue()
+  const [{events}, dispatch] = useStateValue()
+  const [availableEvents, setAvailableEvents] = useState([])
   const handleChange = (e) => {
     console.log(e);
     setCategory(e.value);
   }
+
+  useEffect(() => {
+    const display = async () => {
+      let e = await events;
+      setAvailableEvents(e)
+      // console.log(e);
+    }
+    display()
+  }, [])
   return (
     <Select
-      // defaultValue={event_categories[0]}
-      options={event_categories}
+      // defaultValue={events[0]}
+      options={availableEvents}
       formatGroupLabel={formatGroupLabel}
       styles={customStyles}
       onChange={(e)=> handleChange(e)}
       placeholder="Select Category"
+      id="selectbox"
+      instanceId="selectbox"
     />
   );
 };

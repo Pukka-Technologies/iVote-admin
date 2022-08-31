@@ -1,5 +1,7 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { toast } from 'react-toastify';
 import { useStateValue } from '../../context/StateProvider';
+import { fetchEvents } from '../../utils';
 import ImageBox from './imageBox';
 import Selector from './selector';
 import Uploader from './uploader';
@@ -7,16 +9,31 @@ import Uploader from './uploader';
 const Body = () => {
   const [imageURI, setImageURI] = useState(null);
   const [image, setImage] = useState(null);
-  const [category, setCategory] = useState(null);
+  const [event, setEvent] = useState(null);
   const [name, setName] = useState('');
   const [code, setCode] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if(!image || !imageURI){
+      toast.error("Add contestant image")
+      return
+    }
+
+    if(!name || !code || !event){
+      toast.error("Make sure all fields are filled")
+      return
+    }
+
     console.log({
-      imageURI, category, name, code
+      imageURI, event, name, code
     });
+
+    toast.success("Event added successfully")
   }
+
+
+  
 
   return (
     <section className="bg-gray-100 min-h-[86vh] flex justify-center items-center font-text">
@@ -25,7 +42,7 @@ const Body = () => {
           image? <ImageBox setImage={setImage} imageURI = {image} /> :<Uploader setImageURI={setImageURI} setImage={setImage} />
         }
         <article className='w-[50%] flex flex-col  justify-center gap-y-2'>
-          <Selector setCategory={setCategory} />
+          <Selector setCategory={setEvent} />
           <div className="pt-5">
             <input
               type="text"
