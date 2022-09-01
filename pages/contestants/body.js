@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import { useStateValue } from "../../context/StateProvider";
-import { addContestant, fetchEvents } from "../../utils";
-import ImageBox from "./imageBox";
+import { addContestant } from "../../utils";
 import Selector from "./selector";
-import Uploader from "./uploader";
 import { toast } from "react-toastify";
 import { ImSpinner3 } from "react-icons/im";
+import ImageUploader from "../../components/ImageUploader";
 const Body = () => {
   const [imageURI, setImageURI] = useState(null);
   const [image, setImage] = useState(null);
@@ -52,11 +51,12 @@ const Body = () => {
         className="flex items-center w-full justify-center gap-x-20"
         encType="multipart/form-data"
       >
-        {image ? (
-          <ImageBox setImage={setImage} imageURI={image} />
-        ) : (
-          <Uploader setImageURI={setImageURI} setImage={setImage} />
-        )}
+        <ImageUploader
+          image={image}
+          setImage={setImage}
+          setImageURI={setImageURI}
+          className="w-72 h-72"
+        />
         <article className="w-[50%] flex flex-col  justify-center gap-y-2">
           <Selector setCategory={setEvent} />
           <div className="pt-5">
