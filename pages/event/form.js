@@ -1,10 +1,11 @@
-import { useState } from "react";
-import { toast } from "react-toastify";
-import { RangeDatePicker } from "../../components/Datepicker";
-import ImageUploader from "../../components/ImageUploader";
 import { ImSpinner3 } from "react-icons/im";
+import ImageUploader from "../../components/ImageUploader";
+import { RangeDatePicker } from "../../components/Datepicker";
 import { addEvent } from "../../utils";
+import { toast } from "react-toastify";
+import { useState } from "react";
 import { useStateValue } from "../../context/StateProvider";
+
 const Form = () => {
   const [{ user }, dispatch] = useStateValue();
   const [image, setImage] = useState(null);
@@ -39,6 +40,7 @@ const Form = () => {
     const event = new FormData();
     event.append("image", image);
     event.append("name", name);
+    event.append("imageURI", imageURI);
     event.append("description", description);
     event.append("opening_date", opening_date);
     event.append("closing_date", closing_date);
