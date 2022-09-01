@@ -11,7 +11,7 @@ import { useStateValue } from "../../context/StateProvider";
 const Body = () => {
   const [imageURI, setImageURI] = useState(null);
   const [image, setImage] = useState(null);
-  const [event, setEvent] = useState("xxxx");
+  const [event, setEvent] = useState(null);
   const [name, setName] = useState("");
   const [code, setCode] = useState("");
   const [loading, setLoading] = useState(false);
@@ -34,7 +34,6 @@ const Body = () => {
     }
     
     console.log("start upload");
-    console.log(imageURI);
     const imageURL = await uploadImage(imageURI, "contestants");
     const contestant = {
       name, constestant_code: code, event_id: event, imageURL, votes: 0
@@ -44,6 +43,8 @@ const Body = () => {
       toast.success("Event added successfully");
     } else {
       toast.error("Sorry something went wrong");
+      // remove image from firebase
+      await removeImage(imageURL);
     }
     setLoading(false);
   };

@@ -5,6 +5,7 @@ import { addEvent } from "../../utils";
 import { toast } from "react-toastify";
 import { useState } from "react";
 import { useStateValue } from "../../context/StateProvider";
+import { uploadImage } from "../../firebase";
 
 const Form = () => {
   const [{ user }, dispatch] = useStateValue();
@@ -37,19 +38,20 @@ const Form = () => {
     const closing_date = new Date(endDate).toISOString();
     console.log("closing date", closing_date);
     console.log("opening date", opening_date);
-    const event = new FormData();
-    event.append("image", image);
-    event.append("name", name);
-    event.append("imageURI", imageURI);
-    event.append("description", description);
-    event.append("opening_date", opening_date);
-    event.append("closing_date", closing_date);
 
+
+    // upload image
+    const imageURL = await uploadImage(imageURI, "events");
+    const event = {
+      name, description, opening_date, closing_date, imageURL
+    }
     const data = await addEvent(event, user.access_token);
     if (data && data.success) {
       toast.success("Event added successfully");
     }else{
       toast.error("Sorry something went wrong");
+      // remove image from firebase
+      await removeImage(imageURL);
     }
     setLoading(false);
   };

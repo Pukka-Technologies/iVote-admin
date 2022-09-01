@@ -1,4 +1,4 @@
-import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import { deleteObject, getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 
 import { storage } from "../firebase.config";
 
@@ -43,3 +43,8 @@ export const uploadImage = async (imageURI, path) => {
     }
   );
 };
+
+export const removeImage = async (imageURL) => {
+    const deleteRef = ref(storage, imageURL);
+    deleteObject(deleteRef).then(() => {});
+}
