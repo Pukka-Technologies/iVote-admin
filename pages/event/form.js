@@ -3,7 +3,10 @@ import { toast } from "react-toastify";
 import { RangeDatePicker } from "../../components/Datepicker";
 import ImageUploader from "../../components/ImageUploader";
 import { ImSpinner3 } from "react-icons/im";
+import { addEvent } from "../../utils";
+import { useStateValue } from "../../context/StateProvider";
 const Form = () => {
+  const [{ user }, dispatch] = useStateValue();
   const [image, setImage] = useState(null);
   const [imageURI, setImageURI] = useState(null);
   const [name, setName] = useState("");
@@ -27,22 +30,25 @@ const Form = () => {
       return;
     }
     setLoading(true);
-    const formData = new FormData();
-    formData.append("image", image);
-    formData.append("name", name);
-    formData.append("description", description);
-    formData.append("startDate", startDate);
-    formData.append("endDate", endDate);
+    
+    // change date format to mongoDB format
+    const opening_date = new Date(startDate).toISOString();
+    const closing_date = new Date(endDate).toISOString();
+    console.log("closing date", closing_date);
+    console.log("opening date", opening_date);
+    const event = new FormData();
+    event.append("image", image);
+    event.append("name", name);
+    event.append("description", description);
+    event.append("opening_date", opening_date);
+    event.append("closing_date", closing_date);
 
-    const eventData = {
-      image: imageURI,
-      name: name,
-      description: description,
-      startDate: startDate,
-      endDate: endDate,
-    };
-
-    console.log(eventData);
+    const data = await addEvent(event, user.access_token);
+    if (data && data.success) {
+      toast.success("Event added successfully");
+    }else{
+      toast.error("Sorry something went wrong");
+    }
     setLoading(false);
   };
   return (
@@ -79,7 +85,7 @@ const Form = () => {
           setEndDate={setEndDate}
         />
         <button
-          disabled={loading}
+          // disabled={loading}
           onClick={handleSubmit}
           className="font-medium text-black cursor-pointer bg-green-400 px-[1em] py-[0.6em] flex  items-center justify-center gap-2"
         >
