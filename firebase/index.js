@@ -2,7 +2,7 @@ import { deleteObject, getDownloadURL, ref, uploadBytesResumable } from "firebas
 
 import { storage } from "../firebase.config";
 
-export const uploadImage = async (imageURI, path) => {
+export const uploadImage= async (imageURI, path, callback) => {
   // new date to iso string remove : and . and replace with -
   const id = new Date().toISOString().replace(/:|\./g, "-");
   const storageRef = ref(storage, `${path}/${id}-${imageURI.name}`);
@@ -12,14 +12,6 @@ export const uploadImage = async (imageURI, path) => {
     (snapshot) => {
       const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
       console.log("Image Upload is " + progress + "% done");
-      //   switch (snapshot.state) {
-      //     case "paused":
-      //       console.log("Upload is paused");
-      //       break;
-      //     case "running":
-      //       console.log("Upload is running");
-      //       break;
-      //   }
     },
     (error) => {
       switch (error.code) {
@@ -37,8 +29,7 @@ export const uploadImage = async (imageURI, path) => {
     },
     () => {
       getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-        // console.log("File available at", downloadURL);
-        return downloadURL;
+        callback(downloadURL);
       });
     }
   );
@@ -46,5 +37,7 @@ export const uploadImage = async (imageURI, path) => {
 
 export const removeImage = async (imageURL) => {
     const deleteRef = ref(storage, imageURL);
-    deleteObject(deleteRef).then(() => {});
+    deleteObject(deleteRef).then(() => {
+      console.log("Image deleted successfully");
+    });
 }
