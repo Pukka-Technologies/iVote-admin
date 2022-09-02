@@ -1,6 +1,7 @@
-import React from 'react'
-import { AiOutlineEye, AiOutlineEdit, AiOutlineDelete } from "react-icons/ai";
+import { AiOutlineDelete, AiOutlineEdit, AiOutlineEye } from "react-icons/ai";
+
 import ContestantsData from '../utils/contestantsTable'
+import React from 'react'
 
 const ContestantData = ({ contestantImg, name, code }) => (
   <article className="flex justify-between items-center py-[1em] border-b-2">
@@ -21,7 +22,7 @@ const ContestantData = ({ contestantImg, name, code }) => (
 
 const ContestantTable = () => {
   return (
-    <div className="flex flex-col justify-center bg-white font-text px-[2em] py-[1em] rounded-lg">
+    <div className="flex flex-col justify-center bg-gray-200 min-h-[87vh] font-text px-[2em] py-[1em] rounded-lg">
       <h1 className="border-b-2 font-bold text-lg pb-[0.8em]">All Contestants</h1>
       {ContestantsData.map((person, index) => (
         <ContestantData

@@ -4,7 +4,7 @@ import { MdDeleteForever } from 'react-icons/md';
 
 const ImageBox = ({setImage, imageURI}) => {
   return (
-    <div className="w-72 h-72 flex flex-col justify-center items-center rounded-lg cursor-pointer border-2 border-dashed p-2 relative">
+    <div className="w-full h-full flex flex-col justify-center items-center rounded-lg cursor-pointer border-2 border-dashed p-2 relative">
         <img
           src={imageURI}
           className="w-full h-full object-cover"

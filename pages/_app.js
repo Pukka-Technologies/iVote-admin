@@ -4,6 +4,7 @@ import { initialState } from "../context/initialState";
 import reducer from "../context/reducer";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css"; //Global styles for toastify
+import "react-datepicker/dist/react-datepicker.css";
 
 function MyApp({ Component, pageProps }) {
   return (

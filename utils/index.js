@@ -1,5 +1,5 @@
-import { toast } from "react-toastify"
 import Axios from "./axios"
+import { toast } from "react-toastify"
 
 export const LOGOUT = async (dispatch) => {
     try {
@@ -58,6 +58,26 @@ export const addContestant = async (contestant, token) => {
         return data
     }catch(error){
         console.log(error)
+        // toast.error(error.response.data.message)
+    }
+
+}
+export const addEvent = async (event, token) => {
+    try{
+        const { data } = await Axios({
+            method: "POST",
+            url: "event",
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
+            data: event
+        })
+    
+        console.log(data)
+        return data
+    }catch(error){
+        console.log(error)
+        return null
         // toast.error(error.response.data.message)
     }
 

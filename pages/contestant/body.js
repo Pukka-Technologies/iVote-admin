@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-import { useStateValue } from "../../context/StateProvider";
-import { addContestant, fetchEvents } from "../../utils";
-import ImageBox from "./imageBox";
-import Selector from "./selector";
-import Uploader from "./uploader";
-import { toast } from "react-toastify";
+
 import { ImSpinner3 } from "react-icons/im";
+import ImageUploader from "../../components/ImageUploader";
+import Selector from "./selector";
+import { addContestant } from "../../utils";
+import { toast } from "react-toastify";
+import { removeImage, uploadImage } from "../../firebase";
+import { useStateValue } from "../../context/StateProvider";
+
 const Body = () => {
   const [imageURI, setImageURI] = useState(null);
   const [image, setImage] = useState(null);
@@ -30,20 +32,31 @@ const Body = () => {
       setLoading(false);
       return;
     }
+    
+    await uploadImage(imageURI, "contestants", async(downloadURL) => {
+      const contestant = {
+        name, event_id: event, contestant_code:code, imageURL: downloadURL
+      }
+      try{
+        const res = await addContestant(contestant, user?.access_token);
+        if (res && res.success) {
+          toast.success("Contestant added successfully");
+          setLoading(false);
+          return;
+        }
+        toast.error("Something went wrong");
+        setLoading(false);
+      }catch(err){
+        // remove image from storage
+        await removeImage(downloadURL);
+        toast.error("Something went wrong");
+        setLoading(false);
+        console.log(err);
+      }
+    })
 
-    const contestant = new FormData();
-    contestant.append("name", name);
-    contestant.append("event_id", event);
-    contestant.append("contestant_code", code);
-    contestant.append("imageURI", imageURI);
 
-    const res = await addContestant(contestant, user.access_token);
-    if (res.success) {
-      toast.success("Event added successfully");
-    } else {
-      toast.error("Sorry something went wrong");
-    }
-    setLoading(false);
+    // await uploadImage(imageURI, "contestants");
   };
 
   return (
@@ -52,11 +65,12 @@ const Body = () => {
         className="flex items-center w-full justify-center gap-x-20"
         encType="multipart/form-data"
       >
-        {image ? (
-          <ImageBox setImage={setImage} imageURI={image} />
-        ) : (
-          <Uploader setImageURI={setImageURI} setImage={setImage} />
-        )}
+        <ImageUploader
+          image={image}
+          setImage={setImage}
+          setImageURI={setImageURI}
+          className="w-72 h-72"
+        />
         <article className="w-[50%] flex flex-col  justify-center gap-y-2">
           <Selector setCategory={setEvent} />
           <div className="pt-5">
@@ -79,7 +93,7 @@ const Body = () => {
           </div>
           <div className="pt-5">
             <button
-              disabled={loading}
+              // disabled={loading}
               onClick={handleSubmit}
               className="bg-green-200 w-full py-[0.6rem] hover:bg-green-300 flex items-center justify-center gap-x-4"
             >
