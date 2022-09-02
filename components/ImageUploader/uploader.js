@@ -1,7 +1,19 @@
 import { MdCloudUpload } from "react-icons/md";
+import { toast } from "react-toastify";
+
 const Uploader = ({setImageURI, setImage}) => {
   const onImageChange = (e) => {
-    const [file] = e.target.files;
+    const file = e.target.files[0];
+    // accept only image files
+    if (!file.type.match("image.*")) {
+      toast.error("Please select an image file");
+      return;
+    }
+    // accept only files less than or equal to 1MB
+    if (file.size > 1000000) {
+      toast.error("File size must be less than 1MB");
+      return;
+    }
     console.log("file", file);
     setImageURI(file)
     setImage(URL.createObjectURL(file));

@@ -1,10 +1,13 @@
 import React, { useState } from "react";
-import { useStateValue } from "../../context/StateProvider";
-import { addContestant } from "../../utils";
-import Selector from "./selector";
-import { toast } from "react-toastify";
+
 import { ImSpinner3 } from "react-icons/im";
 import ImageUploader from "../../components/ImageUploader";
+import Selector from "./selector";
+import { addContestant } from "../../utils";
+import { toast } from "react-toastify";
+import { uploadImage } from "../../firebase";
+import { useStateValue } from "../../context/StateProvider";
+
 const Body = () => {
   const [imageURI, setImageURI] = useState(null);
   const [image, setImage] = useState(null);
@@ -29,18 +32,19 @@ const Body = () => {
       setLoading(false);
       return;
     }
-
-    const contestant = new FormData();
-    contestant.append("name", name);
-    contestant.append("event_id", event);
-    contestant.append("contestant_code", code);
-    contestant.append("imageURI", imageURI);
-
+    
+    console.log("start upload");
+    const imageURL = await uploadImage(imageURI, "contestants");
+    const contestant = {
+      name, constestant_code: code, event_id: event, imageURL, votes: 0
+    }
     const res = await addContestant(contestant, user.access_token);
     if (res.success) {
       toast.success("Event added successfully");
     } else {
       toast.error("Sorry something went wrong");
+      // remove image from firebase
+      await removeImage(imageURL);
     }
     setLoading(false);
   };
@@ -79,7 +83,7 @@ const Body = () => {
           </div>
           <div className="pt-5">
             <button
-              disabled={loading}
+              // disabled={loading}
               onClick={handleSubmit}
               className="bg-green-200 w-full py-[0.6rem] hover:bg-green-300 flex items-center justify-center gap-x-4"
             >
