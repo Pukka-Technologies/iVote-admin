@@ -5,7 +5,7 @@ import ImageUploader from "../../components/ImageUploader";
 import Selector from "./selector";
 import { addContestant } from "../../utils";
 import { toast } from "react-toastify";
-import { uploadImage } from "../../firebase";
+import { removeImage, uploadImage } from "../../firebase";
 import { useStateValue } from "../../context/StateProvider";
 
 const Body = () => {
@@ -33,20 +33,30 @@ const Body = () => {
       return;
     }
     
-    console.log("start upload");
-    const imageURL = await uploadImage(imageURI, "contestants");
-    const contestant = {
-      name, constestant_code: code, event_id: event, imageURL, votes: 0
-    }
-    const res = await addContestant(contestant, user.access_token);
-    if (res.success) {
-      toast.success("Event added successfully");
-    } else {
-      toast.error("Sorry something went wrong");
-      // remove image from firebase
-      await removeImage(imageURL);
-    }
-    setLoading(false);
+    await uploadImage(imageURI, "contestants", async(downloadURL) => {
+      const contestant = {
+        name, event_id: event, contestant_code:code, imageURL: downloadURL
+      }
+      try{
+        const res = await addContestant(contestant, user?.access_token);
+        if (res && res.success) {
+          toast.success("Contestant added successfully");
+          setLoading(false);
+          return;
+        }
+        toast.error("Something went wrong");
+        setLoading(false);
+      }catch(err){
+        // remove image from storage
+        await removeImage(downloadURL);
+        toast.error("Something went wrong");
+        setLoading(false);
+        console.log(err);
+      }
+    })
+
+
+    // await uploadImage(imageURI, "contestants");
   };
 
   return (
