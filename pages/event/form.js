@@ -36,24 +36,33 @@ const Form = () => {
     // change date format to mongoDB format
     const opening_date = new Date(startDate).toISOString();
     const closing_date = new Date(endDate).toISOString();
-    console.log("closing date", closing_date);
-    console.log("opening date", opening_date);
+
 
 
     // upload image
-    const imageURL = await uploadImage(imageURI, "events");
-    const event = {
-      name, description, opening_date, closing_date, imageURL
-    }
-    const data = await addEvent(event, user.access_token);
-    if (data && data.success) {
-      toast.success("Event added successfully");
-    }else{
-      toast.error("Sorry something went wrong");
-      // remove image from firebase
-      await removeImage(imageURL);
-    }
-    setLoading(false);
+    const imageURL = await uploadImage(imageURI, "events", async(downloadURL) => {
+      const event = {
+        name,
+        description,
+        opening_date,
+        closing_date,
+        imageURL: downloadURL,
+      };
+      try {
+        const res = await addEvent(event, user?.access_token);
+        if (res && res.success) {
+          toast.success("Event added successfully");
+          setLoading(false);
+          return;
+        }
+        toast.error("Something went wrong");
+        setLoading(false);
+      } catch (err) {
+        toast.error("Something went wrong");
+        setLoading(false);
+        console.log(err);
+      }
+    })
   };
   return (
     <form
