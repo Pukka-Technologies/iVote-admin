@@ -12,7 +12,7 @@ const Root = () => {
       <SideBar page={page} setComponent={setComponent} setPage={setPage} />
       <div className="w-[80%] flex flex-col">
         <Navbar />
-        <div className="w-full h-[88vh] bg-gray-100 px-5 overflow-y-auto scrollbar-hidden">
+        <div className="w-full h-[88vh] bg-gray-100 px-5 overflow-y-auto scrollbar-hidden pb-[12rem]">
           {component}
         </div>
       </div>

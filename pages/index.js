@@ -9,6 +9,9 @@ const Admin = () => {
   const [{ user }, dispatch] = useStateValue();
 
   useEffect(() => {
+
+    console.log(">>>>",user)
+
     const fetchSession = async () => {
       const session_user = await GET_SESSION_USER();
       if (session_user) {
