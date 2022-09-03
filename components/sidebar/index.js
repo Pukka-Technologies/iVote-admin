@@ -3,13 +3,19 @@ import { BiLogOutCircle } from "react-icons/bi";
 import { LOGOUT } from "../../utils";
 import { useStateValue } from "../../context/StateProvider";
 import Navigations from "../../utils/Navigations";
+import { useRouter } from "next/router";
 
 const SideBar = ({ page, setComponent, setPage }) => {
+
+  const router = useRouter()
+
   const [{}, dispatch] = useStateValue();
   const navigate = (name, index) => {
-    setPage(name);
-    setComponent(Navigations[index].component);
-  };
+    setPage(name)
+    setComponent(Navigations[index].component)
+    const route = name.toLowerCase().replace(" ", "-")
+    router.push(`/desk/${route}`)
+  }
   return (
     <section className="flex flex-col items-center gap-y-5 font-text p-5 shadow-sm">
       {/*logo*/}
