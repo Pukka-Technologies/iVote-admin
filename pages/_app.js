@@ -9,7 +9,7 @@ import "react-datepicker/dist/react-datepicker.css";
 function MyApp({ Component, pageProps }) {
   return (
     <StateProvider StateProvider initialState={initialState} reducer={reducer}>
-      <ToastContainer /> 
+      <ToastContainer pauseOnFocusLoss={false} /> 
       <Component {...pageProps} />
     </StateProvider>
   );
