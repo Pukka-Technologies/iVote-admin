@@ -3,6 +3,7 @@ export const actionTypes = {
     SET_EVENTS: 'SET_EVENTS',
     ADD_EVENT: 'ADD_EVENT',
     ADD_CONTESTANT: 'ADD_CONTESTANT',
+    SET_CONTESTANTS: 'SET_CONTESTANTS',
 
 }
 
@@ -27,7 +28,12 @@ const reducer = (state, action) => {
         case actionTypes.ADD_CONTESTANT:
             return {
                 ...state,
-                contestant: [...state.contestant, action.contestant],
+                contestants: [...state.contestants, action.contestant],
+            };
+        case actionTypes.SET_CONTESTANTS:
+            return {
+                ...state,
+                contestants: action.contestants,
             };
         default:
             return state;
