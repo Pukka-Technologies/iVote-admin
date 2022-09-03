@@ -6,7 +6,7 @@ import React, { useEffect } from "react";
 import Image from "next/image";
 import { useStateValue } from "../../../context/StateProvider";
 
-const EventItem = ({
+const UserItem = ({
   eventImg,
   name,
   date,
@@ -47,7 +47,7 @@ const EventItem = ({
   </article>
 );
 
-const EventsList = ({type}) => {
+const AdminList = ({type}) => {
   const [{ events }, dispatch] = useStateValue();
 
   const formate_date = (date) => {
@@ -79,7 +79,7 @@ const EventsList = ({type}) => {
                 ? "Opened"
                 : "Closed";
             return (
-              <EventItem
+              <UserItem
                 key={event._id}
                 eventImg={event.imageURL}
                 name={event.name}
@@ -95,4 +95,4 @@ const EventsList = ({type}) => {
   );
 };
 
-export default EventsList;
+export default AdminList;

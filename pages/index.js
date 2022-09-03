@@ -1,9 +1,9 @@
 import { GET_SESSION_USER } from "../utils/session.js";
 import Login from "../components/Login.js";
-import { useEffect } from "react";
-import { useStateValue } from "../context/StateProvider.js";
 import Root from "../components/Root/index.js";
 import { fetchData } from "../utils/index.js";
+import { useEffect } from "react";
+import { useStateValue } from "../context/StateProvider.js";
 
 const Admin = () => {
   const [{ user }, dispatch] = useStateValue();
@@ -53,6 +53,20 @@ const Admin = () => {
         }
       });
 
+      fetchData("admin", async (data) => {
+        if (data.success) {
+          // console.log(data.data)
+          dispatch({
+            type: "SET_ADMINS",
+            admins: data.data,
+          });
+  
+          console.log("admins", data.data);
+          // return data.data
+        } else {
+          console.log(data);
+        }
+      });
     // setInterval(fetchSession, )
   }, []);
 

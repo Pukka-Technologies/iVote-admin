@@ -4,6 +4,7 @@ import { fetchContestants, fetchEvents } from "../utils"
 // const contestants = fetchContestants() || null
 export const initialState = {
     user:null,
-    events: null,
-    contestants: null
+    events: [],
+    contestants: [],
+    admins: [],
 }

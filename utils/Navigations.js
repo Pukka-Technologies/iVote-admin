@@ -1,8 +1,10 @@
+import { AiOutlineAppstoreAdd, AiOutlineHome, AiOutlineUsergroupAdd } from "react-icons/ai";
+import { Contestants, Dashboard, Events } from "../components/pages";
 import { MdOutlineEmojiEvents, MdPeopleOutline } from "react-icons/md";
-import { AiOutlineAppstoreAdd, AiOutlineUsergroupAdd, AiOutlineHome } from "react-icons/ai";
+
+import Admins from "../components/pages/admin";
 import { FiSettings } from "react-icons/fi";
 import { RiAdminLine } from "react-icons/ri";
-import { Contestants, Dashboard, Events } from "../components/pages";
 
 const Navigations = [
     {
@@ -37,10 +39,12 @@ const Navigations = [
     {
       name: "Admins",
       icon: <RiAdminLine />,
+      component: <Admins />
     },
     {
       name: "Add Admins",
       icon: <AiOutlineUsergroupAdd />,
+      component: <Admins create />
     }
   ]
 
