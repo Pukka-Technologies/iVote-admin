@@ -1,9 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
+
 import { AiOutlineDelete, AiOutlineEdit, AiOutlineEye } from "react-icons/ai";
 
-import { FiList } from "react-icons/fi";
 import ContestantsData from "../../../utils/contestantsTable";
-
+import EventSelector from "../../EventSelector";
+import { FiList } from "react-icons/fi";
 
 const ContestantData = ({ contestantImg, name, code }) => (
   <article className="flex justify-between items-center py-[1em] border-b-2">
@@ -23,6 +24,7 @@ const ContestantData = ({ contestantImg, name, code }) => (
 );
 
 const ContestantsList = () => {
+  [selectedEvent, setSelectedEvent] = useState("all");
   return (
     <div className="flex flex-col justify-center border-t border-gray-200 bg-white font-text px-[2em] py-[1em] my-6 rounded-lg">
       <div className="flex items-center justify-between border-b-2">
@@ -32,7 +34,7 @@ const ContestantsList = () => {
           <div className="flex items-center justify-center border-2 border-green-400 p-2 rounded-lg">
             <FiList className="text-black text-xl " />{" "}
           </div>
-          {/* <EventSelector options={fetchedEvents} setCategory={setEvent} /> */}
+          <EventSelector setCategory={setSelectedEvent} /> 
         </div>
       </div>
       {ContestantsData.map((person, index) => (
