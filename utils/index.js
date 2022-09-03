@@ -1,6 +1,5 @@
 import Axios from "./axios"
 import { toast } from "react-toastify"
-import { useStateValue } from "../context/StateProvider"
 
 
 export const LOGOUT = async (dispatch) => {
@@ -24,7 +23,7 @@ export const LOGOUT = async (dispatch) => {
     }
 }
 
-export const fetchData = async (route, callback, ) => {
+export const fetchData = async (route, callback) => {
     try {
         const { data } = await Axios({
             method: "GET",
