@@ -9,7 +9,7 @@ import { useState } from "react";
 import { useStateValue } from "../../../context/StateProvider";
 
 const ContestantData = ({ imageURL, name, contestant_code, event }) => (
-  <article className="flex justify-between items-center py-[1em] border-b-2 ">
+  <article className="flex justify-between items-center py-[1em] border-b-2">
     <div className="flex items-center gap-6  w-[35%]">
       {imageURL && (
         <img
@@ -64,7 +64,7 @@ const ContestantsList = () => {
     }
   }
   return (
-    <div className="flex flex-col justify-center border-t border-gray-200 bg-white font-text px-[2em] py-[1em] my-6 rounded-lg">
+    <div className="flex flex-col border-t border-gray-200 bg-white font-text px-[2em] py-[1em] my-6 rounded-lg min-h-full">
       <div className="flex items-center justify-between border-b-2">
         <h1 className="font-bold text-lg pb-[0.8em]">Contestants</h1>
         {/* event selector */}

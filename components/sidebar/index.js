@@ -13,8 +13,6 @@ const SideBar = ({ page, setComponent, setPage }) => {
   const navigate = (name, index) => {
     setPage(name)
     setComponent(Navigations[index].component)
-    const route = name.toLowerCase().replace(" ", "-")
-    router.push(`/desk/${route}`)
   }
   return (
     <section className="w-[20%] flex flex-col items-center gap-y-5 font-text p-5 shadow-sm">
