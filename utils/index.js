@@ -1,6 +1,7 @@
 import Axios from "./axios"
 import { toast } from "react-toastify"
 
+
 export const LOGOUT = async (dispatch) => {
     try {
         const {data} = await Axios({
@@ -36,6 +37,63 @@ export const fetchData = async (route, callback) => {
     }
 
 }
+
+export const getAllAdmins = async (token, dispatch) => {
+    try {
+        const { data } = await Axios({
+            method: "GET",
+            url: "admin",
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+
+        dispatch({
+            type: "SET_ADMINS",
+            admins: data.data,
+          })
+
+
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const getSession = async (token, callback) => {
+    try {
+        const { data } = await Axios({
+            method: "GET",
+            url: "refresh",
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+
+        console.log(data)
+        callback(data)
+
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const fetchSession = async (dispatch) => {
+    try {   
+      const { data } = await Axios({
+          method: "GET",
+          url: "refresh",
+      })
+
+     dispatch({
+      type: "SET_USER",
+      user: data.admin
+    })
+    console.log("user persists 🏆")
+
+  } catch (e) {
+       console.log(e)
+  }
+  }
 
 export const addContestant = async (contestant, token) => {
     try{

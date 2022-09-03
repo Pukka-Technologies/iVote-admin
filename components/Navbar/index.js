@@ -16,12 +16,13 @@ const Navbar = () => {
           <h3 className="font-extrabold">{user.is_super? user.full_name:user.username}</h3>
           <p className="text-sm text-gray-600">{user.is_super? user.full_name:"Administrator"}</p>
         </div>
-        <div className="w-12 h-12">
-          <img
+        <div className="relative w-12 h-12">
+          <Image
             src={user.avatar || adminImg}
             alt="admin"
-            className="h-full w-full object-cover rounded-full"
-            
+            className="h-full w-full rounded-full"
+            layout="fill"
+            objectFit="cover"
           />
         </div>
       </div>
