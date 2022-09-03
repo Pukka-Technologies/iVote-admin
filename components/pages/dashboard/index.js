@@ -5,7 +5,7 @@ const Dashboard = () => {
   return (
     <div className="w-full h-full">
       <Tabs />
-      <Events />
+      <Events type="opened" />
     </div>
   );
 };

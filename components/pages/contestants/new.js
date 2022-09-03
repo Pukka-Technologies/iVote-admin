@@ -42,6 +42,19 @@ const NewContestant = () => {
         const res = await addContestant(contestant, user?.access_token);
         if (res && res.success) {
           toast.success("Contestant added successfully");
+          // reset form
+          setImage(null);
+          setImageURI(null);
+          setEvent(null);
+          setName("");
+          setCode("");
+          
+          // update state
+          dispatch({
+            type: "ADD_CONTESTANT",
+            contestant: res.data
+            
+          })
           setLoading(false);
           return;
         }
@@ -59,7 +72,6 @@ const NewContestant = () => {
 
     // await uploadImage(imageURI, "contestants");
   };
-  console.log(events);
   return (
     // <section className="bg-gray-100 min-h-[86vh] flex justify-center font-text">
       <form
