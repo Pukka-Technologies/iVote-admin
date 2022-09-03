@@ -1,27 +1,35 @@
 import { GET_SESSION_USER } from "../utils/session.js";
 import Login from "../components/Login.js";
 import Root from "../components/Root/index.js";
-import { fetchData } from "../utils/index.js";
+import { fetchData, fetchSession, getAllAdmins } from "../utils/index.js";
 import { useEffect } from "react";
 import { useStateValue } from "../context/StateProvider.js";
+import Axios from "../utils/axios.js";
 
 const Admin = () => {
   const [{ user }, dispatch] = useStateValue();
 
+  // const fetchSession = async () => {
+  //   const session_user = await GET_SESSION_USER();
+  //   if (session_user) {
+  //     dispatch({
+  //       type: "SET_USER",
+  //       user: session_user,
+  //     });
+  //   }
+  // };
+
+
+
   useEffect(() => {
+    fetchSession(dispatch);
+  }, [])
+  
+  // useEffect(() => {
+  // }, [user])
+  
 
-    console.log(">>>>",user)
-
-    const fetchSession = async () => {
-      const session_user = await GET_SESSION_USER();
-      if (session_user) {
-        dispatch({
-          type: "SET_USER",
-          user: session_user,
-        });
-      }
-    };
-    fetchSession();
+  useEffect(() => {
 
       fetchData("event", async (data) => {
         if (data.success) {
@@ -53,20 +61,7 @@ const Admin = () => {
         }
       });
 
-      fetchData("admin", async (data) => {
-        if (data.success) {
-          // console.log(data.data)
-          dispatch({
-            type: "SET_ADMINS",
-            admins: data.data,
-          });
-  
-          console.log("admins", data.data);
-          // return data.data
-        } else {
-          console.log(data);
-        }
-      });
+     
     // setInterval(fetchSession, )
   }, []);
 
