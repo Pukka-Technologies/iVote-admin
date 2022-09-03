@@ -46,7 +46,9 @@ const formatGroupLabel = (data) => (
   </div>
 );
 
-const EventSelector = ({ options, setCategory }) => {
+const EventSelector = ({ setCategory }) => {
+
+  const [{events}, dispatch] = useStateValue()
 
   const handleChange = (e) => {
     console.log(e);
@@ -54,12 +56,12 @@ const EventSelector = ({ options, setCategory }) => {
   }
 
   // change options to select options
-  const selectOptions = options.map((option) => {
+  const selectOptions = events && events.map((option) => {
     return {
       value: option._id,
       label: option.name,
     };
-  })
+  }) || []
 
   
   return (
