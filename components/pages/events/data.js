@@ -50,7 +50,7 @@ const EventsList = ({type}) => {
     return new_date.toDateString();
   };
 
-  const data = type == "all" ? events && events.sort((a, b) => new Date(b.date) - new Date(a.date)) : events.sort((a, b) => new Date(b.opening_date) - new Date(a.opening_date)) || [];
+  // const data = type == "all" ? events && events.sort((a, b) => new Date(b.date) - new Date(a.date)) : events.sort((a, b) => new Date(b.opening_date) - new Date(a.opening_date)) || [];
 
   return (
     <div className="flex flex-col justify-center bg-white font-text mb-4 mt-6 px-[2em] py-[1em] rounded-lg">
@@ -61,8 +61,8 @@ const EventsList = ({type}) => {
 
  
       {
-        data &&
-        data
+        events &&
+        events
           .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
           .map((event) => {
             // format date
