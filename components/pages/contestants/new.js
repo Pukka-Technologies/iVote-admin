@@ -73,7 +73,7 @@ const NewContestant = () => {
           className="w-72 h-72"
         />
         <article className="w-1/2 flex flex-col gap-y-3">
-          <EventSelector options={events || []} setCategory={setEvent} />
+          <EventSelector setCategory={setEvent} />
           <div className="pt-5">
             <input
               type="text"

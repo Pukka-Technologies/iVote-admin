@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import Login from "../../components/Login";
 import Root from "../../components/Root";
 import { useStateValue } from "../../context/StateProvider";
 import { fetchData } from "../../utils";
@@ -40,7 +41,7 @@ const PageRoot = () => {
 
   }, []);
 
-  return <Root />;
+  return <Root />
 };
 
 export default PageRoot;
