@@ -18,6 +18,8 @@ const Admin = () => {
       }
     };
     fetchSession();
+
+    // setInterval(fetchSession, )
   }, []);
 
   return !user ? <Login /> : <PageRoot />;

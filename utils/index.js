@@ -13,7 +13,6 @@ export const LOGOUT = async (dispatch) => {
                 type:"SET_USER",
                 user:null
             })
-            window.location.href = "/"
             toast.success(data.message)
         }else{
             toast.error(data.message)
