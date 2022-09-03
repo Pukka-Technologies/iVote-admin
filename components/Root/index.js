@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import Navbar from "../Navbar";
 import { Dashboard } from "../pages";
-import SideBar from "../Sidebar";
+import SideBar from "../sidebar";
 
 const Root = () => {
   const [page, setPage] = useState("Dashboard");
