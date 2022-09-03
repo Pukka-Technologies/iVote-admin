@@ -1,5 +1,5 @@
 import React from "react";
-import  Form  from "./form";
+import  EventForm  from "./form";
 import SideBar from "../../components/SideBar";
 import Navbar from "../../components/Navbar";
 
@@ -12,7 +12,7 @@ const Event = () => {
       </div>
       <div className="w-full">
         <Navbar />
-      <Form/>
+      <EventForm/>
       </div>
     </div>
   );
