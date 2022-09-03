@@ -23,7 +23,7 @@ const EventItem = ({ eventImg, name, date, status }) => (
 
 const EventsList = () => {
   return (
-    <div className="flex flex-col justify-center bg-white font-text mb-4 px-[2em] py-[1em] rounded-lg">
+    <div className="flex flex-col justify-center bg-white font-text mb-4 mt-6 px-[2em] py-[1em] rounded-lg">
       <h1 className="border-b-2 font-bold text-lg pb-[0.8em]">All Events</h1>
       {EventsItem.map((item, index) => (
         <EventItem

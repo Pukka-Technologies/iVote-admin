@@ -17,7 +17,7 @@ const SideBar = ({ page, setComponent, setPage }) => {
     router.push(`/desk/${route}`)
   }
   return (
-    <section className="flex flex-col items-center gap-y-5 font-text p-5 shadow-sm">
+    <section className="w-[20%] flex flex-col items-center gap-y-5 font-text p-5 shadow-sm">
       {/*logo*/}
       <div className="w-full flex items-center justify-center mb-5">
         <h1 className="font-bold text-[1.3em] text-center">Media Billo</h1>

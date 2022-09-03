@@ -3,7 +3,7 @@ import Tabs from "./Tabs";
 
 const Dashboard = () => {
   return (
-    <div className="h-full  box-border">
+    <div className="w-full h-full">
       <Tabs />
       <Events />
     </div>
