@@ -1,7 +1,9 @@
-import { fetchEvents } from "../utils"
+import { fetchContestants, fetchEvents } from "../utils"
 
 const events = fetchEvents() || null
+const contestants = fetchContestants() || null
 export const initialState = {
     user:null,
-    events
+    events,
+    contestants
 }

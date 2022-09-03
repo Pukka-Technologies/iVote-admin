@@ -22,7 +22,7 @@ export const LOGOUT = async (dispatch) => {
     }
 }
 
-export const fetchEvents = async () => {
+export const fetchEvents = async (callback) => {
     try {
         const { data } = await Axios({
             method: "GET",
@@ -31,7 +31,8 @@ export const fetchEvents = async () => {
 
         if(data.success){
             // console.log(data.data)
-            return data.data
+            callback(data.data)
+            // return data.data
         }else{
             return null
         }
@@ -79,6 +80,28 @@ export const addEvent = async (event, token) => {
         console.log(error)
         return null
         // toast.error(error.response.data.message)
+    }
+
+}
+
+export const fetchContestants = async (callback) => {
+    try {
+        const { data } = await Axios({
+            method: "GET",
+            url: "contestant",
+        })
+
+        if(data.success){
+            // console.log(data.data)
+            callback(data.data)
+            // return data.data
+        }else{
+            return null
+        }
+
+    } catch (error) {
+        console.log(error)
+        return null
     }
 
 }
