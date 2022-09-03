@@ -76,6 +76,26 @@ export const addEvent = async (event, token) => {
     }
 
 }
+export const addAdmin = async (admin, token) => {
+    try{
+        const { data } = await Axios({
+            method: "POST",
+            url: "admin",
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
+            data: admin
+        })
+    
+        console.log(data)
+        return data
+    }catch(error){
+        console.log(error)
+        return null
+        // toast.error(error.response.data.message)
+    }
+
+}
 
 export const fetchContestants = async (callback) => {
     try {

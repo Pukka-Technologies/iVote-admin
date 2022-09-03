@@ -4,7 +4,8 @@ export const actionTypes = {
     ADD_EVENT: 'ADD_EVENT',
     ADD_CONTESTANT: 'ADD_CONTESTANT',
     SET_CONTESTANTS: 'SET_CONTESTANTS',
-
+    SET_ADMINS: 'SET_ADMINS',
+    ADD_ADMIN: 'ADD_ADMIN',
 }
 
 const reducer = (state, action) => {
@@ -34,6 +35,16 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 contestants: action.contestants,
+            };
+        case actionTypes.SET_ADMINS:
+            return {
+                ...state,
+                admins: action.admins,
+            };
+        case actionTypes.ADD_ADMIN:
+            return {
+                ...state,
+                admins: [...state.admins, action.admin],
             };
         default:
             return state;
