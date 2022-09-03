@@ -78,4 +78,26 @@ const EventSelector = ({ setCategory }) => {
   );
 };
 
+export const EventTypeSelector = ({  onChange }) => {
+
+  const selectOptions = [
+    { value: "all", label: "All" },
+    { value: "ongoing", label: "Ongoing" },
+    { value: "closed", label: "Closed" },
+    { value: "upcoming", label: "Upcoming" },
+  ];
+
+  return (
+    <Select
+      // defaultValue={type}
+      options={selectOptions}
+      styles={customStyles}
+      onChange={(e) => onChange(e.value)}
+      placeholder="Select Event Type"
+      id="selectbox"
+      instanceId="selectbox"
+    />
+  );
+};
+
 export default EventSelector;

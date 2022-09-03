@@ -4,9 +4,10 @@ import { AiOutlineDelete, AiOutlineEdit, AiOutlineEye } from "react-icons/ai";
 
 import ContestantsData from "../../../utils/contestantsTable";
 import EventSelector from "../../EventSelector";
-import { FiList } from "react-icons/fi";
+import { FiList, FiSearch } from "react-icons/fi";
 import { useState } from "react";
 import { useStateValue } from "../../../context/StateProvider";
+import { Empty, Fetching } from "../../Promises";
 
 const ContestantData = ({ imageURL, name, contestant_code, event }) => (
   <article className="flex justify-between items-center py-[1em] border-b-2">
@@ -73,11 +74,30 @@ const ContestantsList = () => {
             </span>
           )}
         </h1>
-        {/* event selector */}
-        <div className="flex items-center justify-center gap-x-3 w-96">
-          <div className="flex items-center justify-center border-2 border-green-400 p-2 rounded-lg">
-            <FiList className="text-black text-xl " />{" "}
+        {
+          // search bar
+          <div className="w-[40%] -mt-2 flex items-center justify-center border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-gray-400">
+            <input
+              type="text"
+              placeholder="Search"
+              className="border-none outline-none w-full"
+              onChange={(e) => {
+                const filtered = contestants.filter((contestant) =>
+                  contestant.name
+                    .toLowerCase()
+                    .includes(e.target.value.toLowerCase())
+                );
+                setFilteredContestants(filtered);
+              }}
+            />
+             <FiSearch className="" />
           </div>
+        }
+        {/* event selector */}
+        <div className="flex items-center justify-center ">
+          {/* <div className="flex items-center justify-center border-2 border-green-400 p-2 rounded-lg">
+            <FiList className="text-black text-xl " />{" "}
+          </div> */}
           <EventSelector setCategory={handleEventChange} />
         </div>
       </div>
@@ -99,6 +119,12 @@ const ContestantsList = () => {
             />
           );
         })}
+        {
+          contestants && filteredContestants.length == 0 && <Empty text="No Contestants" />
+        }
+        {
+          !contestants && <Fetching text="Loading..." />
+        }
     </div>
   );
 };

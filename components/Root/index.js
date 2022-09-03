@@ -1,8 +1,8 @@
-import React from "react";
-import { useState } from "react";
-import Navbar from "../Navbar";
 import { Dashboard } from "../pages";
+import Navbar from "../Navbar";
+import React from "react";
 import SideBar from "../sidebar";
+import { useState } from "react";
 
 const Root = () => {
   const [page, setPage] = useState("Dashboard");
@@ -12,7 +12,7 @@ const Root = () => {
       <SideBar page={page} setComponent={setComponent} setPage={setPage} />
       <div className="w-[80%] flex flex-col">
         <Navbar />
-        <div className="w-full h-[88vh] bg-gray-100 px-5 overflow-y-auto scrollbar-hidden pb-[12rem]">
+        <div className="w-full min-h-[88vh] bg-gray-100 px-5 overflow-y-auto scrollbar-hidden">
           {component}
         </div>
       </div>
