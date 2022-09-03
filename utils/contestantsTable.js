@@ -1,4 +1,4 @@
-const Contestants = [
+const ContestantsData = [
   {
     contestantImg: "/assets/c2.jpg",
     name: "Comfort Baah",
@@ -19,6 +19,46 @@ const Contestants = [
     name: "Ethel Akos",
     code: "B4210",
   },
+  {
+    contestantImg: "/assets/c4.jpg",
+    name: "Ethel Akos",
+    code: "B4210",
+  },
+  {
+    contestantImg: "/assets/c4.jpg",
+    name: "Ethel Akos",
+    code: "B4210",
+  },
+  {
+    contestantImg: "/assets/c4.jpg",
+    name: "Ethel Akos",
+    code: "B4210",
+  },
+  {
+    contestantImg: "/assets/c4.jpg",
+    name: "Ethel Akos",
+    code: "B4210",
+  },
+  {
+    contestantImg: "/assets/c4.jpg",
+    name: "Ethel Akos",
+    code: "B4210",
+  },
+  {
+    contestantImg: "/assets/c4.jpg",
+    name: "Ethel Akos",
+    code: "B4210",
+  },
+  {
+    contestantImg: "/assets/c4.jpg",
+    name: "Ethel Akos",
+    code: "B4210",
+  },
+  {
+    contestantImg: "/assets/c4.jpg",
+    name: "Ethel Akos",
+    code: "B4210",
+  },
 ];
 
-export default Contestants;
+export default ContestantsData;

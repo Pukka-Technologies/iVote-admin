@@ -1,11 +1,17 @@
-import React from 'react'
-import { AiOutlineEye, AiOutlineEdit, AiOutlineDelete } from "react-icons/ai";
-import ContestantsData from '../utils/contestantsTable'
+/* eslint-disable @next/next/no-img-element */
+import { AiOutlineDelete, AiOutlineEdit, AiOutlineEye } from "react-icons/ai";
+
+import ContestantsData from "../utils/contestantsTable";
+import React, { useEffect, useState } from "react";
+import EventSelector from "../pages/contestant/selector";
+import { FiList } from "react-icons/fi";
+import { useStateValue } from "../context/StateProvider";
+import { fetchContestants, fetchEvents } from "../utils";
 
 const ContestantData = ({ contestantImg, name, code }) => (
   <article className="flex justify-between items-center py-[1em] border-b-2">
     <div className="flex items-center gap-6 w-[20%]">
-      <img src={contestantImg} className="w-14 h-14 rounded-full" />
+      <img src={contestantImg} className="w-14 h-14 rounded-full" alt="" />
       <div>
         <h3 className="font-bold">{name}</h3>
       </div>
@@ -21,8 +27,17 @@ const ContestantData = ({ contestantImg, name, code }) => (
 
 const ContestantTable = () => {
   return (
-    <div className="flex flex-col justify-center bg-white font-text px-[2em] py-[1em] rounded-lg">
-      <h1 className="border-b-2 font-bold text-lg pb-[0.8em]">All Contestants</h1>
+    <div className="flex flex-col justify-center border-t border-gray-200 bg-white font-text px-[2em] py-[1em] rounded-lg">
+      <div className="flex items-center justify-between border-b-2">
+        <h1 className="font-bold text-lg pb-[0.8em]">Contestants</h1>
+        {/* event selector */}
+        <div className="flex items-center justify-center gap-x-3 w-96">
+          <div className="flex items-center justify-center border-2 border-green-400 p-2 rounded-lg">
+            <FiList className="text-black text-xl " />{" "}
+          </div>
+          {/* <EventSelector options={fetchedEvents} setCategory={setEvent} /> */}
+        </div>
+      </div>
       {ContestantsData.map((person, index) => (
         <ContestantData
           contestantImg={person.contestantImg}
@@ -33,6 +48,6 @@ const ContestantTable = () => {
       ))}
     </div>
   );
-}
+};
 
-export default ContestantTable
+export default ContestantTable;
