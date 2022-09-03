@@ -50,20 +50,20 @@ const Admin = () => {
         }
       });
 
-      fetchData("admin", async (data) => {
-        if (data.success) {
-          // console.log(data.data)
-          dispatch({
-            type: "SET_ADMINS",
-            admins: data.data,
-          });
+      // fetchData("admin", async (data) => {
+      //   if (data.success) {
+      //     // console.log(data.data)
+      //     dispatch({
+      //       type: "SET_ADMINS",
+      //       admins: data.data,
+      //     });
   
-          console.log("admins", data.data);
-          // return data.data
-        } else {
-          console.log(data);
-        }
-      });
+      //     console.log("admins", data.data);
+      //     // return data.data
+      //   } else {
+      //     console.log(data);
+      //   }
+      // });
     // setInterval(fetchSession, )
   }, []);
 
