@@ -4,6 +4,7 @@ import { AiOutlineDelete, AiOutlineEdit, AiOutlineEye } from "react-icons/ai";
 import React, { useEffect } from "react";
 
 import { useStateValue } from "../../../context/StateProvider";
+import Image from "next/image";
 
 const EventItem = ({
   eventImg,
@@ -15,7 +16,11 @@ const EventItem = ({
 }) => (
   <article className="flex justify-between items-center py-[1em] border-b-2 ">
     <div className="flex items-center gap-6  w-[35%]">
-      {eventImg  && (<img src={eventImg} className="w-24 h-16 rounded-md object-contain" alt="image" />)}
+      {eventImg  && (
+        <div className="relative w-32 h-16">
+          <Image src={eventImg} className="rounded-md" alt="image" objectFit="cover" layout="fill" />
+        </div>
+      )}
       <div className="w-full">
         <h3 className="font-bold">{name}</h3>
         {
