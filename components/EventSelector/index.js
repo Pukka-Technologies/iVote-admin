@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
+
 import Select from "react-select";
-import { useStateValue } from "../../context/StateProvider";
 import { addContestant } from "../../utils";
+import { useStateValue } from "../../context/StateProvider";
+
 const groupStyles = {
   display: "flex",
   alignItems: "center",
@@ -44,18 +46,26 @@ const formatGroupLabel = (data) => (
   </div>
 );
 
-const Selector = ({ options, setCategory }) => {
+const EventSelector = ({ options, setCategory }) => {
 
   const handleChange = (e) => {
     console.log(e);
     setCategory(e.value);
   }
 
+  // change options to select options
+  const selectOptions = options.map((option) => {
+    return {
+      value: option._id,
+      label: option.name,
+    };
+  })
+
   
   return (
     <Select
       // defaultValue={events[0]}
-      options={options}
+      options={selectOptions}
       formatGroupLabel={formatGroupLabel}
       styles={customStyles}
       onChange={(e)=> handleChange(e)}
@@ -66,4 +76,4 @@ const Selector = ({ options, setCategory }) => {
   );
 };
 
-export default Selector;
+export default EventSelector;

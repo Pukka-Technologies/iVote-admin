@@ -1,14 +1,15 @@
 import React, { useState } from "react";
+import { removeImage, uploadImage } from "../../../firebase";
 
+import EventSelector from "../../EventSelector";
 import { ImSpinner3 } from "react-icons/im";
 import ImageUploader from "../../../components/ImageUploader";
-import Selector from "./selector";
 import { addContestant } from "../../../utils";
 import { toast } from "react-toastify";
-import { removeImage, uploadImage } from "../../../firebase";
 import { useStateValue } from "../../../context/StateProvider";
 
 const NewContestant = () => {
+  
   const [imageURI, setImageURI] = useState(null);
   const [image, setImage] = useState(null);
   const [event, setEvent] = useState(null);
@@ -16,7 +17,7 @@ const NewContestant = () => {
   const [code, setCode] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const [{ user }, dispatch] = useStateValue();
+  const [{ user, events }, dispatch] = useStateValue();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -58,7 +59,7 @@ const NewContestant = () => {
 
     // await uploadImage(imageURI, "contestants");
   };
-
+  console.log(events);
   return (
     // <section className="bg-gray-100 min-h-[86vh] flex justify-center font-text">
       <form
@@ -72,7 +73,7 @@ const NewContestant = () => {
           className="w-72 h-72"
         />
         <article className="w-1/2 flex flex-col gap-y-3">
-          <Selector setCategory={setEvent} />
+          <EventSelector options={events || []} setCategory={setEvent} />
           <div className="pt-5">
             <input
               type="text"

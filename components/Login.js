@@ -1,9 +1,10 @@
-import { useState } from "react";
-import { RiAdminLine } from "react-icons/ri";
-import { toast } from "react-toastify";
-import { useStateValue } from "../context/StateProvider";
 import Axios from "../utils/axios";
 import {ImSpinner3} from "react-icons/im"
+import { RiAdminLine } from "react-icons/ri";
+import { toast } from "react-toastify";
+import { useState } from "react";
+import { useStateValue } from "../context/StateProvider";
+
 const Login = () => {
   const [{}, dispatch] = useStateValue()
   const [credentials, setCredentials] = useState({
@@ -35,7 +36,7 @@ const Login = () => {
       toast.success("Login successful");  
     } catch (error) {
       setLoading(false);
-      toast.error(error.response.data.message);
+      toast.error(error.response?.data?.message || "Something went wrong");
     }
 
   };
