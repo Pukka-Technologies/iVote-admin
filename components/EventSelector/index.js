@@ -44,36 +44,18 @@ const formatGroupLabel = (data) => (
   </div>
 );
 
-const Selector = ({ selected, setCategory }) => {
-  const [{events}, dispatch] = useStateValue()
-  const [availableEvents, setAvailableEvents] = useState([])
+const Selector = ({ options, setCategory }) => {
+
   const handleChange = (e) => {
     console.log(e);
     setCategory(e.value);
   }
 
-  useEffect(() => {
-    const display = async () => {
-      let e = await events;
-      // setAvailableEvents(e)
-      //change e into array of values for react-select
-      let options = e.map((event) => {
-        return {
-          value: event._id,
-          label: event.name,
-        };
-      });
-      setAvailableEvents(options);
-      // console.log(e);
-    }
-    display()
-  }, [])
   
-
   return (
     <Select
       // defaultValue={events[0]}
-      options={availableEvents}
+      options={options}
       formatGroupLabel={formatGroupLabel}
       styles={customStyles}
       onChange={(e)=> handleChange(e)}

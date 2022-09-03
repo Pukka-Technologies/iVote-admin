@@ -1,13 +1,13 @@
 import { ImSpinner3 } from "react-icons/im";
-import ImageUploader from "../../components/ImageUploader";
-import { RangeDatePicker } from "../../components/Datepicker";
-import { addEvent } from "../../utils";
+import ImageUploader from "../../../components/ImageUploader";
+import { RangeDatePicker } from "../../../components/Datepicker";
+import { addEvent } from "../../../utils";
 import { toast } from "react-toastify";
 import { useState } from "react";
-import { useStateValue } from "../../context/StateProvider";
-import { uploadImage } from "../../firebase";
+import { useStateValue } from "../../../context/StateProvider";
+import { uploadImage } from "../../../firebase";
 
-const Form = () => {
+const NewEvent = () => {
   const [{ user }, dispatch] = useStateValue();
   const [image, setImage] = useState(null);
   const [imageURI, setImageURI] = useState(null);
@@ -67,9 +67,9 @@ const Form = () => {
   return (
     <form
       encType="multipart/form-data"
-      className="min-h-[86vh] px-2 bg-gray-100  overflow-x-hidden flex items-center justify-center gap-x-4"
+      className="h-full px-2 bg-gray-100 w-full  flex py-10 justify-center gap-x-4"
     >
-      <div className="w-[55%] h-72  overflow-x-hidden mx-3 box-border flex items-center justify-center border-2 border-dotted border-gray-300">
+      <div className="w-1/2 h-72  overflow-x-hidden mx-3 box-border flex items-center justify-center border-2 border-dotted border-gray-300">
         <ImageUploader
           image={image}
           setImage={setImage}
@@ -77,7 +77,7 @@ const Form = () => {
           className="h-full w-full"
         />
       </div>
-      <div className="w-[45%] flex flex-col gap-y-3">
+      <div className="w-1/2 flex flex-col gap-y-3">
         <input
           type="text"
           placeholder="Event Name"
@@ -110,4 +110,4 @@ const Form = () => {
   );
 };
 
-export default Form;
+export default NewEvent;

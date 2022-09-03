@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 
 import { ImSpinner3 } from "react-icons/im";
-import ImageUploader from "../../components/ImageUploader";
+import ImageUploader from "../../../components/ImageUploader";
 import Selector from "./selector";
-import { addContestant } from "../../utils";
+import { addContestant } from "../../../utils";
 import { toast } from "react-toastify";
-import { removeImage, uploadImage } from "../../firebase";
-import { useStateValue } from "../../context/StateProvider";
+import { removeImage, uploadImage } from "../../../firebase";
+import { useStateValue } from "../../../context/StateProvider";
 
-const Body = () => {
+const NewContestant = () => {
   const [imageURI, setImageURI] = useState(null);
   const [image, setImage] = useState(null);
   const [event, setEvent] = useState(null);
@@ -60,9 +60,9 @@ const Body = () => {
   };
 
   return (
-    <section className="bg-gray-100 min-h-[86vh] flex justify-center items-center font-text">
+    // <section className="bg-gray-100 min-h-[86vh] flex justify-center font-text">
       <form
-        className="flex items-center w-full justify-center gap-x-20"
+        className="h-full px-2 bg-gray-100 w-full  flex py-10 justify-center gap-x-6"
         encType="multipart/form-data"
       >
         <ImageUploader
@@ -71,7 +71,7 @@ const Body = () => {
           setImageURI={setImageURI}
           className="w-72 h-72"
         />
-        <article className="w-[50%] flex flex-col  justify-center gap-y-2">
+        <article className="w-1/2 flex flex-col gap-y-3">
           <Selector setCategory={setEvent} />
           <div className="pt-5">
             <input
@@ -103,8 +103,8 @@ const Body = () => {
           </div>
         </article>
       </form>
-    </section>
+    // </section>
   );
 };
 
-export default Body;
+export default NewContestant;
