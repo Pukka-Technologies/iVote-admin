@@ -2,7 +2,7 @@ import { GET_SESSION_USER } from "../utils/session.js";
 import Login from "../components/Login.js";
 import { useEffect } from "react";
 import { useStateValue } from "../context/StateProvider.js";
-import Root from "../components/root/index.js";
+import Root from "../components/Root";
 
 const Admin = ({ component }) => {
   const [{ user }, dispatch] = useStateValue();
