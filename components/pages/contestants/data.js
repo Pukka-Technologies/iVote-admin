@@ -1,12 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
 import { AiOutlineDelete, AiOutlineEdit, AiOutlineEye } from "react-icons/ai";
 
-import ContestantsData from "../utils/contestantsTable";
-import React, { useEffect, useState } from "react";
-import EventSelector from "../pages/contestant/selector";
 import { FiList } from "react-icons/fi";
-import { useStateValue } from "../context/StateProvider";
-import { fetchContestants, fetchEvents } from "../utils";
+import ContestantsData from "../../../utils/contestantsTable";
+
 
 const ContestantData = ({ contestantImg, name, code }) => (
   <article className="flex justify-between items-center py-[1em] border-b-2">
@@ -25,9 +22,9 @@ const ContestantData = ({ contestantImg, name, code }) => (
   </article>
 );
 
-const ContestantTable = () => {
+const ContestantsList = () => {
   return (
-    <div className="flex flex-col justify-center border-t border-gray-200 bg-white font-text px-[2em] py-[1em] rounded-lg">
+    <div className="flex flex-col justify-center border-t border-gray-200 bg-white font-text px-[2em] py-[1em] my-6 rounded-lg">
       <div className="flex items-center justify-between border-b-2">
         <h1 className="font-bold text-lg pb-[0.8em]">Contestants</h1>
         {/* event selector */}
@@ -50,4 +47,4 @@ const ContestantTable = () => {
   );
 };
 
-export default ContestantTable;
+export default ContestantsList;
