@@ -1,12 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
 import { AiOutlineDelete, AiOutlineEdit, AiOutlineEye } from "react-icons/ai";
-
 import ContestantsData from "../utils/contestantsTable";
 import React, { useEffect, useState } from "react";
 import EventSelector from "../pages/contestant/selector";
 import { FiList } from "react-icons/fi";
 import { useStateValue } from "../context/StateProvider";
 import { fetchContestants, fetchEvents } from "../utils";
+
 
 const ContestantData = ({ contestantImg, name, code }) => (
   <article className="flex justify-between items-center py-[1em] border-b-2">
