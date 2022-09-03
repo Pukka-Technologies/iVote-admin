@@ -9,25 +9,10 @@ import Axios from "../utils/axios.js";
 const Admin = () => {
   const [{ user }, dispatch] = useStateValue();
 
-  // const fetchSession = async () => {
-  //   const session_user = await GET_SESSION_USER();
-  //   if (session_user) {
-  //     dispatch({
-  //       type: "SET_USER",
-  //       user: session_user,
-  //     });
-  //   }
-  // };
-
-
-
   useEffect(() => {
     fetchSession(dispatch);
   }, [])
-  
-  // useEffect(() => {
-  // }, [user])
-  
+   
 
   useEffect(() => {
 
@@ -61,8 +46,6 @@ const Admin = () => {
         }
       });
 
-     
-    // setInterval(fetchSession, )
   }, []);
 
   return !user ? <Login /> : <Root />;
