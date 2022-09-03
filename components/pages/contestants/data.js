@@ -51,7 +51,7 @@ const ContestantsList = () => {
   const [selectedEvent, setSelectedEvent] = useState("all");
   const [{ contestants, events }, dispatch] = useStateValue();
   const [filteredContestants, setFilteredContestants] = useState(contestants);
-  
+
   const handleEventChange = (e) => {
     setSelectedEvent(e);
     if (e === "all") {
@@ -62,11 +62,18 @@ const ContestantsList = () => {
       );
       setFilteredContestants(filtered);
     }
-  }
+  };
   return (
     <div className="flex flex-col border-t border-gray-200 bg-white font-text px-[2em] py-[1em] my-6 rounded-lg min-h-full">
       <div className="flex items-center justify-between border-b-2">
-        <h1 className="font-bold text-lg pb-[0.8em]">Contestants</h1>
+        <h1 className="font-bold text-lg pb-[0.8em]">
+          Contestants
+          {selectedEvent !== "all" && (
+            <span className="text-xs text-gray-400 ml-3">
+              ({events.find((event) => event._id == selectedEvent)?.name})
+            </span>
+          )}
+        </h1>
         {/* event selector */}
         <div className="flex items-center justify-center gap-x-3 w-96">
           <div className="flex items-center justify-center border-2 border-green-400 p-2 rounded-lg">
@@ -75,11 +82,14 @@ const ContestantsList = () => {
           <EventSelector setCategory={handleEventChange} />
         </div>
       </div>
-      {events && contestants &&
+      {events &&
+        contestants &&
         filteredContestants.map((person, index) => {
           // get event name from events by id
-          const event = events.find((event) => event._id == person.event_id).name;
-          
+          const event = events.find(
+            (event) => event._id == person.event_id
+          ).name;
+
           return (
             <ContestantData
               imageURL={person.imageURL}
