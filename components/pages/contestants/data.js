@@ -26,8 +26,7 @@ const ContestantData = ({ imageURL, name, contestant_code, event }) => (
             {contestant_code}
           </span>
         </p>
-      </div>
-    </div>
+      </div>    </div>
     <div className="w-[45%] flex items-center justify-center gap-x-4">
       <div className="text-gray-500 flex flex-1 items-center justify-center">
         {event}
