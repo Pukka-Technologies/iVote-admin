@@ -2,9 +2,9 @@ import { GET_SESSION_USER } from "../utils/session.js";
 import Login from "../components/Login.js";
 import { useEffect } from "react";
 import { useStateValue } from "../context/StateProvider.js";
-import Root from "../components/Root";
+import PageRoot from "./desk/[page].js";
 
-const Admin = ({ component }) => {
+const Admin = () => {
   const [{ user }, dispatch] = useStateValue();
 
   useEffect(() => {
@@ -20,7 +20,7 @@ const Admin = ({ component }) => {
     fetchSession();
   }, []);
 
-  return !user ? <Login /> : <Root />;
+  return !user ? <Login /> : <PageRoot />;
 };
 
 export default Admin;

@@ -22,24 +22,17 @@ export const LOGOUT = async (dispatch) => {
     }
 }
 
-export const fetchEvents = async (callback) => {
+export const fetchData = async (route, callback) => {
     try {
         const { data } = await Axios({
             method: "GET",
-            url: "event",
+            url: route,
         })
 
-        if(data.success){
-            // console.log(data.data)
-            callback(data.data)
-            // return data.data
-        }else{
-            return null
-        }
+        callback(data)
 
     } catch (error) {
         console.log(error)
-        return null
     }
 
 }
