@@ -9,10 +9,12 @@ import Image from "next/image";
 import { useStateValue } from "../../../context/StateProvider";
 import { FiSearch } from "react-icons/fi";
 import { ViewModal } from "./modals";
+import { EditModal } from "./editModal";
 
 const EventItem = ({ event }) => {
   const { name, imageURL, opening_date, closing_date, createdAt } = event;
   const [openVIew, setOpenView] = useState(false);
+  const [openEdit, setOpenEdit] = useState(false);
   const status = getEventStatus(opening_date, closing_date);
   return (
     <article className="flex justify-between items-center py-[1em] border-b-2 ">
@@ -54,11 +56,15 @@ const EventItem = ({ event }) => {
           onClick={() => setOpenView(true)}
           className="hover:text-gray-600 hover:scale-125"
         />
-        <AiOutlineEdit className="hover:text-gray-600 hover:scale-125" />
+        <AiOutlineEdit
+          className="hover:text-gray-600 hover:scale-125"
+          onClick={() => setOpenEdit(true)}
+        />
         <AiOutlineDelete className="hover:text-gray-600 hover:scale-125" />
       </div>
 
       <ViewModal data={event} isOpen={openVIew} setIsOpen={setOpenView} />
+      <EditModal data={event} isOpen={openEdit} setIsOpen={setOpenEdit} />
     </article>
   );
 };
