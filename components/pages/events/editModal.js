@@ -109,7 +109,7 @@ export const EditModal = ({ setIsOpen, isOpen }) => {
                 leaveTo="opacity-0 scale-95"
               >
                 <Dialog.Panel className="w-full max-w-3xl transform overflow-hidden rounded-lg bg-gray-100 p-6 text-left align-middle shadow-xl transition-all">
-                  <article className="rounded-lg overflow-hidden cursor-pointer">
+                  <article className="rounded-lg overflow-hidden cursor-pointer font-text">
                     <div
                       className="flex w-full flex-row-reverse pb-5"
                       onClick={() => setIsOpen(false)}

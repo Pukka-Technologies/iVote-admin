@@ -10,11 +10,13 @@ import { useStateValue } from "../../../context/StateProvider";
 import { FiSearch } from "react-icons/fi";
 import { ViewModal } from "./modals";
 import { EditModal } from "./editModal";
+import { DeleteModal } from "./deleteModal";
 
 const EventItem = ({ event }) => {
   const { name, imageURL, opening_date, closing_date, createdAt } = event;
   const [openVIew, setOpenView] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
+  const [openDel, setOpenDel] = useState(false);
   const status = getEventStatus(opening_date, closing_date);
   return (
     <article className="flex justify-between items-center py-[1em] border-b-2 ">
@@ -60,11 +62,15 @@ const EventItem = ({ event }) => {
           className="hover:text-gray-600 hover:scale-125"
           onClick={() => setOpenEdit(true)}
         />
-        <AiOutlineDelete className="hover:text-gray-600 hover:scale-125" />
+        <AiOutlineDelete
+          className="hover:text-gray-600 hover:scale-125"
+          onClick={() => setOpenDel(true)}
+        />
       </div>
 
       <ViewModal data={event} isOpen={openVIew} setIsOpen={setOpenView} />
-      <EditModal data={event} isOpen={openEdit} setIsOpen={setOpenEdit} />
+      <EditModal  isOpen={openEdit} setIsOpen={setOpenEdit} />
+      <DeleteModal isOpen={openDel} setIsOpen={setOpenDel} />
     </article>
   );
 };
