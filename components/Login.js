@@ -13,8 +13,8 @@ const Login = () => {
   });
   const [loading, setLoading] = useState(false);
   // form handler
-  const formHandler = async () => {
-
+  const formHandler = async (e) => {
+    e.preventDefault()
     // validate form
     if(credentials.username === "" || credentials.password === "") {
       toast.error("Please fill in all fields");

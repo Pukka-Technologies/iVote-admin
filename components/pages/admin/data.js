@@ -6,95 +6,86 @@ import React, { useEffect } from "react";
 import Image from "next/image";
 import { useStateValue } from "../../../context/StateProvider";
 import { fetchSession, getAllAdmins } from "../../../utils";
+import { Empty, Fetching } from "../../Promises";
+import { FiSearch } from "react-icons/fi";
 
-const UserItem = ({
-  eventImg,
-  name,
-  date,
-  status,
-  username,
-  email,
-  closing_date,
-}) => (
-  <article className="flex justify-between items-center py-[1em] border-b-2 ">
-    <div className="flex items-center gap-6 flex-1">
-      {eventImg  && (
-        <div className="relative w-32 h-16 border border-gray-200 rounded-md">
-          <Image src={eventImg} className="rounded-md" alt="image" objectFit="cover" layout="fill" />
+const UserItem = ({ data }) => {
+  const { _id, username, email, avatar, is_super, full_name } = data;
+  return (
+    <article className="flex justify-between items-center py-[1em] border-b-2 ">
+      <div className="flex items-center gap-6 flex-1">
+        <div className="relative w-36 h-16 border border-gray-200 rounded-md">
+          <Image
+            src={avatar}
+            className="rounded-md"
+            alt="image"
+            objectFit="cover"
+            layout="fill"
+          />
         </div>
-      )}
-      <div className="w-full">
-        <h3 className="font-bold">{name}</h3>
-        {
-          date && <p className="text-xs text-gray-400"> {email}</p>
-        }
+
+        <div className="w-full">
+          <h3 className="font-bold">
+            {full_name} (<span>{username}</span>)
+          </h3>
+          <p className="text-xs text-gray-400"> {email}</p>
+        </div>
       </div>
-    </div>
 
-    <div className="flex-1 flex items-center justify-center">
-      {username}
-    </div>
-    
-    <div className="flex gap-4 cursor-pointer flex-1 items-end justify-end">
-      <AiOutlineEye className="hover:text-gray-600 hover:scale-125" />
-      <AiOutlineEdit className="hover:text-gray-600 hover:scale-125" />
-      <AiOutlineDelete className="hover:text-gray-600 hover:scale-125" />
-    </div>
-  </article>
-);
+      <div className="flex-1 flex items-center justify-center">
+        {is_super ? "Super Admin" : "Sys Admin"}
+      </div>
 
-const AdminList = ({type}) => {
-  const [{ events, admins, user }, dispatch] = useStateValue();
+      <div className="flex gap-4 cursor-pointer flex-1 items-end justify-end">
+        <AiOutlineEye className="hover:text-gray-600 hover:scale-125" />
+        <AiOutlineEdit className="hover:text-gray-600 hover:scale-125" />
+        <AiOutlineDelete className="hover:text-gray-600 hover:scale-125" />
+      </div>
+    </article>
+  );
+};
 
-  const formate_date = (date) => {
-    const new_date = new Date(date);
-    return new_date.toDateString();
-  };
+const AdminList = ({ type }) => {
+  const [{ admins, user }, dispatch] = useStateValue();
 
   useEffect(() => {
-    fetchSession(dispatch)
-    getAllAdmins(user?.access_token, dispatch)
-   console.log("admins >>",admins)
-  }, [])
-  
+    fetchSession(dispatch);
+    getAllAdmins(user?.access_token, dispatch);
+  }, []);
 
-  // const data = type == "all" ? events && events.sort((a, b) => new Date(b.date) - new Date(a.date)) : events.sort((a, b) => new Date(b.opening_date) - new Date(a.opening_date)) || [];
-
+  const [filter, setFilter] = React.useState(admins);
   return (
-    <div className="flex flex-col justify-center bg-white font-text mb-4 mt-6 px-[2em] py-[1em] rounded-lg">
-      <h1 className="border-b-2 font-bold text-lg pb-[0.8em]">
-        {type == "all" ? "All Events" : "Opened Events"}
-      </h1>
+    <div className="flex flex-col min-h-[80vh] bg-white font-text  mt-6 px-[2em] py-[1em] rounded-lg">
+      <div className="border-b-2 pb-[0.8em] flex items-center justify-between px-5">
+        <h1 className="font-bold text-lg">System Administrators</h1>
+        <div className="w-[40%] flex items-center justify-center border border-gray-300 rounded-lg py-2 px-4 focus:outline-none focus:border-gray-400">
+          <input
+            type="text"
+            placeholder="Search"
+            className="border-none outline-none w-full"
+            onChange={(e) => {
+              const filtered = admins.filter((admin) =>
+                admin.username
+                  .toLowerCase()
+                  .includes(e.target.value.toLowerCase())
+              );
+              setFilter(filtered);
+            }}
+          />
+          <FiSearch className="" />
+        </div>
+      </div>
       {/* table header */}
 
- 
-      {
-        admins &&
-        admins
+      {admins &&
+        filter
           .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
           .map((admin) => {
-            // format date
-
-            // check if event is opened or closed based on opening_date and closing_date
-            const status =
-              new Date(admin.opening_date) < new Date() &&
-              new Date(admin.closing_date) > new Date()
-                ? "Opened"
-                : "Closed";
-            return (
-              <UserItem
-                key={admin._id}
-                eventImg={admin.avatar}
-                name={admin.full_name}
-                username={admin.username}
-                date={formate_date(admin.createdAt)}
-                email={admin?.email}
-                closing_date={formate_date(admin.closing_date)}
-                status={status}
-              />
-            );
-          })
-      }
+            return <UserItem key={admin._id} data={admin} />;
+          })}
+      {admins && admins.length === 0 && <Fetching text="Loading data....." />}
+      {filter.length === 0 && <Empty text={"No records found"} />}
+      {!admins && <Fetching text="Loading..." />}
     </div>
   );
 };

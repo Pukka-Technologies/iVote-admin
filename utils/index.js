@@ -69,7 +69,7 @@ export const getSession = async (token, callback) => {
             }
         })
 
-        console.log(data)
+        // console.log(data)
         callback(data)
 
     } catch (error) {
@@ -106,7 +106,7 @@ export const addContestant = async (contestant, token) => {
             data: contestant
         })
     
-        console.log(data)
+        // console.log(data)
         return data
     }catch(error){
         console.log(error)

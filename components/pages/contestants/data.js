@@ -68,11 +68,11 @@ const ContestantsList = () => {
       <div className="flex items-center justify-between border-b-2">
         <h1 className="font-bold text-lg pb-[0.8em]">
           Contestants
-          {selectedEvent !== "all" && (
+          {selectedEvent !== "all" ? (
             <span className="text-xs text-gray-400 ml-3">
-              ({events.find((event) => event._id == selectedEvent)?.name})
+              ({events.find((event) => event._id == selectedEvent)?.name} -  {filteredContestants.length})
             </span>
-          )}
+          ): ( <span className="text-xs text-gray-400 ml-3">{filteredContestants.length}</span>)}
         </h1>
         {
           // search bar
@@ -95,9 +95,6 @@ const ContestantsList = () => {
         }
         {/* event selector */}
         <div className="flex items-center justify-center ">
-          {/* <div className="flex items-center justify-center border-2 border-green-400 p-2 rounded-lg">
-            <FiList className="text-black text-xl " />{" "}
-          </div> */}
           <EventSelector setCategory={handleEventChange} />
         </div>
       </div>
