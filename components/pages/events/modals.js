@@ -1,6 +1,7 @@
 import { Dialog, Transition } from "@headlessui/react";
 import Image from "next/image";
 import { Fragment, useState } from "react";
+import { AiOutlineClose } from "react-icons/ai";
 import { dateFormater } from "../../../utils";
 
 export const ViewModal = ({ setIsOpen, isOpen, data }) => {
@@ -34,20 +35,30 @@ export const ViewModal = ({ setIsOpen, isOpen, data }) => {
               >
                 <Dialog.Panel className="w-full max-w-xl transform overflow-hidden rounded-lg bg-white p-6 text-left align-middle shadow-xl transition-all">
                   <article className="bg-white rounded-lg overflow-hidden cursor-pointer">
-                    <div onClick={() => setIsOpen(false)}>
-                      <Image 
+                    <div
+                      className="flex w-full flex-row-reverse pb-5"
+                      onClick={() => setIsOpen(false)}
+                    >
+                      <button className="items-end bg-green-200 text-green-800 p-2 rounded-lg">
+                        <AiOutlineClose />
+                      </button>
+                    </div>
+                    <div>
+                      <Image
                         src={imageURL}
                         width={500}
                         height={300}
                         alt="event"
                       />
                     </div>
-                    <div className="flex xl:gap-8 gap-4 px-5 py-8">
+                    <div className="flex xl:gap-8 gap-4 px-5 py-8 justify-between">
                       <div>
                         <h6 className="text-green-400 font-extrabold text-xs uppercase">
                           {dateFormater(opening_date).split(" ")[1]}
                         </h6>
-                        <h4 className="font-extrabold text-lg">{dateFormater(createdAt)}</h4>
+                        <h4 className="font-extrabold text-lg">
+                          {dateFormater(createdAt)}
+                        </h4>
                       </div>
                       <div>
                         <h5 className="font-extrabold text-lg">{name}</h5>
