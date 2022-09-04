@@ -114,7 +114,7 @@ const NewEvent = () => {
         <button
           // disabled={loading}
           onClick={handleSubmit}
-          className="font-medium text-black cursor-pointer bg-green-400 px-[1em] py-[0.6em] flex  items-center justify-center gap-2"
+          className="font-medium text-white cursor-pointer bg-green-400 px-[1em] py-[0.6em] flex  items-center justify-center gap-2"
         >
           {loading && <ImSpinner3 className="animate-spin" />}
           {loading ? "Saving...." : "Save"}

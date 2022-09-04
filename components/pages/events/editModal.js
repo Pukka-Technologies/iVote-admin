@@ -108,8 +108,8 @@ export const EditModal = ({ setIsOpen, isOpen }) => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-3xl transform overflow-hidden rounded-lg bg-white p-6 text-left align-middle shadow-xl transition-all">
-                  <article className="bg-white rounded-lg overflow-hidden cursor-pointer">
+                <Dialog.Panel className="w-full max-w-3xl transform overflow-hidden rounded-lg bg-gray-100 p-6 text-left align-middle shadow-xl transition-all">
+                  <article className="rounded-lg overflow-hidden cursor-pointer">
                     <div
                       className="flex w-full flex-row-reverse pb-5"
                       onClick={() => setIsOpen(false)}
@@ -153,7 +153,7 @@ export const EditModal = ({ setIsOpen, isOpen }) => {
                         <button
                           // disabled={loading}
                           onClick={handleSubmit}
-                          className="font-medium text-black cursor-pointer bg-green-400 px-[1em] py-[0.6em] flex  items-center justify-center gap-2"
+                          className="font-medium text-white cursor-pointer bg-green-400 px-[1em] py-[0.6em] flex  items-center justify-center gap-2"
                         >
                           {loading && <ImSpinner3 className="animate-spin" />}
                           {loading ? "Saving...." : "Save"}
