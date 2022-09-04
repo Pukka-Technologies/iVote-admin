@@ -81,7 +81,7 @@ const NewEvent = () => {
   return (
     <form
       encType="multipart/form-data"
-      className="h-full px-2 bg-gray-100 w-full  flex py-10 justify-center gap-x-4"
+      className="h-full px-2 bg-gray-100 w-full  flex py-10 justify-center gap-x-4 font-text"
     >
       <div className="w-1/2 h-72  overflow-x-hidden mx-3 box-border flex items-center justify-center border-2 border-dotted border-gray-300">
         <ImageUploader

@@ -45,7 +45,6 @@ const Admin = () => {
           console.log(data);
         }
       });
-
   }, []);
 
   return !user ? <Login /> : <Root />;

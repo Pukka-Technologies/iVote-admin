@@ -3,15 +3,15 @@
 import { AiOutlineDelete, AiOutlineEdit, AiOutlineEye } from "react-icons/ai";
 import React, { useEffect, useState } from "react";
 import { getEventStatus, getEventsByType } from "../../../utils";
-
 import { Empty, Fetching } from "../../Promises";
 import { EventTypeSelector } from "../../EventSelector";
 import Image from "next/image";
 import { useStateValue } from "../../../context/StateProvider";
 import { FiSearch } from "react-icons/fi";
-
+import Modal from "./modal";
 const EventItem = ({ event }) => {
   const { name, imageURL, opening_date, closing_date, createdAt } = event;
+  const [isOpen, setIsOpen] = useState(false);
   const formate_date = (date) => {
     const new_date = new Date(date);
     return new_date.toDateString();
@@ -53,10 +53,15 @@ const EventItem = ({ event }) => {
         </div>
       </div>
       <div className="flex gap-4 cursor-pointer w-[10%] items-end justify-end">
-        <AiOutlineEye className="hover:text-gray-600 hover:scale-125" />
+        <AiOutlineEye
+          onClick={() => setIsOpen(true)}
+          className="hover:text-gray-600 hover:scale-125"
+        />
         <AiOutlineEdit className="hover:text-gray-600 hover:scale-125" />
         <AiOutlineDelete className="hover:text-gray-600 hover:scale-125" />
       </div>
+
+      <Modal event={event} isOpen={isOpen} setIsOpen={setIsOpen} />
     </article>
   );
 };
@@ -76,7 +81,9 @@ const EventsList = ({ type = "all", showSelector = true }) => {
   return (
     <div className="flex flex-col min-h-[85vh] bg-white font-text mt-6 px-[2em] py-[1em] rounded-lg">
       <div className="w-full flex item-center justify-between py-3 px-5 border-b-2">
-        <h1 className="font-bold text-lg pb-[0.8em] ">{selectedType} Events ({filteredEvents.length})</h1>
+        <h1 className="font-bold text-lg pb-[0.8em] ">
+          {selectedType} Events ({filteredEvents.length})
+        </h1>
         <div className="w-[40%] flex items-center justify-center border border-gray-300 rounded-lg px-4 focus:outline-none focus:border-gray-400">
           <input
             type="text"
@@ -102,10 +109,10 @@ const EventsList = ({ type = "all", showSelector = true }) => {
           .map((event) => {
             return <EventItem key={event._id} event={event} />;
           })}
-      {filteredEvents.length == 0 && (
-        <Empty text="No Records found" />
+      {events && events.length == 0 && (
+        <Empty text={"No records found"} />
       )}
-      {events && events.length == 0 && <Fetching text={"Fetching records......"} />}
+      {!events && <Fetching text="Fetching records......" />}
     </div>
   );
 };
