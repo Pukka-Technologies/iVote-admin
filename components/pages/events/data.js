@@ -61,11 +61,12 @@ const EventItem = ({ event }) => {
   );
 };
 
-
-const EventsList = ({ type = 'all', showSelector=true }) => {
+const EventsList = ({ type = "all", showSelector = true }) => {
   const [{ events }, dispatch] = useStateValue();
   const [selectedType, setSelectedType] = useState(type);
-  const [filteredEvents, setFilteredEvents] = useState(getEventsByType(events, type));
+  const [filteredEvents, setFilteredEvents] = useState(
+    getEventsByType(events, type)
+  );
 
   const handleChangeType = (type) => {
     setSelectedType(type);
@@ -75,41 +76,36 @@ const EventsList = ({ type = 'all', showSelector=true }) => {
   return (
     <div className="flex flex-col min-h-[85vh] bg-white font-text mt-6 px-[2em] py-[1em] rounded-lg">
       <div className="w-full flex item-center justify-between py-3 px-5 border-b-2">
-      <h1 className="font-bold text-lg pb-[0.8em] ">{selectedType} Events</h1>
-          <div className="w-[40%] -mt-2 flex items-center justify-center border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-gray-400">
-            <input
-              type="text"
-              placeholder="Search"
-              className="border-none outline-none w-full"
-              onChange={(e) => {
-                const value = e.target.value;
-                setFilteredEvents(
-                  getEventsByType(events, selectedType).filter((event) =>
-                    event.name.toLowerCase().includes(value.toLowerCase())
-                  )
-                );
-              }}
-            />
-             <FiSearch className="" />
-          </div>
-      {
-        showSelector && <EventTypeSelector onChange={handleChangeType} />
-      }
+        <h1 className="font-bold text-lg pb-[0.8em] ">{selectedType} Events</h1>
+        <div className="w-[40%] flex items-center justify-center border border-gray-300 rounded-lg px-4 focus:outline-none focus:border-gray-400">
+          <input
+            type="text"
+            placeholder="Search"
+            className="border-none outline-none w-full"
+            onChange={(e) => {
+              const value = e.target.value;
+              setFilteredEvents(
+                getEventsByType(events, selectedType).filter((event) =>
+                  event.name.toLowerCase().includes(value.toLowerCase())
+                )
+              );
+            }}
+          />
+          <FiSearch className="" />
+        </div>
+        {showSelector && <EventTypeSelector onChange={handleChangeType} />}
       </div>
-      
+
       {events &&
         filteredEvents
           .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
           .map((event) => {
             return <EventItem key={event._id} event={event} />;
-          })
-        }
-        {
-          events && filteredEvents.length == 0 && <Empty text="No Event Found in Database" />
-        }
-        {
-          !events && <Fetching text={'Fetching records......'} />
-        }
+          })}
+      {events && events.length == 0 ||  filteredEvents.length == 0 && (
+        <Empty text="No Event Found in Database" />
+      )}
+      {!events && <Fetching text={"Fetching records......"} />}
     </div>
   );
 };

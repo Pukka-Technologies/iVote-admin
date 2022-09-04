@@ -13,8 +13,8 @@ const Navbar = () => {
       <SearchBar />
       <div className="flex items-center justify-center gap-3">
         <div className="text-right flex-col flex items-end justify-center">
-          <h3 className="font-extrabold">{user.is_super? user.full_name:user.username}</h3>
-          <p className="text-sm text-gray-600">{user.is_super? user.full_name:"Administrator"}</p>
+          <h3 className="font-extrabold">Howdy! {user.username}</h3>
+          <p className="text-sm text-gray-600">{user.is_super? "Super Admin":"Administrator"}</p>
         </div>
         <div className="relative w-12 h-12">
           <Image
