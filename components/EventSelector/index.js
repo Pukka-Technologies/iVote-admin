@@ -81,10 +81,10 @@ const EventSelector = ({ setCategory }) => {
 export const EventTypeSelector = ({  onChange }) => {
 
   const selectOptions = [
-    { value: "all", label: "All" },
-    { value: "ongoing", label: "Ongoing" },
-    { value: "closed", label: "Closed" },
-    { value: "upcoming", label: "Upcoming" },
+    { value: "all", label: "All Events" },
+    { value: "ongoing", label: "Ongoing Events" },
+    { value: "upcoming", label: "Upcoming Events" },
+    { value: "closed", label: "Closed Events" },
   ];
 
   return (
