@@ -28,7 +28,7 @@ export const uploadImage= async (imageURI, path, callback) => {
       return error;
     },
     () => {
-      getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+      getDownloadURL(storageRef).then((downloadURL) => {
         callback(downloadURL);
       });
     }

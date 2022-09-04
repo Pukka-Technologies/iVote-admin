@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
+
 import Select from "react-select";
-import { useStateValue } from "../../context/StateProvider";
 import { addContestant } from "../../utils";
+import { useStateValue } from "../../context/StateProvider";
+
 const groupStyles = {
   display: "flex",
   alignItems: "center",
@@ -44,18 +46,28 @@ const formatGroupLabel = (data) => (
   </div>
 );
 
-const Selector = ({ options, setCategory }) => {
+const EventSelector = ({ setCategory }) => {
+
+  const [{events}, dispatch] = useStateValue()
 
   const handleChange = (e) => {
     console.log(e);
     setCategory(e.value);
   }
 
+  // change options to select options
+  const selectOptions = events && events.map((option) => {
+    return {
+      value: option._id,
+      label: option.name,
+    };
+  }) || []
+
   
   return (
     <Select
       // defaultValue={events[0]}
-      options={options}
+      options={selectOptions}
       formatGroupLabel={formatGroupLabel}
       styles={customStyles}
       onChange={(e)=> handleChange(e)}
@@ -66,4 +78,26 @@ const Selector = ({ options, setCategory }) => {
   );
 };
 
-export default Selector;
+export const EventTypeSelector = ({  onChange }) => {
+
+  const selectOptions = [
+    { value: "all", label: "All" },
+    { value: "ongoing", label: "Ongoing" },
+    { value: "closed", label: "Closed" },
+    { value: "upcoming", label: "Upcoming" },
+  ];
+
+  return (
+    <Select
+      // defaultValue={type}
+      options={selectOptions}
+      styles={customStyles}
+      onChange={(e) => onChange(e.value)}
+      placeholder="Select Event Type"
+      id="selectbox"
+      instanceId="selectbox"
+    />
+  );
+};
+
+export default EventSelector;

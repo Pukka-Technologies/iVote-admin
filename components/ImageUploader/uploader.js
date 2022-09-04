@@ -11,7 +11,7 @@ const Uploader = ({setImageURI, setImage}) => {
     }
     // accept only files less than or equal to 1MB
     if (file.size > 1000000) {
-      toast.error("File size must be less than 1MB");
+      toast.error("File size must not excede 1MB");
       return;
     }
     console.log("file", file);
@@ -30,7 +30,7 @@ const Uploader = ({setImageURI, setImage}) => {
             <span className="font-semibold">Click here to upload</span>
           </p>
           <p className="text-xs text-gray-500 dark:text-gray-400">
-            PNG OR JPG (MAX. 400x400px)
+            PNG OR JPG {"(MAX. 400x400px)"}
           </p>
         </div>
         <input
@@ -38,7 +38,7 @@ const Uploader = ({setImageURI, setImage}) => {
           name="imageURI"
           type="file"
           accept="image/*"
-          className="hidden"
+          hidden
           onChange={(e) => onImageChange(e)}
         />
       </label>

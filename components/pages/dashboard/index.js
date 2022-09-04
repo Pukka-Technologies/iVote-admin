@@ -1,11 +1,11 @@
-import Events from "../events";
+import EventsList from "../events/data";
 import Tabs from "./Tabs";
 
 const Dashboard = () => {
   return (
-    <div className="h-full  box-border">
+    <div className="w-full h-full">
       <Tabs />
-      <Events />
+      <EventsList type={"ongoing"} showSelector={false} />
     </div>
   );
 };

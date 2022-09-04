@@ -3,9 +3,9 @@ import ImageUploader from "../../../components/ImageUploader";
 import { RangeDatePicker } from "../../../components/Datepicker";
 import { addEvent } from "../../../utils";
 import { toast } from "react-toastify";
+import { uploadImage } from "../../../firebase";
 import { useState } from "react";
 import { useStateValue } from "../../../context/StateProvider";
-import { uploadImage } from "../../../firebase";
 
 const NewEvent = () => {
   const [{ user }, dispatch] = useStateValue();
@@ -52,6 +52,20 @@ const NewEvent = () => {
         const res = await addEvent(event, user?.access_token);
         if (res && res.success) {
           toast.success("Event added successfully");
+          // reset form
+          setImage(null);
+          setImageURI(null);
+          setName("");
+          setDescription("");
+          setStartDate(new Date());
+          setEndDate(null);
+          
+
+          // update state
+          dispatch({
+            type: "ADD_EVENT",
+            event: res.data
+          })
           setLoading(false);
           return;
         }
@@ -67,7 +81,7 @@ const NewEvent = () => {
   return (
     <form
       encType="multipart/form-data"
-      className="h-full px-2 bg-gray-100 w-full  flex py-10 justify-center gap-x-4"
+      className="h-full px-2 bg-gray-100 w-full  flex py-10 justify-center gap-x-4 font-text"
     >
       <div className="w-1/2 h-72  overflow-x-hidden mx-3 box-border flex items-center justify-center border-2 border-dotted border-gray-300">
         <ImageUploader

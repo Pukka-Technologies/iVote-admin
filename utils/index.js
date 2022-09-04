@@ -1,6 +1,7 @@
 import Axios from "./axios"
 import { toast } from "react-toastify"
 
+
 export const LOGOUT = async (dispatch) => {
     try {
         const {data} = await Axios({
@@ -22,27 +23,77 @@ export const LOGOUT = async (dispatch) => {
     }
 }
 
-export const fetchEvents = async (callback) => {
+export const fetchData = async (route, callback) => {
     try {
         const { data } = await Axios({
             method: "GET",
-            url: "event",
+            url: route,
         })
 
-        if(data.success){
-            // console.log(data.data)
-            callback(data.data)
-            // return data.data
-        }else{
-            return null
-        }
+        callback(data)
 
     } catch (error) {
         console.log(error)
-        return null
     }
 
 }
+
+export const getAllAdmins = async (token, dispatch) => {
+    try {
+        const { data } = await Axios({
+            method: "GET",
+            url: "admin",
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+
+        dispatch({
+            type: "SET_ADMINS",
+            admins: data.data,
+          })
+
+
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const getSession = async (token, callback) => {
+    try {
+        const { data } = await Axios({
+            method: "GET",
+            url: "refresh",
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+
+        // console.log(data)
+        callback(data)
+
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const fetchSession = async (dispatch) => {
+    try {   
+      const { data } = await Axios({
+          method: "GET",
+          url: "refresh",
+      })
+
+     dispatch({
+      type: "SET_USER",
+      user: data.admin
+    })
+    console.log("user persists 🏆")
+
+  } catch (e) {
+       console.log(e)
+  }
+  }
 
 export const addContestant = async (contestant, token) => {
     try{
@@ -55,7 +106,7 @@ export const addContestant = async (contestant, token) => {
             data: contestant
         })
     
-        console.log(data)
+        // console.log(data)
         return data
     }catch(error){
         console.log(error)
@@ -72,6 +123,26 @@ export const addEvent = async (event, token) => {
                 Authorization: `Bearer ${token}`
             },
             data: event
+        })
+    
+        console.log(data)
+        return data
+    }catch(error){
+        console.log(error)
+        return null
+        // toast.error(error.response.data.message)
+    }
+
+}
+export const addAdmin = async (admin, token) => {
+    try{
+        const { data } = await Axios({
+            method: "POST",
+            url: "admin",
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
+            data: admin
         })
     
         console.log(data)
@@ -104,4 +175,26 @@ export const fetchContestants = async (callback) => {
         return null
     }
 
+}
+
+export const getEventStatus = (opening_date, closing_date) => {
+    const today = new Date();
+    const start = new Date(opening_date);
+    const end = new Date(closing_date);
+    let status = "";
+    if (today < start) {
+      status = "upcoming";
+    } else if (today > end) {
+      status = "closed";
+    } else {
+      status = "ongoing";
+    }
+    return status;
+}
+
+export const getEventsByType = (events, type) => {
+    if (type === "all") {
+        return events;
+    }
+    return events.filter((event) => getEventStatus(event.opening_date, event.closing_date) === type);
 }
