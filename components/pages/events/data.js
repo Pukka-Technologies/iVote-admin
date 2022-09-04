@@ -2,20 +2,17 @@
 
 import { AiOutlineDelete, AiOutlineEdit, AiOutlineEye } from "react-icons/ai";
 import React, { useEffect, useState } from "react";
-import { getEventStatus, getEventsByType } from "../../../utils";
+import { getEventStatus, getEventsByType, dateFormater } from "../../../utils";
 import { Empty, Fetching } from "../../Promises";
 import { EventTypeSelector } from "../../EventSelector";
 import Image from "next/image";
 import { useStateValue } from "../../../context/StateProvider";
 import { FiSearch } from "react-icons/fi";
-import Modal from "./modal";
+import { ViewModal } from "./modals";
+
 const EventItem = ({ event }) => {
   const { name, imageURL, opening_date, closing_date, createdAt } = event;
-  const [isOpen, setIsOpen] = useState(false);
-  const formate_date = (date) => {
-    const new_date = new Date(date);
-    return new_date.toDateString();
-  };
+  const [openVIew, setOpenView] = useState(false);
   const status = getEventStatus(opening_date, closing_date);
   return (
     <article className="flex justify-between items-center py-[1em] border-b-2 ">
@@ -32,13 +29,13 @@ const EventItem = ({ event }) => {
         <div className="w-full">
           <h3 className="font-bold">{name}</h3>
           <p className="text-xs text-gray-400">
-            Created at: {formate_date(createdAt)}
+            Created at: {dateFormater(createdAt)}
           </p>
         </div>
       </div>
       <div className="w-[45%] flex items-center justify-center gap-x-4">
         <div className="text-gray-500 flex flex-1 items-center justify-center">
-          {formate_date(opening_date)}
+          {dateFormater(opening_date)}
         </div>
         <div
           className={`${status == "ongoing" && "text-green-600 bg-green-200"}
@@ -49,19 +46,19 @@ const EventItem = ({ event }) => {
           {status}
         </div>
         <div className="text-gray-500 flex flex-1 items-center justify-center">
-          {formate_date(closing_date)}
+          {dateFormater(closing_date)}
         </div>
       </div>
       <div className="flex gap-4 cursor-pointer w-[10%] items-end justify-end">
         <AiOutlineEye
-          onClick={() => setIsOpen(true)}
+          onClick={() => setOpenView(true)}
           className="hover:text-gray-600 hover:scale-125"
         />
         <AiOutlineEdit className="hover:text-gray-600 hover:scale-125" />
         <AiOutlineDelete className="hover:text-gray-600 hover:scale-125" />
       </div>
 
-      <Modal event={event} isOpen={isOpen} setIsOpen={setIsOpen} />
+      <ViewModal data={event} isOpen={openVIew} setIsOpen={setOpenView} />
     </article>
   );
 };
