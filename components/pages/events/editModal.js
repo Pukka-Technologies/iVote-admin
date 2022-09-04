@@ -108,11 +108,19 @@ export const EditModal = ({ setIsOpen, isOpen }) => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-xl transform overflow-hidden rounded-lg bg-white p-6 text-left align-middle shadow-xl transition-all">
+                <Dialog.Panel className="w-full max-w-3xl transform overflow-hidden rounded-lg bg-white p-6 text-left align-middle shadow-xl transition-all">
                   <article className="bg-white rounded-lg overflow-hidden cursor-pointer">
+                    <div
+                      className="flex w-full flex-row-reverse pb-5"
+                      onClick={() => setIsOpen(false)}
+                    >
+                      <button className="items-end bg-green-200 text-green-800 p-2">
+                        <AiOutlineClose />
+                      </button>
+                    </div>
                     <form
                       encType="multipart/form-data"
-                      className="h-full px-2 bg-gray-100 w-full  flex py-10 justify-center gap-x-4 font-text"
+                      className="h-full px-2 w-full flex py-10 justify-center gap-x-8 font-text"
                     >
                       <div className="w-1/2 h-72  overflow-x-hidden mx-3 box-border flex items-center justify-center border-2 border-dotted border-gray-300">
                         <ImageUploader
@@ -152,14 +160,6 @@ export const EditModal = ({ setIsOpen, isOpen }) => {
                         </button>
                       </div>
                     </form>
-                    {/* <div
-                      className="flex w-full flex-row-reverse pb-5"
-                      onClick={() => setIsOpen(false)}
-                    >
-                      <button className="items-end bg-green-200 text-green-800 p-2 rounded-lg">
-                        <AiOutlineClose />
-                      </button>
-                    </div> */}
                   </article>
                 </Dialog.Panel>
               </Transition.Child>

@@ -39,7 +39,7 @@ export const ViewModal = ({ setIsOpen, isOpen, data }) => {
                       className="flex w-full flex-row-reverse pb-5"
                       onClick={() => setIsOpen(false)}
                     >
-                      <button className="items-end bg-green-200 text-green-800 p-2 rounded-lg">
+                      <button className="items-end bg-green-200 text-green-800 p-2">
                         <AiOutlineClose />
                       </button>
                     </div>
