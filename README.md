@@ -1,9 +1,6 @@
----
-Admin Logins:
-username: team
-password: 123456
----
-Super Admin Logins:
-username: super
-password: 123456
----
+## Logins
+
+| usertype | username | password|
+|---------|---------|----------|
+| Admin| team | 123456 |
+|Super Admin| super| 123456 |
