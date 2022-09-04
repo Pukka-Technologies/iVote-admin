@@ -1,8 +1,10 @@
 import { Dialog, Transition } from "@headlessui/react";
+import Image from "next/image";
 import { Fragment, useState } from "react";
+import { dateFormater } from "../../../utils";
 
-export default function Modal({ setIsOpen, isOpen, event }) {
-  const { name, opening_date, closing_date, description, imageURL } = event;
+export const ViewModal = ({ setIsOpen, isOpen, data }) => {
+  const { name, opening_date, closing_date, description, imageURL, createdAt } = data;
   return (
     <>
       <Transition appear show={isOpen} as={Fragment}>
@@ -31,25 +33,28 @@ export default function Modal({ setIsOpen, isOpen, event }) {
                 leaveTo="opacity-0 scale-95"
               >
                 <Dialog.Panel className="w-full max-w-xl transform overflow-hidden rounded-lg bg-white p-6 text-left align-middle shadow-xl transition-all">
-                  <Dialog.Title
-                    as="h3"
-                    className="text-lg font-medium leading-6 text-gray-900"
-                  >
-                    {name}
-                  </Dialog.Title>
-                  <div className="mt-2">
-                    <p className="text-sm text-gray-500">{description} </p>
-                  </div>
-
-                  <div className="mt-4">
-                    <button
-                      type="button"
-                      className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                      onClick={() => setIsOpen(false)}
-                    >
-                      Close Modal
-                    </button>
-                  </div>
+                  <article className="bg-white rounded-lg overflow-hidden cursor-pointer">
+                    <div onClick={() => setIsOpen(false)}>
+                      <Image 
+                        src={imageURL}
+                        width={500}
+                        height={300}
+                        alt="event"
+                      />
+                    </div>
+                    <div className="flex xl:gap-8 gap-4 px-5 py-8">
+                      <div>
+                        <h6 className="text-green-400 font-extrabold text-xs uppercase">
+                          {new Date(opening_date).getMonth() + 1}
+                        </h6>
+                        <h4 className="font-extrabold text-lg">{dateFormater(createdAt)}</h4>
+                      </div>
+                      <div>
+                        <h5 className="font-extrabold text-lg">{name}</h5>
+                        <p className="text-gray-600">{description}</p>
+                      </div>
+                    </div>
+                  </article>
                 </Dialog.Panel>
               </Transition.Child>
             </div>
@@ -58,4 +63,4 @@ export default function Modal({ setIsOpen, isOpen, event }) {
       </Transition>
     </>
   );
-}
+};

@@ -198,3 +198,8 @@ export const getEventsByType = (events, type) => {
     }
     return events.filter((event) => getEventStatus(event.opening_date, event.closing_date) === type);
 }
+
+export const dateFormater = (date) => {
+    const new_date = new Date(date);
+    return new_date.toDateString();
+  };
