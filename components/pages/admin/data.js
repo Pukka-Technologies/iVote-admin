@@ -54,10 +54,13 @@ const AdminList = ({ type }) => {
   }, []);
 
   const [filter, setFilter] = React.useState(admins);
+  if(admins && admins.length === 0) return <Fetching text="Loading data....." /> 
+  if (admins && filter.length === 0)  return <Empty text={"No records found"} />
+  if (!admins) return <Fetching text="Loading..." />
   return (
     <div className="flex flex-col min-h-[80vh] bg-white font-text  mt-6 px-[2em] py-[1em] rounded-lg">
       <div className="border-b-2 pb-[0.8em] flex items-center justify-between px-5">
-        <h1 className="font-bold text-lg">System Administrators</h1>
+        <h1 className="font-bold text-lg">System Administrators {filter.length || 0}</h1>
         <div className="w-[40%] flex items-center justify-center border border-gray-300 rounded-lg py-2 px-4 focus:outline-none focus:border-gray-400">
           <input
             type="text"
@@ -83,9 +86,6 @@ const AdminList = ({ type }) => {
           .map((admin) => {
             return <UserItem key={admin._id} data={admin} />;
           })}
-      {admins && admins.length === 0 && <Fetching text="Loading data....." />}
-      {filter.length === 0 && <Empty text={"No records found"} />}
-      {!admins && <Fetching text="Loading..." />}
     </div>
   );
 };
