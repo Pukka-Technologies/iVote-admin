@@ -45,7 +45,7 @@ export const ViewModal = ({ setIsOpen, isOpen, data }) => {
                     <div className="flex xl:gap-8 gap-4 px-5 py-8">
                       <div>
                         <h6 className="text-green-400 font-extrabold text-xs uppercase">
-                          {new Date(opening_date).getMonth() + 1}
+                          {dateFormater(opening_date).split(" ")[1]}
                         </h6>
                         <h4 className="font-extrabold text-lg">{dateFormater(createdAt)}</h4>
                       </div>
