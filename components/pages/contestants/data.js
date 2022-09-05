@@ -82,7 +82,7 @@ const ContestantsList = () => {
               placeholder="Search"
               className="border-none outline-none w-full"
               onChange={(e) => {
-                const filtered = contestants.filter((contestant) =>
+                const filtered = filteredContestants.filter((contestant) =>
                   contestant.name
                     .toLowerCase()
                     .includes(e.target.value.toLowerCase())
