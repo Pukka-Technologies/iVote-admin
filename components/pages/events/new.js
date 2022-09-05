@@ -13,7 +13,8 @@ const NewEvent = () => {
   const [imageURI, setImageURI] = useState(null);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [startDate, setStartDate] = useState(new Date());
+  const [vote_price, setVote_price] = useState(0);
+  const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -25,6 +26,10 @@ const NewEvent = () => {
     }
     if (!name || !description) {
       toast.error("Fill event name and description");
+      return;
+    }
+    if(vote_price <= 0){
+      toast.error("Vote price must be greater than GH¢0");
       return;
     }
     if (!startDate || !endDate) {
@@ -46,6 +51,7 @@ const NewEvent = () => {
         description,
         opening_date,
         closing_date,
+        vote_price,
         imageURL: downloadURL,
       };
       try {
@@ -57,6 +63,7 @@ const NewEvent = () => {
           setImageURI(null);
           setName("");
           setDescription("");
+          setVote_price(0);
           setStartDate(new Date());
           setEndDate(null);
           
@@ -105,6 +112,13 @@ const NewEvent = () => {
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         ></textarea>
+                <input
+          type="number"
+          placeholder="Price per vote (GH¢)"
+          className="bg-white px-2 py-3 focus:border-none  focus:outline-green-400 w-full"
+          value={vote_price}
+          onChange={(e) => setVote_price(e.target.value)}
+        />
         <RangeDatePicker
           startDate={startDate}
           setStartDate={setStartDate}
