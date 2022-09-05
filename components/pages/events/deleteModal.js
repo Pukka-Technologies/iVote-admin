@@ -1,11 +1,8 @@
 import { Dialog, Transition } from "@headlessui/react";
-import Image from "next/image";
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 import { AiOutlineClose } from "react-icons/ai";
-import { dateFormater } from "../../../utils";
 
-export const ViewModal = ({ setIsOpen, isOpen, data }) => {
-  const { name, opening_date, closing_date, description, imageURL, createdAt } = data;
+export const DeleteModal = ({ setIsOpen, isOpen}) => {
   return (
     <>
       <Transition appear show={isOpen} as={Fragment}>
@@ -43,27 +40,14 @@ export const ViewModal = ({ setIsOpen, isOpen, data }) => {
                         <AiOutlineClose />
                       </button>
                     </div>
-                    <div>
-                      <Image
-                        src={imageURL}
-                        width={500}
-                        height={300}
-                        alt="event"
-                      />
-                    </div>
-                    <div className="flex xl:gap-8 gap-4 px-5 py-8 justify-between">
-                      <div>
-                        <h6 className="text-green-400 font-extrabold text-xs uppercase">
-                          {dateFormater(opening_date).split(" ")[1]}
-                        </h6>
-                        <h4 className="font-extrabold text-lg">
-                          {dateFormater(createdAt)}
-                        </h4>
-                      </div>
-                      <div>
-                        <h5 className="font-extrabold text-lg">{name}</h5>
-                        <p className="text-gray-600">{description}</p>
-                      </div>
+                    <h1 className="text-center">
+                      Are you sure you want to delete?
+                    </h1>
+                    <div className="flex gap-6 justify-center pt-5 pb-5">
+                      <button className="bg-green-500 text-white px-4 py-2">
+                        Yes
+                      </button>
+                      <button className="bg-red-100 px-4 py-2">No</button>
                     </div>
                   </article>
                 </Dialog.Panel>
