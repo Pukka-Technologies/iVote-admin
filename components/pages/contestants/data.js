@@ -51,16 +51,29 @@ const ContestantsList = () => {
   const [selectedEvent, setSelectedEvent] = useState("all");
   const [{ contestants, events }, dispatch] = useStateValue();
   const [filteredContestants, setFilteredContestants] = useState(contestants);
+  const [availableEvents, setAvailableEvents] = useState(filteredContestants);
+  const [search, setSearch] = useState("");
+
+  const handleSearch = (e) => {
+    setSearch(e.target.value);
+    setFilteredContestants(
+      availableEvents.filter((contestant) =>
+        contestant.name.toLowerCase().includes(e.target.value.toLowerCase())
+      )
+    );
+  }
 
   const handleEventChange = (e) => {
     setSelectedEvent(e);
     if (e === "all") {
       setFilteredContestants(contestants);
+      setAvailableEvents(contestants);
     } else {
       const filtered = contestants.filter(
         (contestant) => contestant.event_id === e
       );
       setFilteredContestants(filtered);
+      setAvailableEvents(filtered);
     }
   };
   return (
@@ -81,14 +94,7 @@ const ContestantsList = () => {
               type="text"
               placeholder="Search"
               className="border-none outline-none w-full"
-              onChange={(e) => {
-                const filtered = filteredContestants.filter((contestant) =>
-                  contestant.name
-                    .toLowerCase()
-                    .includes(e.target.value.toLowerCase())
-                );
-                setFilteredContestants(filtered);
-              }}
+              onChange={handleSearch}
             />
              <FiSearch className="" />
           </div>
