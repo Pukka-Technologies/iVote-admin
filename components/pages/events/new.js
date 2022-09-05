@@ -13,7 +13,7 @@ const NewEvent = () => {
   const [imageURI, setImageURI] = useState(null);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [vote_price, setVote_price] = useState(0);
+  const [vote_price, setVote_price] = useState('');
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [loading, setLoading] = useState(false);
