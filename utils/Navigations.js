@@ -9,6 +9,7 @@ import { MdOutlineEmojiEvents, MdPeopleOutline } from "react-icons/md";
 import Admins from "../components/pages/admin";
 import { FiSettings } from "react-icons/fi";
 import { RiAdminLine } from "react-icons/ri";
+import Settings from "../components/pages/settings";
 
 const Navigations = [
   {
@@ -45,6 +46,7 @@ const Navigations = [
   {
     name: "Settings",
     icon: <FiSettings />,
+    component: <Settings />,
     protected: false,
   },
   {
