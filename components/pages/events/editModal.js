@@ -4,27 +4,29 @@ import { AiOutlineClose } from "react-icons/ai";
 import { ImSpinner3 } from "react-icons/im";
 import ImageUploader from "../../../components/ImageUploader";
 import { RangeDatePicker } from "../../../components/Datepicker";
-import { addEvent } from "../../../utils";
+import { addEvent, editEvent } from "../../../utils";
 import { toast } from "react-toastify";
 import { uploadImage } from "../../../firebase";
 import { useStateValue } from "../../../context/StateProvider";
 
-export const EditModal = ({ setIsOpen, isOpen }) => {
+export const EditModal = ({ setIsOpen, isOpen, event_data }) => {
     const [{ user }, dispatch] = useStateValue();
     const [image, setImage] = useState(null);
-    const [imageURI, setImageURI] = useState(null);
-    const [name, setName] = useState("");
-    const [description, setDescription] = useState("");
-    const [startDate, setStartDate] = useState(new Date());
-    const [endDate, setEndDate] = useState(null);
+    const [imageURI, setImageURI] = useState(event_data.imageURL);
+    const [name, setName] = useState(event_data.name);
+    const [description, setDescription] = useState(event_data.description);
+    const [startDate, setStartDate] = useState(new Date(event_data.opening_date));
+    const [endDate, setEndDate] = useState(new Date(event_data.closing_date));
     const [loading, setLoading] = useState(false);
+
+    // const { name, opening_date, closing_date, description, imageURL, createdAt } = data;
 
     const handleSubmit = async (e) => {
       e.preventDefault();
-      if (!image) {
-        toast.error("Upload event photo");
-        return;
-      }
+      // if (!image) {
+      //   toast.error("Upload event photo");
+      //   return;
+      // }
       if (!name || !description) {
         toast.error("Fill event name and description");
         return;
@@ -51,8 +53,9 @@ export const EditModal = ({ setIsOpen, isOpen }) => {
             closing_date,
             imageURL: downloadURL,
           };
+          
           try {
-            const res = await addEvent(event, user?.access_token);
+            const res = await editEvent(event_data._id, user?.access_token, event)
             if (res && res.success) {
               toast.success("Event added successfully");
               // reset form
@@ -65,7 +68,7 @@ export const EditModal = ({ setIsOpen, isOpen }) => {
 
               // update state
               dispatch({
-                type: "ADD_EVENT",
+                type: "UPDATE_EVENT",
                 event: res.data,
               });
               setLoading(false);
@@ -124,6 +127,7 @@ export const EditModal = ({ setIsOpen, isOpen }) => {
                     >
                       <div className="w-1/2 h-72  overflow-x-hidden mx-3 box-border flex items-center justify-center border-2 border-dotted border-gray-300">
                         <ImageUploader
+                        test={event_data.imageURL}
                           image={image}
                           setImage={setImage}
                           setImageURI={setImageURI}
