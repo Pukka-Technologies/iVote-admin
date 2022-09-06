@@ -69,7 +69,7 @@ const EventItem = ({ event }) => {
       </div>
 
       <ViewModal data={event} isOpen={openVIew} setIsOpen={setOpenView} />
-      <EditModal  isOpen={openEdit} setIsOpen={setOpenEdit} />
+      <EditModal  isOpen={openEdit} setIsOpen={setOpenEdit} event_data={event} />
       <DeleteModal isOpen={openDel} setIsOpen={setOpenDel} />
     </article>
   );
