@@ -4,8 +4,18 @@ import { Fragment, useState } from "react";
 import { AiOutlineClose, AiOutlineDelete } from "react-icons/ai";
 import { ImSpinner3 } from "react-icons/im";
 import { MdHowToVote } from "react-icons/md";
+import { useStateValue } from "../../../context/StateProvider";
+import { Delete } from "../../../utils";
 
-const DeleteModal = ({ setIsOpen, isOpen }) => {
+const DeleteModal = ({ setIsOpen, isOpen, id }) => {
+
+  const [{user}, dispatch] = useStateValue()
+
+  const deleteContestant = () => {
+    Delete(user.access_token, "contestant", id)
+    setIsOpen(false)
+  }
+
   return (
     <>
       <Transition appear show={isOpen} as={Fragment}>
@@ -47,7 +57,7 @@ const DeleteModal = ({ setIsOpen, isOpen }) => {
                       Are you sure you want to delete?
                     </h1>
                     <div className="flex gap-6 justify-center pt-5 pb-5">
-                      <button className="bg-green-500 text-white px-4 py-2">
+                      <button onClick={deleteContestant} className="bg-green-500 text-white px-4 py-2">
                         Yes
                       </button>
                       <button className="bg-red-100 px-4 py-2">No</button>
@@ -182,7 +192,7 @@ const DeleteButton = ({ data }) => {
         className="hover:text-gray-600 hover:scale-125"
         onClick={() => setIsOpen(true)}
       />
-      <DeleteModal setIsOpen={setIsOpen} isOpen={isOpen} />
+      <DeleteModal setIsOpen={setIsOpen} isOpen={isOpen} id={data._id} />
     </>
   );
 };
