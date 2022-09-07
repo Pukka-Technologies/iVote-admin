@@ -41,20 +41,12 @@ const Settings = () => {
     if (res && res.success) {
       toast.success("Password changed successfully", {
         position: "top-center",
-        delay: 3000,
         toastId: "passwordChanged",
       });
       setLoading(false);
       return;
-    }else{
-      toast.error("" + res?.message || "An error occured", {
-        position: "top-center",
-        delay: 3000,
-        toastId: "passwordChanged",
-      });
-      setLoading(false);
-      console.log(res);
     }
+    setLoading(false);
 
 
   };
