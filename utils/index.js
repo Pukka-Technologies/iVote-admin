@@ -258,7 +258,33 @@ export const dateFormater = (date) => {
         return data
     }catch(error){
         console.log(error)
-        // toast.error(error.response.data.message)
+        toast.error(error?.response?.data?.message || "An error occured", {
+            position: "top-center",
+            toastId: "passwordChanged",
+          });
+    }
+  }
+
+  export const Delete = async ( token, route, id) => {
+    try{
+        const { data } = await Axios({
+            method: "DELETE",
+            url: `${route}/${id}`,
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
+        })
+    
+        console.log(data)
+        toast.success("Event deleted successfully", {
+            position: "top-center",
+          });
+        return data
+    }catch(error){
+        console.log(error)
+        toast.error(error?.response?.data?.message || "An error occured", {
+            position: "top-center",
+          });
     }
   }
 
