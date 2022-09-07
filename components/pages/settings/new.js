@@ -69,7 +69,6 @@ const Settings = () => {
           <div className="pt-5 relative">
           <div className="flex items-center justify-between my-1 px-2">
             <label htmlFor="current" className="text-gray-400" >Current Password</label>
-            {/* <MdLock className=" text-gray-400" /> */}
             </div>
             <input
               type="password"
@@ -79,18 +78,11 @@ const Settings = () => {
               value={currentPassword}
               onChange={(e) => setCurrentPassword(e.target.value)}
             />
-            {/* <FiEye className="absolute top-16  right-5 text-gray-400 cursor-pointer"
-              onClick={() => {
-                const input = document.getElementById("current");
-                input.type = input.type === "password" ? "text" : "password";
-              }}
-            /> */}
-            {/* <MdLock className="absolute top-2 right-2 text-gray-400" /> */}
+
           </div>
           <div className="pt-5 relative">
             <div className="flex items-center justify-between my-1 px-2">
             <label htmlFor="newPassword" className="text-gray-400" >New Password</label>
-            {/* <MdLock className=" text-gray-400" /> */}
             </div>
             <input
               type="password"
@@ -100,12 +92,10 @@ const Settings = () => {
               value={newPassword}
               onChange={(e) => setNewPassword(e.target.value)}
             />
-            {/* <FiEye className="absolute top-16  right-5 text-gray-400 cursor-pointer" /> */}
           </div>
           <div className="pt-5 relative">
           <div className="flex items-center justify-between my-1 px-2">
             <label htmlFor="confirm" className="text-gray-400" >Confirm Password</label>
-            {/* <MdLock className=" text-gray-400" /> */}
             </div>
             <input
               type="password"
