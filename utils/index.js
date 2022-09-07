@@ -203,3 +203,42 @@ export const dateFormater = (date) => {
     const new_date = new Date(date);
     return new_date.toDateString();
   };
+
+
+  export const editEvent = async (id, token, update) => {
+    try{
+        const { data } = await Axios({
+            method: "PUT",
+            url: `event/${id}`,
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
+            data: update
+        })
+    
+        console.log(data)
+        return data
+    }catch(error){
+        console.log(error)
+        // toast.error(error.response.data.message)
+    }
+  }
+
+  export const changePassword = async ( token, update) => {
+    try{
+        const { data } = await Axios({
+            method: "PATCH",
+            url: `admin/`,
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
+            data: update
+        })
+    
+        console.log(data)
+        return data
+    }catch(error){
+        console.log(error)
+        // toast.error(error.response.data.message)
+    }
+  }
