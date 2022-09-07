@@ -13,7 +13,7 @@ const NewEvent = () => {
   const [imageURI, setImageURI] = useState(null);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [vote_price, setVote_price] = useState('');
+  const [vote_price, setVote_price] = useState("");
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -28,7 +28,7 @@ const NewEvent = () => {
       toast.error("Fill event name and description");
       return;
     }
-    if(vote_price <= 0){
+    if (vote_price <= 0) {
       toast.error("Vote price must be greater than GH¢0");
       return;
     }
@@ -37,53 +37,54 @@ const NewEvent = () => {
       return;
     }
     setLoading(true);
-    
+
     // change date format to mongoDB format
     const opening_date = new Date(startDate).toISOString();
     const closing_date = new Date(endDate).toISOString();
 
-
-
     // upload image
-    const imageURL = await uploadImage(imageURI, "events", async(downloadURL) => {
-      const event = {
-        name,
-        description,
-        opening_date,
-        closing_date,
-        vote_price,
-        imageURL: downloadURL,
-      };
-      try {
-        const res = await addEvent(event, user?.access_token);
-        if (res && res.success) {
-          toast.success("Event added successfully");
-          // reset form
-          setImage(null);
-          setImageURI(null);
-          setName("");
-          setDescription("");
-          setVote_price(0);
-          setStartDate(new Date());
-          setEndDate(null);
-          
+    const imageURL = await uploadImage(
+      imageURI,
+      "events",
+      async (downloadURL) => {
+        const event = {
+          name,
+          description,
+          opening_date,
+          closing_date,
+          vote_price,
+          imageURL: downloadURL,
+        };
+        try {
+          const res = await addEvent(event, user?.access_token);
+          if (res && res.success) {
+            toast.success("Event added successfully");
+            // reset form
+            setImage(null);
+            setImageURI(null);
+            setName("");
+            setDescription("");
+            setVote_price(0);
+            setStartDate(new Date());
+            setEndDate(null);
 
-          // update state
-          dispatch({
-            type: "ADD_EVENT",
-            event: res.data
-          })
+            // update state
+            dispatch({
+              type: "ADD_EVENT",
+              event: res.data,
+            });
+            setLoading(false);
+            return;
+          }
+          toast.error("Something went wrong");
           setLoading(false);
-          return;
+        } catch (err) {
+          toast.error("Something went wrong");
+          setLoading(false);
+          console.log(err);
         }
-        toast.error("Something went wrong");
-        setLoading(false);
-      } catch (err) {
-        toast.error("Something went wrong");
-        setLoading(false);
-        console.log(err);
       }
-    })
+    );
   };
   return (
     <form
@@ -112,7 +113,7 @@ const NewEvent = () => {
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         ></textarea>
-                <input
+        <input
           type="number"
           placeholder="Price per vote (GH¢)"
           className="bg-white px-2 py-3 focus:border-none  focus:outline-green-400 w-full"
