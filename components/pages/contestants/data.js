@@ -10,7 +10,7 @@ import EditButton from "./editModal";
 import  { VoteButton, DeleteButton } from "./deleteModal";
 
 const ContestantData = ({ data }) => {
-  const { imageURL, name, contestant_code, event_id, votes } = data;
+  const { _id, imageURL, name, contestant_code, event_id, votes } = data;
   const [{ events }, dispatch] = useStateValue();
   return (
     <article className="flex justify-between items-center py-[1em] border-b-2">
