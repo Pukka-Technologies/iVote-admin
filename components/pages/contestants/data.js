@@ -1,51 +1,57 @@
 /* eslint-disable @next/next/no-img-element */
 
-import { AiOutlineDelete, AiOutlineEdit, AiOutlineEye } from "react-icons/ai";
-
-import ContestantsData from "../../../utils/contestantsTable";
 import EventSelector from "../../EventSelector";
-import { FiList, FiSearch } from "react-icons/fi";
 import { useState } from "react";
 import { useStateValue } from "../../../context/StateProvider";
 import { Empty, Fetching } from "../../Promises";
+import ViewButton from "./viewModals";
+import { FiSearch } from "react-icons/fi";
+import EditButton from "./editModal";
+import  { VoteButton, DeleteButton } from "./deleteModal";
 
-const ContestantData = ({ imageURL, name, contestant_code, event }) => (
-  <article className="flex justify-between items-center py-[1em] border-b-2">
-    <div className="flex items-center gap-6  w-[35%]">
-      {imageURL && (
-        <img
-          src={imageURL}
-          className="w-16 h-16 rounded-full object-contain"
-          alt="image"
-        />
-      )}
-      <div className="">
-        <h3 className="font-bold">{name}</h3>
-        <p className="text-xs text-gray-400">
-          Code:
-          <span className="text-green-600 mx-2 font-bold">
-            {contestant_code}
-          </span>
-        </p>
-      </div>    </div>
-    <div className="w-[45%] flex items-center justify-center gap-x-4">
-      <div className="text-gray-500 flex flex-1 items-center justify-center">
-        {event}
+const ContestantData = ({ data }) => {
+  const { imageURL, name, contestant_code, event_id, votes } = data;
+  const [{ events }, dispatch] = useStateValue();
+  return (
+    <article className="flex justify-between items-center py-[1em] border-b-2">
+      <div className="flex items-center gap-6  w-[35%]">
+        {imageURL && (
+          <img
+            src={imageURL}
+            className="w-16 h-16 rounded-full object-contain"
+            alt="image"
+          />
+        )}
+        <div className="">
+          <h3 className="font-bold">{name}</h3>
+          <p className="text-xs text-gray-400">
+            Code:
+            <span className="text-green-600 mx-2 font-bold">
+              {contestant_code}
+            </span>
+          </p>
+        </div>{" "}
       </div>
-      {/* <div className={`${status == "Opened"? 'text-green-600 bg-green-200':'text-red-600 bg-red-200'} flex px-2 py-1 rounded-sm items-center justify-center text-xs`}>
-      {status}
-    </div> */}
-      {/* <div className="text-gray-500 flex flex-1 items-center justify-center">
-      {closing_date}
-    </div> */}
-    </div>
-    <div className="flex gap-4 cursor-pointer w-[10%] items-end justify-end">
-      <AiOutlineEye className="hover:text-gray-600 hover:scale-125" />
-      <AiOutlineEdit className="hover:text-gray-600 hover:scale-125" />
-      <AiOutlineDelete className="hover:text-gray-600 hover:scale-125" />
-    </div>
-  </article>
-);
+      <div className="w-[40%]  flex items-center justify-between gap-x-4">
+        <div className="text-gray-500 flex flex-1 items-center justify-start">
+          {
+            // event name
+            events.find((event) => event._id == event_id)?.name
+          }
+        </div>
+        <p>
+          {votes}
+        </p>
+      </div>
+      <div className="flex gap-4 cursor-pointer w-[10%] items-end justify-end">
+        <VoteButton data={data} />
+        <ViewButton data={data} />
+        <EditButton data={data} />
+        <DeleteButton data={data} />
+      </div>
+    </article>
+  );
+};
 
 const ContestantsList = () => {
   const [selectedEvent, setSelectedEvent] = useState("all");
@@ -61,7 +67,7 @@ const ContestantsList = () => {
         contestant.name.toLowerCase().includes(e.target.value.toLowerCase())
       )
     );
-  }
+  };
 
   const handleEventChange = (e) => {
     setSelectedEvent(e);
@@ -83,9 +89,14 @@ const ContestantsList = () => {
           Contestants
           {selectedEvent !== "all" ? (
             <span className="text-xs text-gray-400 ml-3">
-              ({events.find((event) => event._id == selectedEvent)?.name} -  {filteredContestants.length})
+              ({events.find((event) => event._id == selectedEvent)?.name} -{" "}
+              {filteredContestants.length})
             </span>
-          ): ( <span className="text-xs text-gray-400 ml-3">{filteredContestants.length}</span>)}
+          ) : (
+            <span className="text-xs text-gray-400 ml-3">
+              {filteredContestants.length}
+            </span>
+          )}
         </h1>
         {
           // search bar
@@ -96,7 +107,7 @@ const ContestantsList = () => {
               className="border-none outline-none w-full"
               onChange={handleSearch}
             />
-             <FiSearch className="" />
+            <FiSearch className="" />
           </div>
         }
         {/* event selector */}
@@ -112,22 +123,12 @@ const ContestantsList = () => {
             (event) => event._id == person.event_id
           ).name;
 
-          return (
-            <ContestantData
-              imageURL={person.imageURL}
-              name={person.name}
-              contestant_code={person.contestant_code}
-              event={event}
-              key={index}
-            />
-          );
+          return <ContestantData data={person} key={index} />;
         })}
-        {
-          contestants && filteredContestants.length == 0 && <Empty text="No Contestants" />
-        }
-        {
-          !contestants && <Fetching text="Loading..." />
-        }
+      {contestants && filteredContestants.length == 0 && (
+        <Empty text="No Contestants" />
+      )}
+      {!contestants && <Fetching text="Loading..." />}
     </div>
   );
 };
