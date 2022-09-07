@@ -1,6 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
 
-import { AiOutlineDelete, AiOutlineEdit, AiOutlineEye } from "react-icons/ai";
 import React, { useEffect, useState } from "react";
 import { getEventStatus, getEventsByType, dateFormater } from "../../../utils";
 import { Empty, Fetching } from "../../Promises";
@@ -8,15 +7,13 @@ import { EventTypeSelector } from "../../EventSelector";
 import Image from "next/image";
 import { useStateValue } from "../../../context/StateProvider";
 import { FiSearch } from "react-icons/fi";
-import { ViewModal } from "./modals";
-import { EditModal } from "./editModal";
-import { DeleteModal } from "./deleteModal";
+import ViewButton from "./viewModal";
+import EditButton from "./editModal";
+import DeleteButton from "./deleteModal";
+
 
 const EventItem = ({ event }) => {
   const { name, imageURL, opening_date, closing_date, createdAt } = event;
-  const [openVIew, setOpenView] = useState(false);
-  const [openEdit, setOpenEdit] = useState(false);
-  const [openDel, setOpenDel] = useState(false);
   const status = getEventStatus(opening_date, closing_date);
   return (
     <article className="flex justify-between items-center py-[1em] border-b-2 ">
@@ -54,23 +51,11 @@ const EventItem = ({ event }) => {
         </div>
       </div>
       <div className="flex gap-4 cursor-pointer w-[10%] items-end justify-end">
-        <AiOutlineEye
-          onClick={() => setOpenView(true)}
-          className="hover:text-gray-600 hover:scale-125"
-        />
-        <AiOutlineEdit
-          className="hover:text-gray-600 hover:scale-125"
-          onClick={() => setOpenEdit(true)}
-        />
-        <AiOutlineDelete
-          className="hover:text-gray-600 hover:scale-125"
-          onClick={() => setOpenDel(true)}
-        />
-      </div>
+        <ViewButton event={event} />
+        <EditButton event={event} />
+        <DeleteButton event={event} />
 
-      <ViewModal data={event} isOpen={openVIew} setIsOpen={setOpenView} />
-      <EditModal  isOpen={openEdit} setIsOpen={setOpenEdit} event_data={event} />
-      <DeleteModal isOpen={openDel} setIsOpen={setOpenDel} />
+      </div>
     </article>
   );
 };

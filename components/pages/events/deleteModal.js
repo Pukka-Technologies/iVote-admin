@@ -1,8 +1,8 @@
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment } from "react";
-import { AiOutlineClose } from "react-icons/ai";
+import { Fragment, useState } from "react";
+import { AiOutlineClose, AiOutlineDelete } from "react-icons/ai";
 
-export const DeleteModal = ({ setIsOpen, isOpen}) => {
+const DeleteModal = ({ setIsOpen, isOpen}) => {
   return (
     <>
       <Transition appear show={isOpen} as={Fragment}>
@@ -59,3 +59,18 @@ export const DeleteModal = ({ setIsOpen, isOpen}) => {
     </>
   );
 };
+
+const DeleteButton = ({event}) => {
+  const [isOpen, setIsOpen] = useState(false);
+  return (
+    <>
+        <AiOutlineDelete
+          className="hover:text-gray-600 hover:scale-125"
+          onClick={() => setIsOpen(true)}
+        />
+      <DeleteModal isOpen={isOpen} setIsOpen={setIsOpen} />
+    </>
+  );
+}
+
+export default DeleteButton;

@@ -224,6 +224,25 @@ export const dateFormater = (date) => {
     }
   }
 
+  export const editContestant = async (id, token, update) => {
+    try{
+        const { data } = await Axios({
+            method: "PUT",
+            url: `contestant/${id}`,
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
+            data: update
+        })
+    
+        console.log(data)
+        return data
+    }catch(error){
+        console.log(error)
+        // toast.error(error.response.data.message)
+    }
+  }
+
   export const changePassword = async ( token, update) => {
     try{
         const { data } = await Axios({
@@ -242,3 +261,8 @@ export const dateFormater = (date) => {
         // toast.error(error.response.data.message)
     }
   }
+
+export const getEventById = async (id, events) => {
+    return events.find((event) => event._id == id);
+
+}
