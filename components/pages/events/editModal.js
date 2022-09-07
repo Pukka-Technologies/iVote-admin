@@ -1,6 +1,6 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
-import { AiOutlineClose } from "react-icons/ai";
+import { AiOutlineClose, AiOutlineEdit } from "react-icons/ai";
 import { ImSpinner3 } from "react-icons/im";
 import ImageUploader from "../../../components/ImageUploader";
 import { RangeDatePicker } from "../../../components/Datepicker";
@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 import { uploadImage } from "../../../firebase";
 import { useStateValue } from "../../../context/StateProvider";
 
-export const EditModal = ({ setIsOpen, isOpen, event_data }) => {
+const EditEventModal = ({ setIsOpen, isOpen, event_data }) => {
   const [{ user }, dispatch] = useStateValue();
   const [image, setImage] = useState(event_data.imageURL);
   const [imageURI, setImageURI] = useState(null);
@@ -24,7 +24,7 @@ export const EditModal = ({ setIsOpen, isOpen, event_data }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!image) {
+    if (!image && !imageURI) {
       toast.error("Upload event photo");
       return;
     }
@@ -209,3 +209,18 @@ export const EditModal = ({ setIsOpen, isOpen, event_data }) => {
     </>
   );
 };
+
+const EditButton = ({ event }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  return (
+    <>
+        <AiOutlineEdit
+          className="hover:text-gray-600 hover:scale-125"
+          onClick={() => setIsOpen(true)}
+        />
+      <EditEventModal event_data={event} isOpen={isOpen} setIsOpen={setIsOpen} />
+    </>
+  );
+};
+
+export default EditButton;

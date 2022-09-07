@@ -1,11 +1,19 @@
 import { Dialog, Transition } from "@headlessui/react";
 import Image from "next/image";
 import { Fragment, useState } from "react";
-import { AiOutlineClose } from "react-icons/ai";
+import { AiOutlineClose, AiOutlineEye } from "react-icons/ai";
 import { dateFormater } from "../../../utils";
 
-export const ViewModal = ({ setIsOpen, isOpen, data }) => {
-  const { name, opening_date, closing_date, vote_price, description, imageURL, createdAt } = data;
+const ViewModal = ({ setIsOpen, isOpen, event }) => {
+  const {
+    name,
+    opening_date,
+    closing_date,
+    vote_price,
+    description,
+    imageURL,
+    createdAt,
+  } = event;
   return (
     <>
       <Transition appear show={isOpen} as={Fragment}>
@@ -54,10 +62,14 @@ export const ViewModal = ({ setIsOpen, isOpen, data }) => {
                     <div className="flex xl:gap-8 gap-4 px-5 py-8 justify-between">
                       <div>
                         <h6 className="text-green-400 font-extrabold text-xs uppercase">
-                          {dateFormater(opening_date).split(" ")[0] + " " +dateFormater(opening_date).split(" ")[2]}
+                          {dateFormater(opening_date).split(" ")[0] +
+                            " " +
+                            dateFormater(opening_date).split(" ")[2]}
                         </h6>
                         <h4 className="font-extrabold text-lg">
-                          {dateFormater(opening_date).split(" ")[1]+ " " + dateFormater(opening_date).split(" ")[3]}
+                          {dateFormater(opening_date).split(" ")[1] +
+                            " " +
+                            dateFormater(opening_date).split(" ")[3]}
                         </h4>
                       </div>
                       <div>
@@ -68,15 +80,23 @@ export const ViewModal = ({ setIsOpen, isOpen, data }) => {
                     <div className="flex xl:gap-8 gap-y-4 px-5 py-3 justify-between">
                       <div>
                         <h6 className="text-red-400 font-extrabold text-xs uppercase">
-                          {dateFormater(closing_date).split(" ")[0] + " " +dateFormater(closing_date).split(" ")[2]}
+                          {dateFormater(closing_date).split(" ")[0] +
+                            " " +
+                            dateFormater(closing_date).split(" ")[2]}
                         </h6>
                         <h4 className="font-extrabold text-lg">
-                          {dateFormater(closing_date).split(" ")[1]+ " " + dateFormater(closing_date).split(" ")[3]}
+                          {dateFormater(closing_date).split(" ")[1] +
+                            " " +
+                            dateFormater(closing_date).split(" ")[3]}
                         </h4>
                       </div>
                       <div>
-                        <h5 className="font-extrabold text-lg">Cost per vote</h5>
-                        <p className="text-gray-600">GH¢ {vote_price?.toFixed(2) || 1}</p>
+                        <h5 className="font-extrabold text-lg">
+                          Cost per vote
+                        </h5>
+                        <p className="text-gray-600">
+                          GH¢ {vote_price?.toFixed(2) || 1}
+                        </p>
                       </div>
                     </div>
                   </article>
@@ -89,3 +109,18 @@ export const ViewModal = ({ setIsOpen, isOpen, data }) => {
     </>
   );
 };
+
+const ViewButton = ({ event }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  return (
+    <>
+      <AiOutlineEye
+        onClick={() => setIsOpen(true)}
+        className="hover:text-gray-600 hover:scale-125"
+      />
+      <ViewModal setIsOpen={setIsOpen} isOpen={isOpen} event={event} />
+    </>
+  );
+};
+
+export default ViewButton;
