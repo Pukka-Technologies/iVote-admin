@@ -46,7 +46,7 @@ const formatGroupLabel = (data) => (
   </div>
 );
 
-const EventSelector = ({ setCategory }) => {
+const EventSelector = ({ setCategory, category }) => {
 
   const [{events}, dispatch] = useStateValue()
 
@@ -63,15 +63,16 @@ const EventSelector = ({ setCategory }) => {
     };
   }) || []
 
+  const defaultValue = selectOptions.find((option) => option.value == category)
   
   return (
     <Select
-      // defaultValue={events[0]}
+      defaultValue={defaultValue}
       options={selectOptions}
       formatGroupLabel={formatGroupLabel}
       styles={customStyles}
       onChange={(e)=> handleChange(e)}
-      placeholder="Select Category"
+      placeholder="Select Event"
       id="selectbox"
       instanceId="selectbox"
     />
