@@ -4,12 +4,13 @@ import {
   AiOutlineUsergroupAdd,
 } from "react-icons/ai";
 import { Contestants, Dashboard, Events } from "../components/pages";
-import { MdOutlineEmojiEvents, MdPeopleOutline } from "react-icons/md";
+import { MdLeaderboard, MdOutlineEmojiEvents, MdPeopleOutline } from "react-icons/md";
 
 import Admins from "../components/pages/admin";
 import { FiSettings } from "react-icons/fi";
 import { RiAdminLine } from "react-icons/ri";
 import Settings from "../components/pages/settings";
+import Leaderboard from "../components/pages/leaderboard";
 
 const Navigations = [
   {
@@ -41,6 +42,12 @@ const Navigations = [
     name: "Add Contestants",
     icon: <AiOutlineUsergroupAdd />,
     component: <Contestants create />,
+    protected: false,
+  },
+  {
+    name: "Leaderboard",
+    icon: <MdLeaderboard />,
+    component: <Leaderboard />,
     protected: false,
   },
   {
