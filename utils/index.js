@@ -36,6 +36,21 @@ export const fetchData = async (route, callback) => {
     }
 
 }
+export const getAllVotes = async (token, callback) => {
+    try {
+        const { data } = await Axios({
+            method: "GET",
+            url: "vote",
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        })
+
+        callback(data)
+    } catch (error) {
+        console.log(error)
+    }
+}
 
 export const getAllAdmins = async (token, dispatch) => {
     try {
@@ -296,4 +311,13 @@ export const dateFormater = (date) => {
 export const getEventById = async (id, events) => {
     return events.find((event) => event._id == id);
 
+}
+
+export const getContestantVotes =  (votes, id) => {
+    const items =  votes.filter((vote) => vote.contestant_id == id);
+    let total = 0;
+    items.forEach((item) => {
+        total += item.total_votes;
+    })
+    return total;
 }
