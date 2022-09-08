@@ -48,15 +48,6 @@ const Admin = () => {
       }
     });
 
-    user && getAllVotes(user?.access_token, (data) => {
-      if (data.success) {
-        dispatch({
-          type: "SET_VOTES",
-          votes: data.data,
-        });
-        console.log("votes⛳", data.data);
-      }
-    });
   }, []);
 
   return !user ? <Login /> : <Root />;
