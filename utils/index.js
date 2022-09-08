@@ -321,3 +321,19 @@ export const getContestantVotes =  (votes, id) => {
     })
     return total;
 }
+
+export const generateLeaderboard = (contestants, votes) => {
+    const updatedContestants = contestants.map((contestant) => {
+        const vote = votes.find((vote) => vote.contestant_id === contestant._id)
+        if (vote) {
+            contestant.votes += vote.total_votes;
+        }
+        return contestant
+    })
+    return {
+        leaderboard: updatedContestants.sort((a, b) => b.votes - a.votes),
+        total_votes_cast: updatedContestants.reduce((total, contestant) => total + contestant.votes, 0)
+    }
+
+    
+}
