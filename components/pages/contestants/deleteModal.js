@@ -1,18 +1,34 @@
-import { Dialog, Transition } from "@headlessui/react";
-import Image from "next/image";
-import { Fragment, useState } from "react";
 import { AiOutlineClose, AiOutlineDelete } from "react-icons/ai";
-import { ImSpinner3 } from "react-icons/im";
-import { MdHowToVote } from "react-icons/md";
-import { useStateValue } from "../../../context/StateProvider";
+import { Dialog, Transition } from "@headlessui/react";
+import { Fragment, useState } from "react";
+
 import { Delete } from "../../../utils";
+import { ImSpinner3 } from "react-icons/im";
+import Image from "next/image";
+import { MdHowToVote } from "react-icons/md";
+import { toast } from "react-toastify";
+import { useStateValue } from "../../../context/StateProvider";
 
 const DeleteModal = ({ setIsOpen, isOpen, id }) => {
 
   const [{user}, dispatch] = useStateValue()
 
   const deleteContestant = () => {
-    Delete(user.access_token, "contestant", id)
+    Delete(user.access_token, "contestant", id, (data) => {
+
+        // delete contestant from the state
+        dispatch({
+          type: "DELETE_CONTESTANT",
+          contestant: data
+        })
+        toast.success("Contestant deleted successfully", {
+          position: "top-center",
+          autoClose: 3000,
+          toastId: "deleteContestant",
+        });
+        setIsOpen(false)
+      
+    })
     setIsOpen(false)
   }
 

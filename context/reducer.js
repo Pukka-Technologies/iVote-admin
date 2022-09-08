@@ -9,6 +9,7 @@ export const actionTypes = {
     UPDATE_EVENT: 'UPDATE_EVENT',
     DELETE_EVENT: "DELETE_EVENT",
     UPDATE_CONTESTANT: 'UPDATE_CONTESTANT',
+    DELETE_CONTESTANT: 'DELETE_CONTESTANT',
 }
 
 const reducer = (state, action) => {
@@ -56,17 +57,22 @@ const reducer = (state, action) => {
                     event._id === action.event._id ? action.event : event
                 ),
             };
-        case actionTypes.DELETE_EVENT:
-            return {
-                ...state,
-               events: [...state.events, action.event]
-            };
             case actionTypes.UPDATE_CONTESTANT: 
             return {
                 ...state,
                 contestants: state.contestants.map((contestant) =>
                 contestant._id === action.contestant._id ? action.contestant : contestant
                 ),
+            };
+        case actionTypes.DELETE_EVENT:
+            return {
+                ...state,
+                events: state.events.filter((event) => event._id !== action._id),
+            };
+        case actionTypes.DELETE_CONTESTANT:
+            return {
+                ...state,
+                contestants: state.contestants.filter((contestant) => contestant._id !== action._id),
             };
         default:
             return state;

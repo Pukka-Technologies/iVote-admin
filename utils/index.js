@@ -1,7 +1,6 @@
 import Axios from "./axios"
 import { toast } from "react-toastify"
 
-
 export const LOGOUT = async (dispatch) => {
     try {
         const {data} = await Axios({
@@ -265,7 +264,7 @@ export const dateFormater = (date) => {
     }
   }
 
-  export const Delete = async ( token, route, id) => {
+  export const Delete = async ( token, route, id, callback) => {
     try{
         const { data } = await Axios({
             method: "DELETE",
@@ -274,12 +273,18 @@ export const dateFormater = (date) => {
                 Authorization: `Bearer ${token}`
             },
         })
-    
         console.log(data)
-        toast.success("Event deleted successfully", {
-            position: "top-center",
-          });
-        return data
+        if(data.success)
+        {
+            callback(data.data)
+        }else{
+            toast.error("Sorry, an error occured", {
+                position: "top-center",
+                toastId: "delete",
+                
+            })
+        }
+
     }catch(error){
         console.log(error)
         toast.error(error?.response?.data?.message || "An error occured", {

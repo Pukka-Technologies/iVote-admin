@@ -1,16 +1,16 @@
 /* eslint-disable @next/next/no-img-element */
 
-import React, { useEffect, useState } from "react";
-import { getEventStatus, getEventsByType, dateFormater } from "../../../utils";
 import { Empty, Fetching } from "../../Promises";
-import { EventTypeSelector } from "../../EventSelector";
-import Image from "next/image";
-import { useStateValue } from "../../../context/StateProvider";
-import { FiSearch } from "react-icons/fi";
-import ViewButton from "./viewModal";
-import EditButton from "./editModal";
-import DeleteButton from "./deleteModal";
+import React, { useEffect, useState } from "react";
+import { dateFormater, getEventStatus, getEventsByType } from "../../../utils";
 
+import DeleteButton from "./deleteModal";
+import EditButton from "./editModal";
+import { EventTypeSelector } from "../../EventSelector";
+import { FiSearch } from "react-icons/fi";
+import Image from "next/image";
+import ViewButton from "./viewModal";
+import { useStateValue } from "../../../context/StateProvider";
 
 const EventItem = ({ event }) => {
   const { name, imageURL, opening_date, closing_date, createdAt } = event;
@@ -111,4 +111,10 @@ const EventsList = ({ type = "all", showSelector = true }) => {
   );
 };
 
-export default EventsList;
+// rerender the component when the events change
+export default React.memo(EventsList, (prevProps, nextProps) => {
+  return prevProps.events == nextProps.events;
+});
+
+
+// export default EventsList;
