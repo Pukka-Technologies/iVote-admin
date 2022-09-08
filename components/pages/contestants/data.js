@@ -8,10 +8,11 @@ import ViewButton from "./viewModals";
 import { FiSearch } from "react-icons/fi";
 import EditButton from "./editModal";
 import  { VoteButton, DeleteButton } from "./deleteModal";
+import { getContestantVotes } from "../../../utils";
 
 const ContestantData = ({ data }) => {
-  const { _id, imageURL, name, contestant_code, event_id, votes } = data;
-  const [{ events }, dispatch] = useStateValue();
+  const { _id, imageURL, name, contestant_code, event_id } = data;
+  const [{ events, votes }, dispatch] = useStateValue();
   return (
     <article className="flex justify-between items-center py-[1em] border-b-2">
       <div className="flex items-center gap-6  w-[35%]">
@@ -40,7 +41,7 @@ const ContestantData = ({ data }) => {
           }
         </div>
         <p>
-          {votes}
+          {getContestantVotes(votes, _id)}{" "}
         </p>
       </div>
       <div className="flex gap-4 cursor-pointer w-[10%] items-end justify-end">

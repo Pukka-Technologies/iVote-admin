@@ -7,4 +7,5 @@ export const initialState = {
     events: [],
     contestants: [],
     admins: [],
+    votes: []
 }
