@@ -1,8 +1,35 @@
+import { AiOutlineClose, AiOutlineDelete } from "react-icons/ai";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
-import { AiOutlineClose, AiOutlineDelete } from "react-icons/ai";
 
-const DeleteModal = ({ setIsOpen, isOpen}) => {
+import { Delete } from "../../../utils";
+import {toast} from 'react-toastify'
+import { useStateValue } from "../../../context/StateProvider";
+
+const DeleteModal = ({ setIsOpen, isOpen, event }) => {
+  const [{ user }, dispatch] = useStateValue();
+  const [loading, setLoading] = useState(false);
+  const deleteEvent = () => {
+    setLoading(true);
+    Delete(user.access_token, "event", event._id, (data) => {
+      // deletec event from state
+
+        dispatch({
+          type: "DELETE_EVENT",
+          event: event,
+        });
+        toast.success("Event deleted successfully", {
+          position: "top-center",
+          autoClose: 3000,
+          toastId: "deleteEvent",
+        });
+        setLoading(false);
+        setIsOpen(false);
+
+    });
+    setIsOpen(false);
+  };
+
   return (
     <>
       <Transition appear show={isOpen} as={Fragment}>
@@ -34,20 +61,25 @@ const DeleteModal = ({ setIsOpen, isOpen}) => {
                   <article className="bg-white rounded-lg overflow-hidden cursor-pointer font-text">
                     <div
                       className="flex w-full flex-row-reverse pb-5"
-                      onClick={() => setIsOpen(false)}
+                      
                     >
-                      <button className="items-end bg-green-200 text-green-800 p-2">
+                      <div onClick={() => setIsOpen(false)} className="items-end bg-green-200 text-green-800 p-2">
                         <AiOutlineClose />
-                      </button>
+                      </div>
                     </div>
                     <h1 className="text-center">
                       Are you sure you want to delete?
                     </h1>
                     <div className="flex gap-6 justify-center pt-5 pb-5">
-                      <button className="bg-green-500 text-white px-4 py-2">
-                        Yes
+                      <button
+                        onClick={deleteEvent}
+                        className="bg-green-500 text-white px-4 py-2 outline-none focus:border-none"
+                      >
+                        {
+                            loading ? "Deleting..." : "Yes"
+                        }
                       </button>
-                      <button className="bg-red-100 px-4 py-2">No</button>
+                      <button onClick={() => setIsOpen(false)} className="bg-red-100 px-4 py-2">No</button>
                     </div>
                   </article>
                 </Dialog.Panel>
@@ -60,17 +92,20 @@ const DeleteModal = ({ setIsOpen, isOpen}) => {
   );
 };
 
-const DeleteButton = ({event}) => {
+const DeleteButton = ({ event }) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <>
-        <AiOutlineDelete
-          className="hover:text-gray-600 hover:scale-125"
-          onClick={() => setIsOpen(true)}
-        />
-      <DeleteModal isOpen={isOpen} setIsOpen={setIsOpen} />
+      <AiOutlineDelete
+        className="hover:text-gray-600 hover:scale-125"
+        onClick={() => setIsOpen(true)}
+      />
+      <DeleteModal event={event} isOpen={isOpen} setIsOpen={setIsOpen} />
     </>
   );
-}
+};
 
 export default DeleteButton;
+
+
+  

@@ -1,7 +1,6 @@
 import Axios from "./axios"
 import { toast } from "react-toastify"
 
-
 export const LOGOUT = async (dispatch) => {
     try {
         const {data} = await Axios({
@@ -258,7 +257,39 @@ export const dateFormater = (date) => {
         return data
     }catch(error){
         console.log(error)
-        // toast.error(error.response.data.message)
+        toast.error(error?.response?.data?.message || "An error occured", {
+            position: "top-center",
+            toastId: "passwordChanged",
+          });
+    }
+  }
+
+  export const Delete = async ( token, route, id, callback) => {
+    try{
+        const { data } = await Axios({
+            method: "DELETE",
+            url: `${route}/${id}`,
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
+        })
+        console.log(data)
+        if(data.success)
+        {
+            callback(data.data)
+        }else{
+            toast.error("Sorry, an error occured", {
+                position: "top-center",
+                toastId: "delete",
+                
+            })
+        }
+
+    }catch(error){
+        console.log(error)
+        toast.error(error?.response?.data?.message || "An error occured", {
+            position: "top-center",
+          });
     }
   }
 

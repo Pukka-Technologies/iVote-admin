@@ -1,11 +1,37 @@
-import { Dialog, Transition } from "@headlessui/react";
-import Image from "next/image";
-import { Fragment, useState } from "react";
 import { AiOutlineClose, AiOutlineDelete } from "react-icons/ai";
-import { ImSpinner3 } from "react-icons/im";
-import { MdHowToVote } from "react-icons/md";
+import { Dialog, Transition } from "@headlessui/react";
+import { Fragment, useState } from "react";
 
-const DeleteModal = ({ setIsOpen, isOpen }) => {
+import { Delete } from "../../../utils";
+import { ImSpinner3 } from "react-icons/im";
+import Image from "next/image";
+import { MdHowToVote } from "react-icons/md";
+import { toast } from "react-toastify";
+import { useStateValue } from "../../../context/StateProvider";
+
+const DeleteModal = ({ setIsOpen, isOpen, id }) => {
+
+  const [{user}, dispatch] = useStateValue()
+
+  const deleteContestant = () => {
+    Delete(user.access_token, "contestant", id, (data) => {
+
+        // delete contestant from the state
+        dispatch({
+          type: "DELETE_CONTESTANT",
+          contestant: data
+        })
+        toast.success("Contestant deleted successfully", {
+          position: "top-center",
+          autoClose: 3000,
+          toastId: "deleteContestant",
+        });
+        setIsOpen(false)
+      
+    })
+    setIsOpen(false)
+  }
+
   return (
     <>
       <Transition appear show={isOpen} as={Fragment}>
@@ -47,7 +73,7 @@ const DeleteModal = ({ setIsOpen, isOpen }) => {
                       Are you sure you want to delete?
                     </h1>
                     <div className="flex gap-6 justify-center pt-5 pb-5">
-                      <button className="bg-green-500 text-white px-4 py-2">
+                      <button onClick={deleteContestant} className="bg-green-500 text-white px-4 py-2">
                         Yes
                       </button>
                       <button className="bg-red-100 px-4 py-2">No</button>
@@ -182,7 +208,7 @@ const DeleteButton = ({ data }) => {
         className="hover:text-gray-600 hover:scale-125"
         onClick={() => setIsOpen(true)}
       />
-      <DeleteModal setIsOpen={setIsOpen} isOpen={isOpen} />
+      <DeleteModal setIsOpen={setIsOpen} isOpen={isOpen} id={data._id} />
     </>
   );
 };
