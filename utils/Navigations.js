@@ -5,6 +5,7 @@ import {
 } from "react-icons/ai";
 import { Contestants, Dashboard, Events } from "../components/pages";
 import { MdLeaderboard, MdOutlineEmojiEvents, MdPeopleOutline } from "react-icons/md";
+import {BsGraphUp} from "react-icons/bs"	
 
 import Admins from "../components/pages/admin";
 import { FiSettings } from "react-icons/fi";
@@ -46,7 +47,7 @@ const Navigations = [
   },
   {
     name: "Leaderboard",
-    icon: <MdLeaderboard />,
+    icon: <BsGraphUp />,
     component: <Leaderboard />,
     protected: false,
   },
