@@ -11,6 +11,7 @@ export const actionTypes = {
   UPDATE_CONTESTANT: "UPDATE_CONTESTANT",
   DELETE_CONTESTANT: "DELETE_CONTESTANT",
   SET_VOTES: "SET_VOTES",
+  ADD_VOTE: "ADD_VOTE",
 };
 
 const reducer = (state, action) => {
@@ -83,6 +84,11 @@ const reducer = (state, action) => {
       return {
         ...state,
         votes: action.votes,
+      };
+    case actionTypes.ADD_VOTE:
+      return {
+        ...state,
+        votes: [...state.votes, action.vote],
       };
     default:
       return state;

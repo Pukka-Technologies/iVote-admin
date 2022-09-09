@@ -2,7 +2,7 @@ import { AiOutlineClose, AiOutlineDelete } from "react-icons/ai";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
 
-import { Delete } from "../../../utils";
+import { Delete, ManualVote } from "../../../utils";
 import { ImSpinner3 } from "react-icons/im";
 import Image from "next/image";
 import { MdHowToVote } from "react-icons/md";
@@ -91,17 +91,67 @@ const DeleteModal = ({ setIsOpen, isOpen, id }) => {
 const VoteModal = ({ setIsOpen, isOpen, data }) => {
   const [loading, setLoading] = useState(false);
   const [vote, setVote] = useState("");
+  const [{events, user}, dispatch] = useStateValue()
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // setLoading(true);
-    // const { data } = await addVote(vote, token);
-    // if (data) {
-    //   toast.success(data.message);
-    //   setLoading(false);
-    //   setIsOpen(false);
-    // }
-    toast.info("This feature is not yet available");
+    setLoading(true);
+    if(vote === ""){
+      toast.error("Please enter a vote", {
+        position: "top-center",
+        autoClose: 3000,
+        toastId: "voteError",
+      });
+      setLoading(false);
+      return
+    }
+    // check if note is a number
+    if(isNaN(vote)){
+      toast.error("Vote must be a number", {
+        position: "top-center",
+        autoClose: 3000,
+        toastId: "voteError",
+      });
+      setLoading(false);
+      return
+    }
+    // check if vote is greater than 0 and has no decimal
+    if(vote <= 0 || vote % 1 !== 0){  
+      toast.error("Vote must be a whole number greater than 0", {
+        position: "top-center",
+        autoClose: 3000,
+        toastId: "voteError",
+      });
+      setLoading(false);
+      return
+
+    }
+    const votingData = {
+      total_votes: vote,
+      event_id: data.event_id,
+      contestant_id: data._id,
+      cost : (events.find(event => event._id === data.event_id)?.vote_price || 1) * vote,
+      type: "manual"
+    }
+    await ManualVote(user?.access_token, votingData, (data) => {
+      if (data.success) {
+        dispatch({
+          type: "ADD_VOTE",
+          vote: data.vote
+        })
+        toast.success("Vote added successfully", {
+          position: "top-center",
+          autoClose: 3000,
+          toastId: "addVote",
+        })
+        setLoading(false);
+        // setIsOpen(false);
+        // clear the input
+        setVote("");
+      }
+    });
+
+    // toast.info("This feature is not yet available");
   };
   return (
     <>
@@ -134,12 +184,11 @@ const VoteModal = ({ setIsOpen, isOpen, data }) => {
                   <article className="rounded-lg overflow-hidden cursor-pointer font-text">
                     <div
                       className="flex w-full justify-between items-center  pb-5"
-                      onClick={() => setIsOpen(false)}
                     >
                       <h2 className="flex items-center justify-center gap-x-5 text-xl text-red-500">
                         Creating Manual Vote <MdHowToVote />
                       </h2>
-                      <button className="items-end bg-green-200 text-green-800 p-2">
+                      <button                       onClick={() => setIsOpen(false)} className="items-end bg-green-200 outline-none text-green-800 p-2">
                         <AiOutlineClose />
                       </button>
                     </div>
