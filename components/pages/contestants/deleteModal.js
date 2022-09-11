@@ -131,13 +131,12 @@ const VoteModal = ({ setIsOpen, isOpen, data }) => {
       event_id: data.event_id,
       contestant_id: data._id,
       cost : (events.find(event => event._id === data.event_id)?.vote_price || 1) * vote,
-      type: "manual"
     }
     await ManualVote(user?.access_token, votingData, (data) => {
       if (data.success) {
         dispatch({
           type: "ADD_VOTE",
-          vote: data.vote
+          vote: data.data
         })
         toast.success("Vote added successfully", {
           position: "top-center",
@@ -145,8 +144,6 @@ const VoteModal = ({ setIsOpen, isOpen, data }) => {
           toastId: "addVote",
         })
         setLoading(false);
-        // setIsOpen(false);
-        // clear the input
         setVote("");
       }
     });
