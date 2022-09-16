@@ -1,7 +1,9 @@
-import { Dialog, Transition } from "@headlessui/react";
-import Image from "next/image";
-import { Fragment, useState } from "react";
 import { AiOutlineClose, AiOutlineEye } from "react-icons/ai";
+import { MdOutlineRemoveModerator } from "react-icons/md";
+import { Dialog, Transition } from "@headlessui/react";
+import { Fragment, useState } from "react";
+
+import Image from "next/image";
 
 const ViewModal = ({ setIsOpen, isOpen, data }) => {
   const { name, contestant_code, imageURL, votes, createdAt } = data;
@@ -34,11 +36,11 @@ const ViewModal = ({ setIsOpen, isOpen, data }) => {
               >
                 <Dialog.Panel className="w-full max-w-3xl transform overflow-hidden rounded-lg bg-white p-6 text-left align-middle shadow-xl transition-all">
                   <article className="bg-white rounded-lg overflow-hidden cursor-pointer font-text">
-                    <div
-                      className="flex w-full flex-row-reverse pb-5"
-                      onClick={() => setIsOpen(false)}
-                    >
-                      <button className="items-end bg-green-200 text-green-800 p-2">
+                    <div className="flex w-full flex-row-reverse pb-5">
+                      <button
+                        onClick={() => setIsOpen(false)}
+                        className="items-end bg-green-200 text-green-800 p-2 outline-none"
+                      >
                         <AiOutlineClose />
                       </button>
                     </div>
@@ -57,16 +59,30 @@ const ViewModal = ({ setIsOpen, isOpen, data }) => {
                         </div>
                         <div className="flex xl:gap-8 gap-y-4 px-5 py-3 justify-between">
                           <div>
-                            <h6 className="text-red-400 font-extrabold text-xs uppercase">Code:</h6>
-                            <h4 className="font-extrabold text-lg">{contestant_code}</h4>
+                            <h6 className="text-red-400 font-extrabold text-xs uppercase">
+                              Code:
+                            </h6>
+                            <h4 className="font-extrabold text-lg">
+                              {contestant_code}
+                            </h4>
                           </div>
                         </div>
-                        <div className="flex xl:gap-8 gap-4 px-5 py-8 justify-between">
-                          <div>
-                            <h6 className="text-green-400 font-extrabold text-xs uppercase">
-                              Votes
-                            </h6>
-                            <h4 className="font-extrabold text-lg">{votes}</h4>
+                        <div className="flex items-center justify-between px-2">
+                          <div className="flex xl:gap-8 gap-4 px-5 py-8 justify-between">
+                            <div>
+                              <h6 className="text-green-400 font-extrabold text-xs uppercase">
+                                Votes
+                              </h6>
+                              <h4 className="font-extrabold text-lg">
+                                {votes}
+                              </h4>
+                            </div>
+                          </div>
+                          <div className="flex xl:gap-8 gap-4 px-5 py-8 justify-center">
+                            <button className="flex items-center gap-x-2 bg-red-400 text-white px-4 py-2 rounded cursor-pointer hover:bg-red-500">
+                              <MdOutlineRemoveModerator />
+                              EVICT
+                            </button>
                           </div>
                         </div>
                       </div>
