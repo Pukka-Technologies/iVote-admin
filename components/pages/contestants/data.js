@@ -74,13 +74,13 @@ const ContestantsList = () => {
     setFilteredContestants(
       availableEvents.filter(
         (contestant) =>
-          (contestant.name
+          contestant.name
             .toLowerCase()
             .includes(e.target.value.toLowerCase()) ||
-            contestant.contestant_code
-              .toLowerCase()
-              .includes(e.target.value.toLowerCase())) &&
-          contestant.is_evicted === false
+          contestant.contestant_code
+            .toLowerCase()
+            .includes(e.target.value.toLowerCase())
+        // && contestant.is_evicted === false
       )
     );
   };
