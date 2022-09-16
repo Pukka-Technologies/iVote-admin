@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 
 import EventSelector from "../../EventSelector";
-import { useState } from "react";
+import React, { useState } from "react";
 import { useStateValue } from "../../../context/StateProvider";
 import { Empty, Fetching } from "../../Promises";
 import ViewButton from "./viewModals";
@@ -144,4 +144,7 @@ const ContestantsList = () => {
   );
 };
 
-export default ContestantsList;
+// export default ContestantsList;
+export default React.memo(ContestantsList, (prevProps, nextProps) => {
+  return prevProps.contestants == nextProps.contestants;
+});
