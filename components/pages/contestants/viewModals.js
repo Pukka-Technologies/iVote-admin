@@ -1,9 +1,66 @@
 import { AiOutlineClose, AiOutlineEye } from "react-icons/ai";
-import { MdOutlineRemoveModerator } from "react-icons/md";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
 
 import Image from "next/image";
+import { MdOutlineRemoveModerator } from "react-icons/md";
+import { evictContestant } from "../../../utils";
+import { toast } from "react-toastify";
+import { useStateValue } from "../../../context/StateProvider";
+
+const EvictButton = ({ data }) => {
+  const { _id, is_evicted } = data;
+  const [evicted, setEvicted] = useState(is_evicted);
+  const actionData = {
+    id: _id,
+    status: !is_evicted,
+  };
+  const [{ user }, dispatch] = useStateValue();
+  const [loading, setLoading] = useState(false);
+  const handleEviction = async () => {
+    setLoading(true);
+    await evictContestant(user?.access_token, actionData, (data) => {
+      if (data.success) {
+        dispatch({
+          type: "UPDATE_CONTESTANT",
+          contestant: data.data,
+        });
+        setEvicted(data.data.is_evicted);
+        data.message = data.data.is_evicted? "Contestant evicted successfully" : "Contestant reinstated successfully";
+        toast.success(data?.message || "Contestant evicted successfully", {
+          position: "top-center",
+          autoClose: 3000,
+          toastId: "evictContestant",
+        });
+      }
+      setLoading(false);
+    });
+  };
+  return (
+    <>
+      <button
+        disabled={loading}
+        onClick={handleEviction}
+        className={`flex items-center gap-x-2 
+        ${
+          !evicted
+            ? "hover:bg-red-500 bg-red-400"
+            : "hover:bg-green-500 bg-green-400"
+        }
+      text-white px-4 py-2 rounded cursor-pointer `}
+      >
+        {loading ? (
+          <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+        ) : (
+          <>
+            <MdOutlineRemoveModerator />
+            {evicted ? "Un-Evict" : "Evict"}
+          </>
+        )}
+      </button>
+    </>
+  );
+};
 
 const ViewModal = ({ setIsOpen, isOpen, data }) => {
   const { name, contestant_code, imageURL, votes, createdAt } = data;
@@ -79,10 +136,7 @@ const ViewModal = ({ setIsOpen, isOpen, data }) => {
                             </div>
                           </div>
                           <div className="flex xl:gap-8 gap-4 px-5 py-8 justify-center">
-                            <button className="flex items-center gap-x-2 bg-red-400 text-white px-4 py-2 rounded cursor-pointer hover:bg-red-500">
-                              <MdOutlineRemoveModerator />
-                              EVICT
-                            </button>
+                            <EvictButton data={data} />
                           </div>
                         </div>
                       </div>

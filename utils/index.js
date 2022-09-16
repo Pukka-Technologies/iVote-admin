@@ -366,3 +366,34 @@ export const ManualVote = async (token, voteData, callback) => {
     });
   }
 };
+
+export const evictContestant = async (token, data, callback) => {
+  const {id, status} = data;
+  console.log("evicting contestant", data);
+  if (!token) {
+    toast.error("You are not logged in", {
+      position: "top-center",
+      toastId: "evictContestant",
+    });
+    return;
+  }
+  try {
+    const { data } = await Axios({
+      method: "PUT",
+      url: `contestant/evict/${id}?status=${status}`,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      data,
+    });
+
+    console.log(data);
+    callback(data);
+  } catch (error) {
+    console.log(error);
+    toast.error(error?.response?.data?.message || "An error occured", {
+      position: "top-center",
+      toastId: "evictContestant",
+    });
+  }
+}
