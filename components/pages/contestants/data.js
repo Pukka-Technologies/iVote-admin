@@ -7,12 +7,13 @@ import { Empty, Fetching } from "../../Promises";
 import ViewButton from "./viewModals";
 import { FiSearch } from "react-icons/fi";
 import EditButton from "./editModal";
-import  { VoteButton, DeleteButton } from "./deleteModal";
+import { VoteButton, DeleteButton } from "./deleteModal";
 import { getContestantVotes } from "../../../utils";
 
 const ContestantData = ({ data }) => {
   const { _id, imageURL, name, contestant_code, event_id } = data;
   const [{ events, votes }, dispatch] = useStateValue();
+  const status = data.is_evicted ? "Evicted" : "Active";
   return (
     <article className="flex justify-between items-center py-[1em] border-b-2">
       <div className="flex items-center gap-6  w-[35%]">
@@ -31,7 +32,7 @@ const ContestantData = ({ data }) => {
               {contestant_code}
             </span>
           </p>
-        </div>{" "}
+        </div>
       </div>
       <div className="w-[40%]  flex items-center justify-between gap-x-4">
         <div className="text-gray-500 flex flex-1 items-center justify-start">
@@ -40,9 +41,16 @@ const ContestantData = ({ data }) => {
             events.find((event) => event._id == event_id)?.name
           }
         </div>
-        <p>
-          {getContestantVotes(votes, _id)}{" "}
-        </p>
+        {status === "Evicted" && (
+          <div
+            className={`${status == "Active" && "text-green-600 bg-green-200"}
+      ${status == "Evicted" && "text-red-600 bg-red-200"}
+      flex px-2 py-1 rounded-sm items-center justify-center text-xs mr-4`}
+          >
+            {status}
+          </div>
+        )}
+        <p>{getContestantVotes(votes, _id)}</p>
       </div>
       <div className="flex gap-4 cursor-pointer w-[10%] items-end justify-end">
         <VoteButton data={data} />
@@ -64,8 +72,15 @@ const ContestantsList = () => {
   const handleSearch = (e) => {
     setSearch(e.target.value);
     setFilteredContestants(
-      availableEvents.filter((contestant) =>
-        contestant.name.toLowerCase().includes(e.target.value.toLowerCase())
+      availableEvents.filter(
+        (contestant) =>
+          (contestant.name
+            .toLowerCase()
+            .includes(e.target.value.toLowerCase()) ||
+            contestant.contestant_code
+              .toLowerCase()
+              .includes(e.target.value.toLowerCase())) &&
+          contestant.is_evicted === false
       )
     );
   };
@@ -119,11 +134,6 @@ const ContestantsList = () => {
       {events &&
         contestants &&
         filteredContestants.map((person, index) => {
-          // get event name from events by id
-          const event = events.find(
-            (event) => event._id == person.event_id
-          ).name;
-
           return <ContestantData data={person} key={index} />;
         })}
       {contestants && filteredContestants.length == 0 && (
