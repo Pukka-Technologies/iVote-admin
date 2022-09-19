@@ -1,14 +1,15 @@
 /* eslint-disable @next/next/no-img-element */
 
-import EventSelector from "../../EventSelector";
-import React, { useState } from "react";
-import { useStateValue } from "../../../context/StateProvider";
+import { DeleteButton, VoteButton } from "./deleteModal";
 import { Empty, Fetching } from "../../Promises";
-import ViewButton from "./viewModals";
-import { FiSearch } from "react-icons/fi";
+import React, { useState } from "react";
+
 import EditButton from "./editModal";
-import { VoteButton, DeleteButton } from "./deleteModal";
+import EventSelector from "../../EventSelector";
+import { FiSearch } from "react-icons/fi";
+import ViewButton from "./viewModals";
 import { getContestantVotes } from "../../../utils";
+import { useStateValue } from "../../../context/StateProvider";
 
 const ContestantData = ({ data }) => {
   const { _id, imageURL, name, contestant_code, event_id } = data;
@@ -43,9 +44,8 @@ const ContestantData = ({ data }) => {
         </div>
         {status === "Evicted" && (
           <div
-            className={`${status == "Active" && "text-green-600 bg-green-200"}
-      ${status == "Evicted" && "text-red-600 bg-red-200"}
-      flex px-2 py-1 rounded-sm items-center justify-center text-xs mr-4`}
+            className={`${status == "Evicted" && "text-red-600 bg-red-200"}
+      flex px-2 py-1 rounded-full items-center justify-center text-xs mr-4`}
           >
             {status}
           </div>
@@ -53,7 +53,7 @@ const ContestantData = ({ data }) => {
         <p>{getContestantVotes(votes, _id)}</p>
       </div>
       <div className="flex gap-4 cursor-pointer w-[10%] items-end justify-end">
-        <VoteButton data={data} />
+        {!data.is_evicted && <VoteButton data={data} />}
         <ViewButton data={data} />
         <EditButton data={data} />
         <DeleteButton data={data} />
