@@ -3,21 +3,39 @@ import { toast } from "react-toastify";
 
 export const LOGOUT = async (dispatch) => {
   try {
-    const { data } = await Axios({
+    
+    toast.promise(Axios({
       url: "logout",
       method: "GET",
-    });
-    if (data.success) {
+    }), {
+      pending: "Logging out...",
+      success: "Logged out successfully",
+      // error: "Error logging out"
+    }, {
+      toastId: "logout",
+      position: "top-center",
+      autoClose: 3000,
+    }).then(({data}) => {
+
       dispatch({
         type: "SET_USER",
         user: null,
       });
-      toast.success(data.message);
-    } else {
-      toast.error(data.message);
-    }
+
+    }).catch((err) => {
+      console.log(err);
+      toast.error(err?.response?.data?.message || "Sorry something went wrong. Try again", {
+        toastId: "logout",
+        position: "top-center",
+        autoClose: 3000,
+      });
+    })
   } catch (error) {
-    toast.error(error.response.data.message);
+    toast.error(error?.response?.data?.message || "Sorry something went wrong. Try again", {
+      toastId: "logout",
+      position: "top-center",
+      autoClose: 3000,
+    });
   }
 };
 
