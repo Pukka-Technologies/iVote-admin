@@ -9,7 +9,7 @@ import {
 } from "../utils/index.js";
 import { useEffect, useState } from "react";
 import { useStateValue } from "../context/StateProvider.js";
-import Preloader from "../components/Preloader.jsx";
+import Preloader from "../components/Preloader";
 
 const Admin = () => {
   const [{ user }, dispatch] = useStateValue();
