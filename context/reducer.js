@@ -91,7 +91,9 @@ const reducer = (state, action) => {
         votes: [...state.votes, action.vote],
       };
     default:
-      return state;
+      return {
+        ...state,
+      };
   }
 };
 
