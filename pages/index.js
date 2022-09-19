@@ -7,11 +7,14 @@ import {
   getAllAdmins,
   getAllVotes,
 } from "../utils/index.js";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useStateValue } from "../context/StateProvider.js";
+import Preloader from "../components/Preloader.jsx";
 
 const Admin = () => {
   const [{ user }, dispatch] = useStateValue();
+
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     fetchSession(dispatch);
@@ -50,7 +53,18 @@ const Admin = () => {
 
   }, []);
 
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false)
+    }, 1500)
+}, []);
+
+  if(loading) return <Preloader />
+
   return !user ? <Login /> : <Root />;
 };
 
 export default Admin;
+
+
+ 
