@@ -1,8 +1,8 @@
 import { AiOutlineClose, AiOutlineDelete } from "react-icons/ai";
+import { Delete, ManualVote } from "../../../utils";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
 
-import { Delete, ManualVote } from "../../../utils";
 import { ImSpinner3 } from "react-icons/im";
 import Image from "next/image";
 import { MdHowToVote } from "react-icons/md";
@@ -63,9 +63,8 @@ const DeleteModal = ({ setIsOpen, isOpen, id }) => {
                   <article className="bg-white rounded-lg overflow-hidden cursor-pointer font-text">
                     <div
                       className="flex w-full flex-row-reverse pb-5"
-                      onClick={() => setIsOpen(false)}
                     >
-                      <button className="items-end bg-green-200 text-green-800 p-2">
+                      <button onClick={() => setIsOpen(false)} className="items-end hover:bg-green-300 bg-green-200 text-green-800 p-2">
                         <AiOutlineClose />
                       </button>
                     </div>
@@ -185,7 +184,7 @@ const VoteModal = ({ setIsOpen, isOpen, data }) => {
                       <h2 className="flex items-center justify-center gap-x-5 text-xl text-red-500">
                         Creating Manual Vote <MdHowToVote />
                       </h2>
-                      <button                       onClick={() => setIsOpen(false)} className="items-end bg-green-200 outline-none text-green-800 p-2">
+                      <button onClick={() => setIsOpen(false)} className="items-end bg-green-200 hover:bg-green-300 outline-none text-green-800 p-2">
                         <AiOutlineClose />
                       </button>
                     </div>
