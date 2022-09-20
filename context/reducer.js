@@ -15,7 +15,7 @@ export const actionTypes = {
 };
 
 const reducer = (state, action) => {
-  // console.log(action)
+  console.log(action)
   switch (action.type) {
     case actionTypes.SET_USER:
       return {
@@ -71,14 +71,16 @@ const reducer = (state, action) => {
     case actionTypes.DELETE_EVENT:
       return {
         ...state,
-        events: state.events.filter((event) => event._id !== action._id),
+        events: [
+          ...state.events.filter((event) => event._id !== action.event._id),
+        ]
       };
     case actionTypes.DELETE_CONTESTANT:
       return {
         ...state,
-        contestants: state.contestants.filter(
-          (contestant) => contestant._id !== action._id
-        ),
+        contestants: [...state.contestants.filter(
+          (contestant) => contestant._id !== action.contestant._id
+        ),]
       };
     case actionTypes.SET_VOTES:
       return {

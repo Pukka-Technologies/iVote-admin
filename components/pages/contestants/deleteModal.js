@@ -17,6 +17,7 @@ const DeleteModal = ({ setIsOpen, isOpen, id }) => {
     Delete(user.access_token, "contestant", id, (data) => {
 
         // delete contestant from the state
+        
         dispatch({
           type: "DELETE_CONTESTANT",
           contestant: data

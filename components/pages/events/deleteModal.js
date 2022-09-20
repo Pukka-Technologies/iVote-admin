@@ -7,27 +7,31 @@ import {toast} from 'react-toastify'
 import { useStateValue } from "../../../context/StateProvider";
 
 const DeleteModal = ({ setIsOpen, isOpen, event }) => {
-  const [{ user }, dispatch] = useStateValue();
+  const [{ user, events }, dispatch] = useStateValue();
   const [loading, setLoading] = useState(false);
   const deleteEvent = () => {
     setLoading(true);
-    Delete(user.access_token, "event", event._id, (data) => {
+    Delete(user?.access_token, "event", event._id, (data) => {
       // deletec event from state
 
-        dispatch({
-          type: "DELETE_EVENT",
-          event: event,
-        });
-        toast.success("Event deleted successfully", {
-          position: "top-center",
-          autoClose: 3000,
-          toastId: "deleteEvent",
-        });
-        setLoading(false);
-        setIsOpen(false);
+      //  dispatch delete event from state
 
-    });
-    setIsOpen(false);
+      dispatch({
+        type: "DELETE_EVENT",
+        event
+      });
+
+      }).then(() => {
+       
+          toast.success("Event deleted successfully", {
+            position: "top-center",
+            autoClose: 3000,
+            toastId: "deleteEvent",
+          });
+        
+        setIsOpen(false);
+        setLoading(false);
+      })
   };
 
   return (
